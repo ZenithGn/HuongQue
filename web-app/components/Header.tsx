@@ -1,134 +1,128 @@
 import Link from 'next/link';
 import { getSessionState } from '@/lib/auth';
 import { logoutAction } from '@/lib/actions/auth';
+import { headers } from 'next/headers';
 import { SearchBox } from '@/components/SearchBox';
+import { NavLinks } from '@/components/NavLinks';
 import {
   ShoppingBag,
   User as UserIcon,
   Shield,
-  Sparkles,
   LogOut,
   Loader2,
 } from 'lucide-react';
 
+// Biểu tượng Logo Mẫu 1 (Cánh Sen & Dấu Ấn Cổ Truyền)
+function LogoIcon({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <circle cx="12" cy="12" r="10" strokeWidth="1" strokeDasharray="1 1.5" />
+      <path
+        d="M12 4C12 4 8 8 8 13C8 15.2 9.8 17 12 17C14.2 17 16 15.2 16 13C16 8 12 4 12 4Z"
+        fill="currentColor"
+        fillOpacity="0.2"
+      />
+      <path d="M12 4C12 4 5 9 5 13.5C5 16 7 18 9.5 18C11.5 18 12 16.5 12 16.5" />
+      <path d="M12 4C12 4 19 9 19 13.5C19 16 17 18 14.5 18C12.5 18 12 16.5 12 16.5" />
+      <circle cx="12" cy="11" r="1" fill="currentColor" />
+    </svg>
+  );
+}
+
 export async function Header() {
+  // Lấy đường dẫn hiện tại từ headers để kiểm tra
+  const headersList = await headers();
+  const referer = headersList.get('referer') || '';
+  const pathname = headersList.get('x-invoke-path') || headersList.get('x-current-path') || '';
+
+  // NẾU ĐANG Ở TRANG ĐĂNG NHẬP HOẶC ĐĂNG KÝ -> ẨN LUÔN HEADER NÀY ĐI
+  if (referer.includes('/dang-nhap') || referer.includes('/dang-ky') || pathname.includes('/dang-nhap') || pathname.includes('/dang-ky')) {
+    return null;
+  }
+
   const session = await getSessionState();
   const isAuthenticated = session.status === 'authenticated';
   const user = isAuthenticated ? session.auth.user : null;
   const profile = isAuthenticated ? session.auth.profile : null;
   const isAdmin = profile?.role === 'admin';
-  /** Lỗi tạm thời khi đọc phiên: KHÔNG hiện như khách vãng lai để tránh cảm giác "bị đăng xuất oan". */
   const sessionUnknown = session.status === 'unavailable';
 
   return (
-    <header className="sticky top-0 z-50 bg-red-950/95 backdrop-blur-md border-b border-amber-600/30 text-amber-50 shadow-lg">
+    <header className="sticky top-0 z-50 bg-[#120401]/95 backdrop-blur-md border-b border-[#5c2b12] text-amber-50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo & Slogan */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-red-950 font-bold shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
-              <Sparkles className="w-6 h-6 fill-red-950" />
+        <div className="flex items-center justify-between h-16 gap-3">
+
+          {/* 1. Logo & Slogan */}
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+            <div className="w-9 h-9 rounded-full border border-[#c59a4b] bg-gradient-to-b from-[#2b1005] to-[#120401] flex items-center justify-center text-[#e8cf9b] shadow-md shadow-amber-950/40 group-hover:border-[#e0b966] group-hover:scale-105 transition-all">
+              <LogoIcon className="w-5 h-5 text-[#c49a52] group-hover:text-[#e8cf9b] transition-colors" />
             </div>
             <div>
-              <span className="text-2xl font-serif font-bold tracking-wider text-amber-300 group-hover:text-amber-200 transition-colors block">
+              <span className="text-lg font-serif font-bold tracking-wider text-[#f3dfae] group-hover:text-amber-200 transition-colors block leading-none">
                 HƯƠNG QUÊ
               </span>
-              <span className="block text-[11px] text-amber-100/70 font-sans tracking-widest uppercase">
-                Tinh Hoa Quà Tết Ba Miền
+              <span className="block text-[8px] text-[#c9b69a] font-sans tracking-[0.18em] uppercase mt-0.5">
+                Tinh Hoa Quà Việt
               </span>
             </div>
           </Link>
 
-          {/*
-            Nav: "Tra cứu đơn" chỉ dành cho khách vãng lai (kể cả khi chưa đọc được
-            phiên — đây là trang tra cứu công khai). Khách đã đăng nhập thay bằng
-            "Đơn hàng" + "Tài khoản"; nút "Đơn hàng" ở khu vực bên phải đã bỏ.
-          */}
-          <nav className="hidden md:flex items-center gap-8 font-medium text-sm tracking-wide">
-            <Link
-              href="/"
-              className="text-amber-100 hover:text-amber-300 transition-colors relative py-1"
-            >
-              Trang Chủ
-            </Link>
-            <Link
-              href="/san-pham"
-              className="text-amber-100 hover:text-amber-300 transition-colors relative py-1"
-            >
-              Tất Cả Sản Phẩm
-            </Link>
-            {isAuthenticated ? (
-              <>
-                <Link
-                  href="/tai-khoan/don-hang"
-                  className="text-amber-100 hover:text-amber-300 transition-colors relative py-1"
-                >
-                  Đơn hàng
-                </Link>
-                <Link
-                  href="/tai-khoan"
-                  className="text-amber-100 hover:text-amber-300 transition-colors relative py-1"
-                >
-                  Tài khoản
-                </Link>
-              </>
-            ) : (
-              <Link
-                href="/tra-cuu-don"
-                className="text-amber-100/80 hover:text-amber-300 transition-colors"
-              >
-                Tra cứu đơn
-              </Link>
-            )}
-          </nav>
+          {/* 2. Navigation Links */}
+          <NavLinks isAuthenticated={isAuthenticated} />
 
-          {/* Actions & User State */}
-          <div className="flex items-center gap-3">
-            {/* Search: icon mở rộng thành ô nhập, Enter điều hướng sang /san-pham?q=... */}
-            <SearchBox />
+          {/* 3. SearchBox & User Actions */}
+          <div className="flex items-center gap-2 shrink-0">
+            <div className="relative">
+              <SearchBox />
+            </div>
 
-            {/* Cart */}
             <Link
               href="/gio-hang"
-              className="p-2.5 rounded-full hover:bg-red-900/60 text-amber-200 transition-colors"
+              className="p-2 rounded-full hover:bg-[#2b1408] text-[#f3dfae] transition-colors relative shrink-0"
               title="Giỏ hàng của bạn"
             >
-              <ShoppingBag className="w-5 h-5" />
+              <ShoppingBag className="w-4.5 h-4.5" />
             </Link>
 
-            {/* Admin Badge/Link if user is admin */}
             {isAdmin && (
               <Link
                 href="/admin"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-amber-600 to-amber-500 text-stone-950 font-semibold text-xs tracking-wide shadow hover:brightness-110 transition-all"
+                className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-600 to-amber-500 text-stone-950 font-semibold text-[10px] tracking-wide shadow hover:brightness-110 transition-all shrink-0"
               >
-                <Shield className="w-3.5 h-3.5" />
+                <Shield className="w-3 h-3" />
                 <span>Quản Trị</span>
               </Link>
             )}
 
-            {/* Auth Buttons */}
             {sessionUnknown ? (
               <div
-                className="flex items-center gap-2 ml-1 pl-3 border-l border-amber-600/30 text-[11px] text-amber-200/80"
-                title="Chưa đọc được phiên đăng nhập do kết nối chậm — bạn vẫn đang đăng nhập"
+                className="flex items-center gap-1 ml-1 pl-2 border-l border-[#5c2b12] text-[11px] text-[#c9b69a]/80 shrink-0"
+                title="Đang kết nối phiên đăng nhập..."
               >
-                <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                <span>Đang kết nối…</span>
+                <Loader2 className="w-3 h-3 animate-spin text-amber-500" />
+                <span className="hidden sm:inline">Kết nối…</span>
               </div>
             ) : user ? (
-              <div className="flex items-center gap-3 ml-1 pl-3 border-l border-amber-600/30">
-                <div className="text-right hidden sm:block">
-                  <p className="text-xs text-amber-300 font-semibold truncate max-w-[140px]">
+              <div className="flex items-center gap-1.5 ml-1 pl-2 border-l border-[#5c2b12] shrink-0">
+                <div className="text-right hidden xl:block">
+                  <p className="text-xs text-[#f3dfae] font-semibold truncate max-w-[110px]">
                     {profile?.full_name || user.email}
                   </p>
-                  <p className="text-[10px] text-amber-200/60">
-                    {isAdmin ? 'Quản trị viên' : 'Khách hàng thân thiết'}
+                  <p className="text-[9px] text-[#c9b69a]/60">
+                    {isAdmin ? 'Quản trị viên' : 'Khách hàng'}
                   </p>
                 </div>
                 <Link
                   href="/tai-khoan"
-                  className="p-2 rounded-lg border border-amber-500/30 hover:bg-red-900/60 text-amber-200 transition-all"
+                  className="p-1.5 rounded-lg border border-[#78502a] hover:bg-[#2b1408] text-[#f3dfae] transition-all shrink-0"
                   title="Tài khoản của tôi"
                 >
                   <UserIcon className="w-4 h-4" />
@@ -136,31 +130,32 @@ export async function Header() {
                 <form action={logoutAction}>
                   <button
                     type="submit"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-amber-500/30 hover:bg-red-900/60 text-amber-200 text-xs font-medium transition-all"
+                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-[#78502a] hover:bg-[#2b1408] text-[#f3dfae] text-xs font-medium transition-all shrink-0"
                     title="Đăng xuất"
                   >
                     <LogOut className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Đăng xuất</span>
+                    <span className="hidden xl:inline">Đăng xuất</span>
                   </button>
                 </form>
               </div>
             ) : (
-              <div className="flex items-center gap-2 ml-1 pl-3 border-l border-amber-600/30">
+              <div className="flex items-center gap-1.5 ml-1 pl-2 border-l border-[#5c2b12] shrink-0">
                 <Link
                   href="/dang-nhap"
-                  className="px-3.5 py-1.5 rounded-lg text-xs font-medium text-amber-200 hover:bg-red-900/60 transition-colors"
+                  className="px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#f3dfae] hover:bg-[#2b1408] transition-colors whitespace-nowrap"
                 >
                   Đăng nhập
                 </Link>
                 <Link
                   href="/dang-ky"
-                  className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 text-red-950 hover:bg-amber-400 shadow-sm transition-all"
+                  className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#c59a4b] text-[#120401] hover:bg-[#cca154] shadow-sm transition-all whitespace-nowrap"
                 >
                   Đăng ký
                 </Link>
               </div>
             )}
           </div>
+
         </div>
       </div>
     </header>

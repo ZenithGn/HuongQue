@@ -30,7 +30,7 @@ import {
 } from 'lucide-react';
 
 const FALLBACK_IMAGE =
-  'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&auto=format&fit=crop&q=80';
+  'https://i.pinimg.com/736x/22/1f/04/221f049c7d6b71722f484f5cf37978ca.jpg';
 
 interface SanPhamDetailPageProps {
   params: Promise<{

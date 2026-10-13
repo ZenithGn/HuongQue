@@ -78,7 +78,7 @@ export function BannerManager({
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={banner.image_url || 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=300'}
+                src={banner.image_url || 'https://i.pinimg.com/736x/22/1f/04/221f049c7d6b71722f484f5cf37978ca.jpg'}
                 alt={banner.title}
                 className="h-20 w-full sm:w-32 rounded-lg object-cover border border-stone-800"
               />
