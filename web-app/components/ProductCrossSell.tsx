@@ -41,7 +41,7 @@ export function ProductCrossSell({ items, isCategoryFallback = false }: ProductC
               className="relative aspect-square w-full overflow-hidden bg-stone-950 block"
             >
               <img
-                src={item.thumbnail_url || 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&auto=format&fit=crop&q=80'}
+                src={item.thumbnail_url || 'https://i.pinimg.com/736x/4d/6d/0d/4d6d0d7d20eb3df7f8ba748fef844944.jpg'}
                 alt={item.name}
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"

@@ -26,7 +26,7 @@ export function ProductCard({ product }: ProductCardProps) {
       {/* Product Image & Badges */}
       <Link href={`/san-pham/${product.slug}`} className="relative aspect-square w-full overflow-hidden bg-stone-950">
         <img
-          src={product.thumbnail_url || 'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&auto=format&fit=crop&q=80'}
+          src={product.thumbnail_url || 'https://i.pinimg.com/736x/22/1f/04/221f049c7d6b71722f484f5cf37978ca.jpg'}
           alt={product.name}
           className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
           loading="lazy"

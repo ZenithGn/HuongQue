@@ -120,7 +120,7 @@ export default async function AdminProductsPage({
                   <img
                     src={
                       product.thumbnail_url ||
-                      'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=100'
+                      'https://i.pinimg.com/736x/22/1f/04/221f049c7d6b71722f484f5cf37978ca.jpg'
                     }
                     alt={product.name}
                     className="w-11 h-11 rounded-lg object-cover border border-stone-700"

@@ -44,7 +44,7 @@ function CartRow({
           <img
             src={
               item.thumbnailUrl ||
-              'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=200&auto=format&fit=crop&q=80'
+              'https://i.pinimg.com/1200x/9e/6f/74/9e6f747c5f091f9883c4e26994e73b4a.jpg'
             }
             alt={item.name}
             className="h-full w-full object-cover"
@@ -262,15 +262,14 @@ export function CartView({ initialCart, isLoggedIn }: CartViewProps) {
 
           {cart.coupon && (
             <p
-              className={`mt-3 text-xs ${
-                cart.coupon.valid ? 'text-emerald-300' : 'text-red-300'
-              }`}
+              className={`mt-3 text-xs ${cart.coupon.valid ? 'text-emerald-300' : 'text-red-300'
+                }`}
             >
               {cart.coupon.valid
                 ? cart.coupon.message ||
-                  `Đã áp dụng mã ${cart.coupon.code}.`
+                `Đã áp dụng mã ${cart.coupon.code}.`
                 : cart.coupon.message ||
-                  `Mã ${cart.coupon.code} không hợp lệ hoặc đã hết hạn.`}
+                `Mã ${cart.coupon.code} không hợp lệ hoặc đã hết hạn.`}
             </p>
           )}
         </div>
