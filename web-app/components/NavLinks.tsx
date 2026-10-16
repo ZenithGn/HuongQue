@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 interface NavLinksProps {
   isAuthenticated: boolean;
@@ -9,8 +9,6 @@ interface NavLinksProps {
 
 export function NavLinks({ isAuthenticated }: NavLinksProps) {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const mien = searchParams.get('mien');
 
   const navItems = [
     {
@@ -19,15 +17,11 @@ export function NavLinks({ isAuthenticated }: NavLinksProps) {
       isActive: pathname === '/',
     },
     {
+      // Mục "Quà Tết Ba Miền" đã bỏ khỏi navbar: bộ lọc `mien=ba_mien` vẫn còn trong
+      // sidebar của /san-pham, nên không mất đường vào — chỉ bớt một mục trùng đích.
       name: 'Tất Cả Sản Phẩm',
       href: '/san-pham',
-      // SỬA TẠI ĐÂY: Dù có mien=bac/trung/nam thì vẫn tính là đang ở trang Sản Phẩm
-      isActive: pathname === '/san-pham' && mien !== 'ba_mien',
-    },
-    {
-      name: 'Quà Tết Ba Miền',
-      href: '/san-pham?mien=ba_mien',
-      isActive: pathname === '/san-pham' && mien === 'ba_mien',
+      isActive: pathname === '/san-pham',
     },
     {
       name: 'Câu chuyện Hương Quê',

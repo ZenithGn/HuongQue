@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Menu, X } from 'lucide-react';
@@ -14,7 +14,7 @@ interface MobileNavProps {
  * Điều hướng dưới 1024px — lỗ hổng P0 của bản trước: nav desktop là `hidden lg:flex` và
  * **không có bản thay thế**, nên ở 1023px người dùng chỉ còn nút back của trình duyệt.
  *
- * Giữ đúng danh sách mục của NavLinks (≤5 mục) để hai bản không lệch nhau, thêm hành động
+ * Giữ đúng danh sách mục của NavLinks để hai bản không lệch nhau, thêm hành động
  * giỏ hàng vì trên điện thoại đó là đường ngắn nhất tới việc chốt đơn.
  */
 export function MobileNav({ isAuthenticated }: MobileNavProps) {
@@ -22,8 +22,6 @@ export function MobileNav({ isAuthenticated }: MobileNavProps) {
   // và tránh được việc gọi setState ngay trong thân effect (gây render dây chuyền).
   const [openPath, setOpenPath] = useState<string | null>(null);
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const mien = searchParams.get('mien');
   const panelId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -33,14 +31,11 @@ export function MobileNav({ isAuthenticated }: MobileNavProps) {
   const navItems = [
     { name: 'Trang Chủ', href: '/', isActive: pathname === '/' },
     {
+      // Giữ đúng danh sách mục của NavLinks (đã bỏ "Quà Tết Ba Miền") để hai bản không lệch nhau;
+      // lọc ba miền vẫn nằm trong sidebar của /san-pham.
       name: 'Tất Cả Sản Phẩm',
       href: '/san-pham',
-      isActive: pathname === '/san-pham' && mien !== 'ba_mien',
-    },
-    {
-      name: 'Quà Tết Ba Miền',
-      href: '/san-pham?mien=ba_mien',
-      isActive: pathname === '/san-pham' && mien === 'ba_mien',
+      isActive: pathname === '/san-pham',
     },
     { name: 'Câu chuyện Hương Quê', href: '/cau-chuyen', isActive: pathname === '/cau-chuyen' },
     isAuthenticated
