@@ -38,13 +38,14 @@ function LogoIcon({ className = "w-5 h-5" }: { className?: string }) {
 }
 
 export async function Header() {
-  // Lấy đường dẫn hiện tại từ headers để kiểm tra
+  // Lấy đường dẫn hiện tại từ header do middleware đặt
   const headersList = await headers();
-  const referer = headersList.get('referer') || '';
-  const pathname = headersList.get('x-invoke-path') || headersList.get('x-current-path') || '';
+  const pathname = headersList.get('x-current-path') || '';
 
   // NẾU ĐANG Ở TRANG ĐĂNG NHẬP HOẶC ĐĂNG KÝ -> ẨN LUÔN HEADER NÀY ĐI
-  if (referer.includes('/dang-nhap') || referer.includes('/dang-ky') || pathname.includes('/dang-nhap') || pathname.includes('/dang-ky')) {
+  // Chỉ kiểm tra pathname hiện tại (KHÔNG dùng referer vì referer trỏ tới trang trước,
+  // khiến header biến mất sau khi đăng nhập xong redirect về trang chủ).
+  if (pathname.startsWith('/dang-nhap') || pathname.startsWith('/dang-ky')) {
     return null;
   }
 
