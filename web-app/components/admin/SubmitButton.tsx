@@ -23,11 +23,11 @@ export function SubmitButton({
 
   const variants: Record<string, string> = {
     primary:
-      'bg-amber-500 text-stone-950 hover:bg-amber-400 font-bold disabled:bg-amber-500/50',
+      'bg-[#c59a4b] text-[#120401] hover:bg-[#d4af37] font-bold disabled:bg-[#c59a4b]/50',
     ghost:
-      'bg-stone-800 text-stone-200 hover:bg-stone-700 border border-stone-700 font-medium disabled:opacity-50',
+      'bg-[#210c04] text-[#f3dfae] hover:bg-[#381a0b] border border-[#5c2b12] font-medium disabled:opacity-50',
     danger:
-      'bg-red-950 text-rose-200 hover:bg-red-900 border border-red-800 font-medium disabled:opacity-50',
+      'bg-[#2a0707] text-rose-200 hover:bg-[#2a0707] border border-[#a33b20] font-medium disabled:opacity-50',
   };
 
   return (

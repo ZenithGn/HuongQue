@@ -122,21 +122,25 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * Tông màu chỉ mã hoá **trạng thái** (không dùng trang trí). Lục bảo cho thành công, Đỏ Son cho
+ * lỗi — cả hai đều nằm trong lớp ngữ nghĩa đã ghi ở DESIGN.md, không mở bảng màu thứ ba.
+ */
 const TONE_STYLES: Record<
   ToastTone,
-  { Icon: typeof CheckCircle2; border: string; icon: string; bar: string }
+  { Icon: typeof CheckCircle2; border: string; icon: string; hairline: string }
 > = {
   success: {
     Icon: CheckCircle2,
-    border: 'border-emerald-500/40',
-    icon: 'text-emerald-400',
-    bar: 'bg-emerald-500',
+    border: 'border-[#34d399]/40',
+    icon: 'text-[#34d399]',
+    hairline: 'bg-[#34d399]/60',
   },
   error: {
     Icon: AlertTriangle,
-    border: 'border-amber-500/50',
-    icon: 'text-amber-400',
-    bar: 'bg-amber-500',
+    border: 'border-[#a33b20]',
+    icon: 'text-[#e08a8a]',
+    hairline: 'bg-[#a33b20]',
   },
 };
 
@@ -162,18 +166,22 @@ function ToastCard({
 
   return (
     <div
-      className={`pointer-events-auto relative flex items-start gap-3 overflow-hidden rounded-xl border ${tone.border} bg-stone-900/95 p-3 pl-4 shadow-xl shadow-stone-950/40 backdrop-blur transition-all duration-200 ease-out ${
+      className={`pointer-events-auto relative flex items-start gap-3 overflow-hidden rounded-xl border ${tone.border} bg-[#180702]/95 p-3 pl-4 shadow-xl shadow-black/50 backdrop-blur transition-all duration-200 ease-out ${
         visible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
       }`}
     >
-      <span className={`absolute inset-y-0 left-0 w-1 ${tone.bar}`} aria-hidden="true" />
+      {/* vệt sáng 1px ở đỉnh thay cho thanh màu dày ở cạnh trái (bị cấm) */}
+      <span
+        className={`absolute inset-x-[15%] top-0 h-px ${tone.hairline}`}
+        aria-hidden="true"
+      />
 
       <Icon className={`mt-0.5 h-4 w-4 shrink-0 ${tone.icon}`} aria-hidden="true" />
 
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-semibold leading-snug text-stone-100">{item.title}</p>
+        <p className="text-sm font-semibold leading-snug text-[#f3dfae]">{item.title}</p>
         {item.description && (
-          <p className="mt-0.5 text-xs leading-relaxed text-stone-400 line-clamp-2">
+          <p className="mt-0.5 text-xs leading-relaxed text-[#c9b69a] line-clamp-2">
             {item.description}
           </p>
         )}
@@ -183,9 +191,9 @@ function ToastCard({
         type="button"
         onClick={() => onDismiss(item.id)}
         aria-label="Đóng thông báo"
-        className="shrink-0 rounded-md p-1 text-stone-500 transition-colors hover:bg-stone-800 hover:text-stone-200"
+        className="shrink-0 rounded-md p-1 text-[#c9b69a] transition-colors hover:bg-[#210c04] hover:text-[#f3dfae]"
       >
-        <X className="h-3.5 w-3.5" />
+        <X className="h-3.5 w-3.5" aria-hidden />
       </button>
     </div>
   );

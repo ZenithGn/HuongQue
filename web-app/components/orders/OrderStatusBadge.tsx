@@ -12,7 +12,7 @@ export function OrderStatusBadge({
   className?: string;
 }) {
   const style =
-    ORDER_STATUS_STYLES[status ?? ''] ?? 'bg-stone-800 text-stone-300 border-stone-700';
+    ORDER_STATUS_STYLES[status ?? ''] ?? 'bg-[#210c04] text-[#c9b69a] border-[#5c2b12]';
 
   return (
     <span

@@ -29,8 +29,8 @@ function StatCard({
   tone?: 'amber' | 'emerald' | 'blue' | 'rose';
 }) {
   const tones = {
-    amber: 'bg-amber-500/10 text-amber-400',
-    emerald: 'bg-emerald-500/10 text-emerald-400',
+    amber: 'bg-[#c59a4b]/10 text-[#c59a4b]',
+    emerald: 'bg-[#34d399]/10 text-[#34d399]',
     blue: 'bg-blue-500/10 text-blue-400',
     rose: 'bg-rose-500/10 text-rose-400',
   } as const;
@@ -38,13 +38,13 @@ function StatCard({
   return (
     <div className={`${adminCardClass} space-y-3`}>
       <div className="flex items-center justify-between">
-        <span className="text-xs text-stone-400 font-medium">{label}</span>
+        <span className="text-xs text-[#c9b69a] font-medium">{label}</span>
         <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${tones[tone]}`}>
           <Icon className="w-4 h-4" />
         </div>
       </div>
-      <div className="text-2xl font-bold font-mono text-stone-100">{value}</div>
-      {hint ? <p className="text-[11px] text-stone-500">{hint}</p> : null}
+      <div className="text-2xl font-bold font-mono text-[#f3dfae]">{value}</div>
+      {hint ? <p className="text-[11px] text-[#a98a5f]">{hint}</p> : null}
     </div>
   );
 }
@@ -122,9 +122,9 @@ export default async function AdminDashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <section className={`${adminCardClass} space-y-4`}>
-          <h3 className="text-sm font-bold text-stone-100">Doanh thu 30 ngày</h3>
+          <h3 className="text-sm font-bold text-[#f3dfae]">Doanh thu 30 ngày</h3>
           {revenueChart.length === 0 ? (
-            <p className="text-xs text-stone-500">Chưa có dữ liệu doanh thu.</p>
+            <p className="text-xs text-[#a98a5f]">Chưa có dữ liệu doanh thu.</p>
           ) : (
             <>
               <div className="flex items-end gap-1 h-40">
@@ -133,14 +133,14 @@ export default async function AdminDashboardPage() {
                   return (
                     <div
                       key={point.dateKey}
-                      className="flex-1 rounded-t bg-gradient-to-t from-amber-700 to-amber-400"
+                      className="flex-1 rounded-t bg-gradient-to-t from-[#b8863b] to-[#d4af37]"
                       style={{ height: `${height}%` }}
                       title={`${point.label}: ${formatVND(point.revenue)} (${point.orderCount} đơn)`}
                     />
                   );
                 })}
               </div>
-              <p className="text-[11px] text-stone-500">
+              <p className="text-[11px] text-[#a98a5f]">
                 Cao nhất: {formatVND(maxRevenue)} · {revenueChart.length} ngày có dữ liệu
               </p>
             </>
@@ -148,9 +148,9 @@ export default async function AdminDashboardPage() {
         </section>
 
         <section className={`${adminCardClass} space-y-4`}>
-          <h3 className="text-sm font-bold text-stone-100">Tỷ lệ phương thức thanh toán</h3>
+          <h3 className="text-sm font-bold text-[#f3dfae]">Tỷ lệ phương thức thanh toán</h3>
           {paymentMix.length === 0 ? (
-            <p className="text-xs text-stone-500">Chưa có dữ liệu thanh toán.</p>
+            <p className="text-xs text-[#a98a5f]">Chưa có dữ liệu thanh toán.</p>
           ) : (
             <ul className="space-y-3">
               {paymentMix.map((slice) => {
@@ -158,13 +158,13 @@ export default async function AdminDashboardPage() {
                 return (
                   <li key={slice.method} className="space-y-1">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-stone-300">{paymentMethodLabel(slice.method)}</span>
-                      <span className="text-stone-400 font-mono">
+                      <span className="text-[#c9b69a]">{paymentMethodLabel(slice.method)}</span>
+                      <span className="text-[#c9b69a] font-mono">
                         {slice.orderCount} đơn · {formatVND(slice.revenue)}
                       </span>
                     </div>
-                    <div className="h-2 rounded-full bg-stone-800 overflow-hidden">
-                      <div className="h-full rounded-full bg-amber-500" style={{ width: `${width}%` }} />
+                    <div className="h-2 rounded-full bg-[#210c04] overflow-hidden">
+                      <div className="h-full rounded-full bg-[#c59a4b]" style={{ width: `${width}%` }} />
                     </div>
                   </li>
                 );
@@ -175,13 +175,13 @@ export default async function AdminDashboardPage() {
       </div>
 
       <section className={`${adminCardClass} space-y-4`}>
-        <h3 className="text-sm font-bold text-stone-100">Top 5 sản phẩm bán chạy</h3>
+        <h3 className="text-sm font-bold text-[#f3dfae]">Top 5 sản phẩm bán chạy</h3>
         {topProducts.length === 0 ? (
-          <p className="text-xs text-stone-500">Chưa có dữ liệu bán hàng.</p>
+          <p className="text-xs text-[#a98a5f]">Chưa có dữ liệu bán hàng.</p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-stone-300">
-              <thead className="uppercase font-mono tracking-wider text-stone-400 border-b border-stone-800">
+            <table className="w-full text-left text-xs text-[#c9b69a]">
+              <thead className="uppercase font-mono tracking-wider text-[#c9b69a] border-b border-[#5c2b12]">
                 <tr>
                   <th className="py-2.5 pr-4">#</th>
                   <th className="py-2.5 pr-4">Sản phẩm</th>
@@ -189,13 +189,13 @@ export default async function AdminDashboardPage() {
                   <th className="py-2.5 text-right">Doanh thu</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-800">
+              <tbody className="divide-y divide-[#381a0b]">
                 {topProducts.map((product, index) => (
                   <tr key={`${product.name}-${index}`}>
-                    <td className="py-2.5 pr-4 font-mono text-stone-500">{index + 1}</td>
-                    <td className="py-2.5 pr-4 text-stone-200">{product.name}</td>
+                    <td className="py-2.5 pr-4 font-mono text-[#a98a5f]">{index + 1}</td>
+                    <td className="py-2.5 pr-4 text-[#f3dfae]">{product.name}</td>
                     <td className="py-2.5 pr-4 text-right font-mono">{formatNumber(product.quantity)}</td>
-                    <td className="py-2.5 text-right font-mono text-amber-400">
+                    <td className="py-2.5 text-right font-mono text-[#c59a4b]">
                       {formatVND(product.revenue)}
                     </td>
                   </tr>

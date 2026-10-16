@@ -33,23 +33,23 @@ export function ProductPurchasePanel({ productId, stock, price, unit }: ProductP
 
   return (
     <div className="space-y-3 pt-2">
-      <label className="text-xs font-bold uppercase tracking-wider text-stone-300 block">
+      <label className="text-xs font-bold uppercase tracking-wider text-[#c9b69a] block">
         Chọn số lượng:
       </label>
 
       <div className="flex flex-wrap items-center gap-4">
-        <div className="flex items-center border border-stone-700 rounded-xl bg-stone-900 overflow-hidden">
+        <div className="flex items-center border border-[#5c2b12] rounded-xl bg-[#180702] overflow-hidden">
           <button
             type="button"
             onClick={decrease}
             disabled={outOfStock || quantity <= 1}
-            className="px-4 py-2.5 hover:bg-stone-800 text-stone-300 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-4 py-2.5 hover:bg-[#210c04] text-[#c9b69a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             aria-label="Giảm số lượng"
           >
             <Minus className="w-4 h-4" />
           </button>
           <span
-            className="px-4 py-2.5 text-sm font-bold text-stone-100 min-w-[48px] text-center"
+            className="px-4 py-2.5 text-sm font-bold text-[#f3dfae] min-w-[48px] text-center"
             aria-live="polite"
           >
             {quantity}
@@ -58,16 +58,16 @@ export function ProductPurchasePanel({ productId, stock, price, unit }: ProductP
             type="button"
             onClick={increase}
             disabled={outOfStock || quantity >= maxQuantity}
-            className="px-4 py-2.5 hover:bg-stone-800 text-stone-300 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-4 py-2.5 hover:bg-[#210c04] text-[#c9b69a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             aria-label="Tăng số lượng"
           >
             <Plus className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="text-xs text-stone-400">
+        <div className="text-xs text-[#c9b69a]">
           Thành tiền:{' '}
-          <span className="text-base font-bold font-mono text-amber-400">
+          <span className="text-base font-bold font-mono text-[#c59a4b]">
             {formatVND(price * quantity)}
           </span>
         </div>
@@ -77,7 +77,7 @@ export function ProductPurchasePanel({ productId, stock, price, unit }: ProductP
         productId={productId}
         stock={stock}
         quantity={quantity}
-        className="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl font-bold text-xs tracking-wider uppercase transition-all bg-amber-500 text-stone-950 hover:bg-amber-400 shadow-md shadow-amber-500/20 disabled:bg-stone-800 disabled:text-stone-500 disabled:shadow-none disabled:cursor-not-allowed"
+        className="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl font-bold text-xs tracking-wider uppercase transition-all bg-[#c59a4b] text-[#120401] hover:bg-[#d4af37] shadow-md shadow-[#c59a4b]/20 disabled:bg-[#210c04] disabled:text-[#a98a5f] disabled:shadow-none disabled:cursor-not-allowed"
       />
 
       {outOfStock ? (
@@ -85,7 +85,7 @@ export function ProductPurchasePanel({ productId, stock, price, unit }: ProductP
           Sản phẩm tạm hết hàng, bạn có thể để lại đánh giá hoặc xem các hộp quà tương tự bên dưới.
         </p>
       ) : stock <= 5 ? (
-        <p className="text-[11px] text-amber-400">
+        <p className="text-[11px] text-[#c59a4b]">
           Chỉ còn {stock} {unit} trong kho – đặt sớm để kịp giao trước Tết.
         </p>
       ) : null}

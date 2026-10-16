@@ -75,7 +75,7 @@ export function ProductForm({
       <input type="hidden" name="product_id" value={product ? String(product.product_id) : 'new'} />
 
       <section className={`${adminCardClass} space-y-4`}>
-        <h3 className="text-sm font-bold text-stone-100">Thông tin cơ bản</h3>
+        <h3 className="text-sm font-bold text-[#f3dfae]">Thông tin cơ bản</h3>
 
         <Field label="Tên sản phẩm" htmlFor="name" required error={fieldErrors.name}>
           <input
@@ -149,7 +149,7 @@ export function ProductForm({
       </section>
 
       <section className={`${adminCardClass} space-y-4`}>
-        <h3 className="text-sm font-bold text-stone-100">Giá và tồn kho</h3>
+        <h3 className="text-sm font-bold text-[#f3dfae]">Giá và tồn kho</h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Field label="Giá bán (VND)" htmlFor="price" required error={fieldErrors.price}>
@@ -197,21 +197,21 @@ export function ProductForm({
         </div>
 
         <div className="flex flex-wrap gap-6 pt-1">
-          <label className="flex items-center gap-2 text-xs text-stone-300">
+          <label className="flex items-center gap-2 text-xs text-[#c9b69a]">
             <input
               type="checkbox"
               name="is_featured"
               defaultChecked={product?.is_featured ?? false}
-              className="w-4 h-4 rounded border-stone-600 bg-stone-950 accent-amber-500"
+              className="w-4 h-4 rounded border-[#78502a] bg-[#120401] accent-[#c59a4b]"
             />
             Sản phẩm nổi bật (hiện ở trang chủ)
           </label>
-          <label className="flex items-center gap-2 text-xs text-stone-300">
+          <label className="flex items-center gap-2 text-xs text-[#c9b69a]">
             <input
               type="checkbox"
               name="is_active"
               defaultChecked={product?.is_active ?? true}
-              className="w-4 h-4 rounded border-stone-600 bg-stone-950 accent-amber-500"
+              className="w-4 h-4 rounded border-[#78502a] bg-[#120401] accent-[#c59a4b]"
             />
             Đang bán
           </label>
@@ -219,7 +219,7 @@ export function ProductForm({
       </section>
 
       <section className={`${adminCardClass} space-y-4`}>
-        <h3 className="text-sm font-bold text-stone-100">Nguồn gốc & mô tả</h3>
+        <h3 className="text-sm font-bold text-[#f3dfae]">Nguồn gốc & mô tả</h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Field label="Xuất xứ" htmlFor="origin" error={fieldErrors.origin}>
@@ -265,7 +265,7 @@ export function ProductForm({
       </section>
 
       <section className={`${adminCardClass} space-y-4`}>
-        <h3 className="text-sm font-bold text-stone-100">Ảnh sản phẩm</h3>
+        <h3 className="text-sm font-bold text-[#f3dfae]">Ảnh sản phẩm</h3>
 
         <Field label="URL ảnh hiện tại" htmlFor="thumbnail_url" error={fieldErrors.thumbnail_url}>
           <input
@@ -285,22 +285,22 @@ export function ProductForm({
                 src={previewSrc}
                 alt={previewIsNew ? 'Ảnh mới sẽ upload' : product?.name ?? 'Ảnh sản phẩm'}
                 className={`w-40 h-40 rounded-xl object-cover border ${
-                  previewIsNew ? 'border-amber-500 ring-2 ring-amber-500/40' : 'border-stone-700'
+                  previewIsNew ? 'border-[#c59a4b] ring-2 ring-[#c59a4b]/40' : 'border-[#5c2b12]'
                 }`}
               />
               {previewIsNew ? (
-                <span className="absolute -top-2 left-2 rounded-full bg-amber-500 px-2 py-0.5 text-[10px] font-bold text-stone-950">
+                <span className="absolute -top-2 left-2 rounded-full bg-[#c59a4b] px-2 py-0.5 text-[10px] font-bold text-[#120401]">
                   Ảnh mới
                 </span>
               ) : null}
             </div>
 
-            <p className="text-[11px] text-stone-400">
+            <p className="text-[11px] text-[#c9b69a]">
               {previewIsNew
                 ? 'Sẽ thay thế ảnh hiện tại khi bấm "Lưu sản phẩm"'
                 : 'Ảnh hiện tại của sản phẩm'}
               {previewIsNew && newFileName ? (
-                <span className="text-stone-500"> — {newFileName}</span>
+                <span className="text-[#a98a5f]"> — {newFileName}</span>
               ) : null}
             </p>
 
@@ -308,14 +308,14 @@ export function ProductForm({
               <button
                 type="button"
                 onClick={clearNewImage}
-                className="rounded-lg border border-stone-700 px-3 py-1.5 text-[11px] font-medium text-stone-300 hover:bg-stone-800"
+                className="rounded-lg border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
               >
                 Bỏ ảnh mới, giữ ảnh cũ
               </button>
             ) : null}
           </div>
         ) : (
-          <p className="text-[11px] text-stone-500">Sản phẩm chưa có ảnh.</p>
+          <p className="text-[11px] text-[#a98a5f]">Sản phẩm chưa có ảnh.</p>
         )}
 
         <Field
@@ -331,7 +331,7 @@ export function ProductForm({
             type="file"
             accept="image/jpeg,image/png,image/webp"
             onChange={handleImageChange}
-            className={`${adminInputClass} file:mr-3 file:rounded-lg file:border-0 file:bg-stone-800 file:px-3 file:py-1.5 file:text-stone-200`}
+            className={`${adminInputClass} file:mr-3 file:rounded-lg file:border-0 file:bg-[#210c04] file:px-3 file:py-1.5 file:text-[#f3dfae]`}
           />
         </Field>
       </section>
@@ -340,7 +340,7 @@ export function ProductForm({
         <SubmitButton pendingLabel="Đang lưu…">Lưu sản phẩm</SubmitButton>
         <Link
           href="/admin/san-pham"
-          className="px-5 py-2.5 rounded-xl border border-stone-700 text-stone-300 text-xs font-semibold hover:bg-stone-800 transition-colors"
+          className="px-5 py-2.5 rounded-xl border border-[#5c2b12] text-[#c9b69a] text-xs font-semibold hover:bg-[#210c04] transition-colors"
         >
           Quay lại danh sách
         </Link>

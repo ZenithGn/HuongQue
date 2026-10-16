@@ -76,9 +76,9 @@ export function SearchBox({ className = '' }: SearchBoxProps) {
         aria-label={open ? 'Đóng ô tìm kiếm' : 'Tìm kiếm đặc sản quà Tết'}
         aria-expanded={open}
         title="Tìm kiếm đặc sản quà Tết"
-        className="p-2.5 rounded-full hover:bg-red-900/60 text-amber-200 transition-colors shrink-0"
+        className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#c9b69a] transition-colors hover:bg-[#210c04] hover:text-[#f3dfae]"
       >
-        <Search className="w-5 h-5" />
+        <Search className="h-5 w-5" aria-hidden />
       </button>
 
       <form
@@ -97,15 +97,15 @@ export function SearchBox({ className = '' }: SearchBoxProps) {
           maxLength={100}
           placeholder="Tìm quà Tết, đặc sản…"
           aria-label="Từ khóa tìm kiếm sản phẩm"
-          className="w-full min-w-0 px-3.5 py-2 pr-9 rounded-full bg-red-900/70 border border-amber-500/40 text-amber-50 placeholder-amber-200/50 focus:outline-none focus:border-amber-400 text-xs transition-colors"
+          className="min-h-11 w-full min-w-0 rounded-full border border-[#5c2b12] bg-[#120401] px-3.5 py-2 pr-12 text-xs text-[#f3dfae] caret-[#d4af37] transition-colors placeholder:text-[#a98a5f] focus:border-[#c59a4b] focus:outline-none"
         />
         <button
           type="submit"
           aria-label="Tìm kiếm"
           title="Tìm kiếm"
-          className="absolute right-1 p-1.5 rounded-full text-amber-200 hover:bg-red-950/70 hover:text-amber-300 transition-colors"
+          className="absolute right-0.5 inline-flex h-11 w-11 items-center justify-center rounded-full text-[#c59a4b] transition-colors hover:bg-[#210c04] hover:text-[#f3dfae]"
         >
-          <Search className="w-4 h-4" />
+          <Search className="w-4 h-4" aria-hidden />
         </button>
       </form>
     </div>

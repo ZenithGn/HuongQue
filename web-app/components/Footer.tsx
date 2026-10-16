@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MapPin, Phone } from 'lucide-react';
+import { ArrowRight, MapPin, Phone } from 'lucide-react';
 import { NewsletterForm } from '@/components/NewsletterForm';
 
 // 1. BIỂU TƯỢNG LOGO MẪU 1 (Cánh Sen & Dấu Ấn Cổ Truyền)
@@ -13,6 +13,7 @@ function LogoIcon({ className = "w-5 h-5" }: { className?: string }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      aria-hidden="true"
     >
       <circle cx="12" cy="12" r="10" strokeWidth="1" strokeDasharray="1 1.5" />
       <path
@@ -27,77 +28,87 @@ function LogoIcon({ className = "w-5 h-5" }: { className?: string }) {
   );
 }
 
+/**
+ * Chân trang.
+ *
+ * Nội dung đã sửa theo PRODUCT.md:
+ * - Bỏ hai địa chỉ đường phố bịa (128 Phố Cổ / 100 Nguyễn Thị Minh Khai) — Hương Quê **chưa có**
+ *   thông tin pháp lý thật, nên chỉ ghi địa bàn đã chốt trong Brand Commitments.
+ * - Hotline và email là **dữ liệu mẫu**, được dán nhãn đúng như vậy thay vì trình bày như thật.
+ * - Link "Đặc sản vùng miền" dùng đúng enum `region` của DB (`bac` / `trung` / `nam` / `ba_mien`);
+ *   trước đây có `mien=phuquoc` và `mien=binhphuoc` — giá trị ngoài enum nên bộ lọc âm thầm bỏ qua.
+ */
 export function Footer() {
   return (
-    <footer className="bg-[#120401] text-amber-100/80 border-t border-[#5c2b12]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          
-          {/* 1. Brand Info + Thông tin người bán (Đã đổi Logo Mẫu 1) */}
+    <footer className="border-t border-[#5c2b12] bg-[#120401] text-[#c9b69a]">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+
+          {/* 1. Thương hiệu + thông tin liên hệ (dữ liệu mẫu, có dán nhãn) */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-full border border-[#c59a4b] bg-gradient-to-b from-[#2b1005] to-[#120401] flex items-center justify-center text-[#e8cf9b] shadow-md shadow-amber-950/40 group-hover:border-[#e0b966] group-hover:scale-105 transition-all shrink-0">
-                <LogoIcon className="w-5 h-5 text-[#c49a52] group-hover:text-[#e8cf9b] transition-colors" />
+            <Link href="/" className="group flex min-h-11 items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#c59a4b] bg-gradient-to-b from-[#2b1005] to-[#120401] text-[#e8cf9b] shadow-md shadow-black/40 transition-all group-hover:border-[#d4af37] group-hover:scale-105">
+                <LogoIcon className="h-5 w-5 text-[#c49a52] transition-colors group-hover:text-[#f3dfae]" />
               </div>
-              <span className="text-xl font-serif font-bold tracking-wider text-[#f3dfae] group-hover:text-amber-200 transition-colors">
+              <span className="font-serif text-xl font-bold tracking-wider text-[#f3dfae] transition-colors group-hover:text-[#d4af37]">
                 HƯƠNG QUÊ
               </span>
             </Link>
 
-            <p className="text-xs text-[#c9b69a] leading-relaxed">
-              Hương Quê – thương hiệu quà Tết chuyên đặc sản vùng miền Việt Nam. Kết nối tinh hoa ẩm thực ba miền đến món quà tay tổng quà.
+            <p className="text-xs leading-relaxed text-[#c9b69a]">
+              Hương Quê tuyển chọn đặc sản OCOP ba miền, đóng sẵn thành hộp quà Tết chỉn chu — để
+              người mua không phải tự ghép món và không phải lo quà đến muộn.
             </p>
 
-            <div className="text-xs space-y-2 text-[#c9b69a] pt-1">
+            <div className="space-y-2 pt-1 text-xs text-[#c9b69a]">
               <p className="flex items-start gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#c49a52] shrink-0 mt-0.5" />
-                <span>128 Phố Cổ, Hoàn Kiếm, Hà Nội</span>
-              </p>
-              <p className="flex items-start gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#c49a52] shrink-0 mt-0.5" />
-                <span>100 Nguyễn Thị Minh Khai, Q.1, TP. HCM</span>
+                <MapPin aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#c49a52]" />
+                <span>Địa bàn: Hà Nội · Đà Nẵng · TP. Hồ Chí Minh</span>
               </p>
               <p className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-[#c49a52]" />
+                <Phone aria-hidden className="h-3.5 w-3.5 text-[#c49a52]" />
                 <strong className="text-[#f3dfae]">0901 000 000</strong>
+              </p>
+              <p className="text-xs text-[#c9b69a]">
+                Hotline và email liên hệ trong bản demo này là <strong className="font-semibold text-[#f3dfae]">dữ liệu mẫu</strong>,
+                chưa phải thông tin thật của người bán.
               </p>
             </div>
           </div>
 
-          {/* 2. Đặc sản vùng miền */}
+          {/* 2. Đặc sản vùng miền — link dùng đúng enum region */}
           <div>
-            <h4 className="text-sm font-semibold text-[#f3dfae] uppercase tracking-wider mb-4">
-              ĐẶC SẢN VÙNG MIỀN
-            </h4>
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#c59a4b]">
+              Đặc sản vùng miền
+            </h2>
             <ul className="space-y-2.5 text-xs text-[#c9b69a]">
               <li>
-                <Link href="/san-pham?mien=bac" className="hover:text-amber-200 transition-colors">
-                  Trà Thái Nguyên thơm dịu, Cà Phê Đà Lạt
+                <Link href="/san-pham?mien=bac" className="tap-row transition-colors hover:text-[#f3dfae]">
+                  Trà Thái Nguyên, ô mai Hà Nội
                 </Link>
               </li>
               <li>
-                <Link href="/san-pham?mien=trung" className="hover:text-amber-200 transition-colors">
-                  Bánh pía Sóc Trăng, Mứt sen Huế
+                <Link href="/san-pham?mien=trung" className="tap-row transition-colors hover:text-[#f3dfae]">
+                  Mè xửng Huế, cà phê Buôn Ma Thuột
                 </Link>
               </li>
               <li>
-                <Link href="/san-pham?mien=nam" className="hover:text-amber-200 transition-colors">
-                  Mẹ xưng trà Thành, Bánh đậu xanh
+                <Link href="/san-pham?mien=nam" className="tap-row transition-colors hover:text-[#f3dfae]">
+                  Bánh pía Sóc Trăng, mứt dừa Bến Tre
                 </Link>
               </li>
               <li>
-                <Link href="/san-pham?mien=phuquoc" className="hover:text-amber-200 transition-colors">
-                  Nước mắm Phú Quốc, Muối ớt Tây Ninh
+                <Link href="/san-pham?mien=ba_mien" className="tap-row transition-colors hover:text-[#f3dfae]">
+                  Hộp quà gộp ba miền
                 </Link>
               </li>
               <li>
-                <Link href="/san-pham?mien=binhphuoc" className="hover:text-amber-200 transition-colors">
-                  Hạt điều Bình Phước, Mắc ca Tây Nguyên
-                </Link>
-              </li>
-              <li>
-                <Link href="/san-pham" className="hover:text-amber-200 transition-colors text-[#c49a52]">
-                  Xem tất cả sản phẩm →
+                <Link
+                  href="/san-pham"
+                  className="tap-row gap-1 font-semibold text-[#c49a52] transition-colors hover:text-[#f3dfae]"
+                >
+                  Xem tất cả sản phẩm
+                  <ArrowRight aria-hidden className="h-3.5 w-3.5" />
                 </Link>
               </li>
             </ul>
@@ -105,38 +116,33 @@ export function Footer() {
 
           {/* 3. Hỗ trợ khách hàng */}
           <div>
-            <h4 className="text-sm font-semibold text-[#f3dfae] uppercase tracking-wider mb-4">
-              HỖ TRỢ KHÁCH HÀNG
-            </h4>
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#c59a4b]">
+              Hỗ trợ khách hàng
+            </h2>
             <ul className="space-y-2.5 text-xs text-[#c9b69a]">
               <li>
-                <Link href="/faq" className="hover:text-amber-200 transition-colors">
+                <Link href="/faq" className="tap-row transition-colors hover:text-[#f3dfae]">
                   Câu hỏi thường gặp (FAQ)
                 </Link>
               </li>
               <li>
-                <Link href="/van-chuyen" className="hover:text-amber-200 transition-colors">
-                  Hướng dẫn mua hàng & giao nhận
+                <Link href="/van-chuyen" className="tap-row transition-colors hover:text-[#f3dfae]">
+                  Phí vận chuyển &amp; hạn chốt Tết
                 </Link>
               </li>
               <li>
-                <Link href="/chinh-sach-doi-tra" className="hover:text-amber-200 transition-colors">
-                  Chính sách đổi trả & hoàn tiền
+                <Link href="/chinh-sach-doi-tra" className="tap-row transition-colors hover:text-[#f3dfae]">
+                  Chính sách đổi trả & bồi hoàn
                 </Link>
               </li>
               <li>
-                <Link href="/tra-cuu-don" className="hover:text-amber-200 transition-colors">
-                  Tra cứu đơn hàng
+                <Link href="/tra-cuu-don" className="tap-row transition-colors hover:text-[#f3dfae]">
+                  Tra cứu đơn
                 </Link>
               </li>
               <li>
-                <Link href="/ho-tro-doanh-nghiep" className="hover:text-amber-200 transition-colors">
-                  Hỗ trợ doanh nghiệp & số lượng lớn
-                </Link>
-              </li>
-              <li>
-                <Link href="/lien-he" className="hover:text-amber-200 transition-colors">
-                  Liên hệ chúng tôi
+                <Link href="/lien-he" className="tap-row transition-colors hover:text-[#f3dfae]">
+                  Đặt quà doanh nghiệp & số lượng lớn
                 </Link>
               </li>
             </ul>
@@ -144,34 +150,31 @@ export function Footer() {
 
           {/* 4. Bản tin */}
           <div className="space-y-3">
-            <h4 className="text-sm font-semibold text-[#f3dfae] uppercase tracking-wider">
-              NHẮN TIN ƯU ĐÃI QUÀ TẾT
-            </h4>
-            <p className="text-xs text-[#c9b69a] leading-relaxed">
-              Đăng ký để không bỏ lỡ thông báo sớm về quà tết giới hạn, xu hướng đặc quyền và ưu đãi VIP.
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-[#c59a4b]">
+              Nhận tin ưu đãi quà Tết
+            </h2>
+            <p className="text-xs leading-relaxed text-[#c9b69a]">
+              Đăng ký để nhận thông báo sớm về các hộp quà giới hạn và lịch giao hàng dịp Tết.
             </p>
 
             <NewsletterForm className="space-y-3" />
 
-            <div className="text-[11px] text-[#c9b69a]/70 pt-1">
-              Thông tin của bạn sẽ được bảo mật tuyệt đối với chính sách của Hương Quê. Cam kết không đăng ký nhận thêm nào.
-            </div>
+            {/* Ghi chú "email chỉ dùng để gửi bản tin" đã nằm trong chính form. Ở đây chỉ nói
+                phần form không nói: quyền rút lại. Mỗi ý một lần. */}
+            <p className="pt-1 text-xs text-[#c9b69a]">Mỗi thư đều kèm link hủy đăng ký.</p>
           </div>
 
         </div>
 
         {/* Dòng Copyright dưới cùng */}
-        <div className="mt-12 pt-6 border-t border-[#5c2b12] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#c9b69a]/60">
-          <p>© 2027 Hương Quê. Tinh hoa quà Tết ba miền. Cả động lực nhân hiệu tại CSD201.</p>
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#5c2b12] pt-6 text-xs text-[#c9b69a] sm:flex-row">
+          <p>© 2027 Hương Quê. Tinh hoa quà Tết ba miền.</p>
           <div className="flex items-center gap-4">
-            <Link href="/chinh-sach-bao-mat" className="hover:text-amber-200 transition-colors">
+            <Link href="/chinh-sach-bao-mat" className="tap-target tap-row transition-colors hover:text-[#f3dfae]">
               Chính sách bảo mật
             </Link>
-            <Link href="/dieu-khoan-su-dung" className="hover:text-amber-200 transition-colors">
-              Điều khoản sử dụng
-            </Link>
-            <Link href="/lien-he" className="hover:text-amber-200 transition-colors">
-              Đến đối tác website
+            <Link href="/lien-he" className="tap-target tap-row transition-colors hover:text-[#f3dfae]">
+              Liên hệ
             </Link>
           </div>
         </div>

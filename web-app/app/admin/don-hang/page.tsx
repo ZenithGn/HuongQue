@@ -101,7 +101,7 @@ export default async function AdminOrdersPage({
             placeholder="Mã đơn, tên người nhận hoặc SĐT…"
             className={`${adminInputClass} pl-9`}
           />
-          <Search className="w-4 h-4 text-stone-500 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-[#a98a5f] absolute left-3 top-2.5" />
         </div>
 
         <select name="trang_thai" defaultValue={filters.status} className={adminInputClass}>
@@ -141,7 +141,7 @@ export default async function AdminOrdersPage({
 
         <button
           type="submit"
-          className="sm:col-span-2 lg:col-span-1 rounded-xl bg-amber-500 px-5 py-2 text-xs font-bold text-stone-950 hover:bg-amber-400 transition-colors"
+          className="sm:col-span-2 lg:col-span-1 rounded-xl bg-[#c59a4b] px-5 py-2 text-xs font-bold text-[#120401] hover:bg-[#d4af37] transition-colors"
         >
           Lọc đơn
         </button>
@@ -160,30 +160,30 @@ export default async function AdminOrdersPage({
           ) : null}
 
           {!detail.order ? (
-            <p className="text-xs text-stone-400">Không tìm thấy đơn hàng này.</p>
+            <p className="text-xs text-[#c9b69a]">Không tìm thấy đơn hàng này.</p>
           ) : (
             <>
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <h3 className="text-base font-bold text-stone-100 font-mono">
+                  <h3 className="text-base font-bold text-[#f3dfae] font-mono">
                     {detail.order.code}
                   </h3>
-                  <p className="text-xs text-stone-400 mt-1">
+                  <p className="text-xs text-[#c9b69a] mt-1">
                     {formatDateTime(detail.order.createdAt)} · {detail.order.customerName} ·{' '}
                     {detail.order.customerPhone} · {detail.order.province}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-lg font-bold font-mono text-amber-400">
+                  <p className="text-lg font-bold font-mono text-[#c59a4b]">
                     {formatVND(detail.order.total)}
                   </p>
-                  <p className="text-[11px] text-stone-400">
+                  <p className="text-[11px] text-[#c9b69a]">
                     {orderStatusLabel(detail.order.status)} ·{' '}
                     {paymentMethodLabel(detail.order.paymentMethod)} ·{' '}
                     {paymentStatusLabel(detail.order.paymentStatus)}
                   </p>
                   {detail.order.status === 'pending_payment' && detail.order.expiresAt ? (
-                    <p className="text-[11px] text-amber-300 mt-1">
+                    <p className="text-[11px] text-[#c59a4b] mt-1">
                       Hạn thanh toán: {formatTimeLeft(detail.order.expiresAt)}
                     </p>
                   ) : null}
@@ -192,12 +192,12 @@ export default async function AdminOrdersPage({
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
                 <div className="space-y-3 lg:col-span-2">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-stone-400">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#c9b69a]">
                     Sản phẩm ({detail.items.length})
                   </h4>
-                  <div className="rounded-xl border border-stone-800 overflow-hidden">
-                    <table className="w-full text-left text-xs text-stone-300">
-                      <thead className="bg-stone-950/60 text-stone-400 font-mono uppercase tracking-wider">
+                  <div className="rounded-xl border border-[#5c2b12] overflow-hidden">
+                    <table className="w-full text-left text-xs text-[#c9b69a]">
+                      <thead className="bg-[#120401]/60 text-[#c9b69a] font-mono uppercase tracking-wider">
                         <tr>
                           <th className="px-3 py-2">Sản phẩm</th>
                           <th className="px-3 py-2 text-right">SL</th>
@@ -205,10 +205,10 @@ export default async function AdminOrdersPage({
                           <th className="px-3 py-2 text-right">Thành tiền</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-stone-800">
+                      <tbody className="divide-y divide-[#381a0b]">
                         {detail.items.length === 0 && (
                           <tr>
-                            <td colSpan={4} className="px-3 py-4 text-center text-stone-500">
+                            <td colSpan={4} className="px-3 py-4 text-center text-[#a98a5f]">
                               Không đọc được dòng sản phẩm.
                             </td>
                           </tr>
@@ -218,7 +218,7 @@ export default async function AdminOrdersPage({
                             <td className="px-3 py-2">{item.name}</td>
                             <td className="px-3 py-2 text-right font-mono">{item.quantity}</td>
                             <td className="px-3 py-2 text-right font-mono">{formatVND(item.unitPrice)}</td>
-                            <td className="px-3 py-2 text-right font-mono text-amber-400">
+                            <td className="px-3 py-2 text-right font-mono text-[#c59a4b]">
                               {formatVND(item.subtotal)}
                             </td>
                           </tr>
@@ -227,30 +227,30 @@ export default async function AdminOrdersPage({
                     </table>
                   </div>
 
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-stone-400 pt-2">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#c9b69a] pt-2">
                     Lịch sử trạng thái
                   </h4>
                   {detail.history.length === 0 ? (
-                    <p className="text-xs text-stone-500">Chưa có lịch sử.</p>
+                    <p className="text-xs text-[#a98a5f]">Chưa có lịch sử.</p>
                   ) : (
                     <ul className="space-y-2">
                       {detail.history.map((entry, index) => (
                         <li
                           key={`${entry.createdAt ?? 'x'}-${index}`}
-                          className="rounded-xl border border-stone-800 bg-stone-950/50 px-3 py-2"
+                          className="rounded-xl border border-[#5c2b12] bg-[#120401]/50 px-3 py-2"
                         >
-                          <p className="text-xs text-stone-200">
+                          <p className="text-xs text-[#f3dfae]">
                             {orderStatusLabel(entry.status)}
                             {needsManualRefund(entry.note) ? (
-                              <span className="ml-2 rounded-full border border-amber-700/60 bg-amber-950/60 px-2 py-0.5 text-[10px] text-amber-300">
+                              <span className="ml-2 rounded-full border border-[#5c2b12]/60 bg-[#381a0b]/60 px-2 py-0.5 text-[10px] text-[#c59a4b]">
                                 Cần hoàn tiền thủ công
                               </span>
                             ) : null}
                           </p>
                           {entry.note ? (
-                            <p className="text-[11px] text-stone-500 mt-0.5">{entry.note}</p>
+                            <p className="text-[11px] text-[#a98a5f] mt-0.5">{entry.note}</p>
                           ) : null}
-                          <p className="text-[10px] text-stone-600 mt-0.5">
+                          <p className="text-[10px] text-[#a98a5f] mt-0.5">
                             {formatDateTime(entry.createdAt)}
                           </p>
                         </li>
@@ -258,11 +258,11 @@ export default async function AdminOrdersPage({
                     </ul>
                   )}
 
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-stone-400 pt-2">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#c9b69a] pt-2">
                     Nhật ký thanh toán ({detail.payments.length})
                   </h4>
                   {detail.payments.length === 0 ? (
-                    <p className="text-xs text-stone-500">Chưa có bản ghi thanh toán.</p>
+                    <p className="text-xs text-[#a98a5f]">Chưa có bản ghi thanh toán.</p>
                   ) : (
                     <ul className="space-y-2">
                       {detail.payments.map((payment, index) => (
@@ -270,8 +270,8 @@ export default async function AdminOrdersPage({
                           key={`${payment.id ?? 'x'}-${index}`}
                           className={`rounded-xl border px-3 py-2 text-xs ${
                             payment.isSuccess
-                              ? 'border-emerald-800/60 bg-emerald-950/40 text-emerald-200'
-                              : 'border-red-800/60 bg-red-950/40 text-rose-200'
+                              ? 'border-[#34d399]/40 bg-[#34d399]/10 text-[#34d399]'
+                              : 'border-[#a33b20]/60 bg-[#2a0707]/40 text-rose-200'
                           }`}
                         >
                           <p className="font-mono">
@@ -289,10 +289,10 @@ export default async function AdminOrdersPage({
                 </div>
 
                 <div className="space-y-3">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-stone-400">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-[#c9b69a]">
                     Thao tác
                   </h4>
-                  <div className="rounded-xl border border-stone-800 bg-stone-950/50 p-4">
+                  <div className="rounded-xl border border-[#5c2b12] bg-[#120401]/50 p-4">
                     <OrderActionPanel
                       orderId={detail.order.id ?? 0}
                       currentStatus={detail.order.status}
@@ -309,16 +309,16 @@ export default async function AdminOrdersPage({
 
       <div className={`${adminCardClass} overflow-x-auto`}>
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <h3 className="text-sm font-bold text-stone-100">
+          <h3 className="text-sm font-bold text-[#f3dfae]">
             {formatNumber(page.total)} đơn hàng khớp bộ lọc
           </h3>
-          <p className="text-[11px] text-stone-500">
+          <p className="text-[11px] text-[#a98a5f]">
             Trang {page.page}/{page.totalPages} · bấm mã đơn để mở chi tiết và đối soát PayOS.
           </p>
         </div>
 
-        <table className="w-full text-left text-xs text-stone-300">
-          <thead className="uppercase font-mono tracking-wider text-stone-400 border-b border-stone-800">
+        <table className="w-full text-left text-xs text-[#c9b69a]">
+          <thead className="uppercase font-mono tracking-wider text-[#c9b69a] border-b border-[#5c2b12]">
             <tr>
               <th className="py-2.5 pr-3">Mã đơn</th>
               <th className="py-2.5 pr-3">Ngày</th>
@@ -328,10 +328,10 @@ export default async function AdminOrdersPage({
               <th className="py-2.5 text-right">Tổng tiền</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-stone-800">
+          <tbody className="divide-y divide-[#381a0b]">
             {orders.length === 0 && (
               <tr>
-                <td colSpan={6} className="py-8 text-center text-stone-500">
+                <td colSpan={6} className="py-8 text-center text-[#a98a5f]">
                   Không có đơn hàng nào khớp bộ lọc.
                 </td>
               </tr>
@@ -339,39 +339,39 @@ export default async function AdminOrdersPage({
             {orders.map((order, index) => {
               const key = order.id ?? `${order.code}-${index}`;
               return (
-                <tr key={key} className="hover:bg-stone-800/40 transition-colors">
+                <tr key={key} className="hover:bg-[#210c04]/40 transition-colors">
                   <td className="py-2.5 pr-3">
                     {order.id ? (
                       <Link
                         href={`/admin/don-hang${buildAdminQuery(params, { id: order.id })}`}
-                        className="font-mono font-semibold text-amber-400 hover:text-amber-300"
+                        className="font-mono font-semibold text-[#c59a4b] hover:text-[#c59a4b]"
                       >
                         {order.code}
                       </Link>
                     ) : (
-                      <span className="font-mono text-stone-400">{order.code}</span>
+                      <span className="font-mono text-[#c9b69a]">{order.code}</span>
                     )}
                     {order.payosOrderCode ? (
-                      <span className="ml-2 text-[10px] text-stone-500 font-mono">
+                      <span className="ml-2 text-[10px] text-[#a98a5f] font-mono">
                         PayOS #{order.payosOrderCode}
                       </span>
                     ) : null}
                   </td>
-                  <td className="py-2.5 pr-3 text-stone-400">{formatDateTime(order.createdAt)}</td>
+                  <td className="py-2.5 pr-3 text-[#c9b69a]">{formatDateTime(order.createdAt)}</td>
                   <td className="py-2.5 pr-3">
-                    <p className="text-stone-200">{order.customerName}</p>
-                    <p className="text-[11px] text-stone-500">
+                    <p className="text-[#f3dfae]">{order.customerName}</p>
+                    <p className="text-[11px] text-[#a98a5f]">
                       {order.customerPhone} · {order.province}
                     </p>
                   </td>
                   <td className="py-2.5 pr-3">
                     <p>{paymentMethodLabel(order.paymentMethod)}</p>
-                    <p className="text-[11px] text-stone-500">
+                    <p className="text-[11px] text-[#a98a5f]">
                       {paymentStatusLabel(order.paymentStatus)}
                     </p>
                   </td>
                   <td className="py-2.5 pr-3">{orderStatusLabel(order.status)}</td>
-                  <td className="py-2.5 text-right font-mono text-amber-400">
+                  <td className="py-2.5 text-right font-mono text-[#c59a4b]">
                     {formatVND(order.total)}
                   </td>
                 </tr>

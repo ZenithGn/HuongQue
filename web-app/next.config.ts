@@ -17,6 +17,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Huy hiệu dev của Next nằm ở góc dưới-trái và che mất nội dung thật trong ảnh chụp kiểm tra.
+  // Tắt nó để ảnh dùng làm bằng chứng không lẫn chrome của môi trường phát triển.
+  devIndicators: false,
   turbopack: {
     rules: {
       '*.css': {

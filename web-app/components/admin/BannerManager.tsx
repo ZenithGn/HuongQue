@@ -53,11 +53,11 @@ export function BannerManager({
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 max-w-7xl">
       <section className={`${adminCardClass} xl:col-span-2 space-y-4`}>
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-stone-100">Banner ({formatNumber(totalCount)})</h3>
+          <h3 className="text-sm font-bold text-[#f3dfae]">Banner ({formatNumber(totalCount)})</h3>
           <button
             type="button"
             onClick={() => setEditingId('new')}
-            className="rounded-xl bg-amber-500 px-3.5 py-2 text-xs font-bold text-stone-950 hover:bg-amber-400 transition-colors"
+            className="rounded-xl bg-[#c59a4b] px-3.5 py-2 text-xs font-bold text-[#120401] hover:bg-[#d4af37] transition-colors"
           >
             + Thêm banner
           </button>
@@ -69,31 +69,31 @@ export function BannerManager({
 
         <ul className="space-y-3">
           {banners.length === 0 && (
-            <li className="py-8 text-center text-xs text-stone-500">Chưa có banner nào.</li>
+            <li className="py-8 text-center text-xs text-[#a98a5f]">Chưa có banner nào.</li>
           )}
           {banners.map((banner) => (
             <li
               key={banner.banner_id}
-              className="flex flex-col sm:flex-row gap-3 rounded-xl border border-stone-800 bg-stone-950/50 p-3"
+              className="flex flex-col sm:flex-row gap-3 rounded-xl border border-[#5c2b12] bg-[#120401]/50 p-3"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={banner.image_url || 'https://i.pinimg.com/736x/22/1f/04/221f049c7d6b71722f484f5cf37978ca.jpg'}
                 alt={banner.title}
-                className="h-20 w-full sm:w-32 rounded-lg object-cover border border-stone-800"
+                className="h-20 w-full sm:w-32 rounded-lg object-cover border border-[#5c2b12]"
               />
               <div className="flex-1 min-w-0 space-y-1">
-                <p className="text-sm font-semibold text-stone-100 truncate">{banner.title}</p>
+                <p className="text-sm font-semibold text-[#f3dfae] truncate">{banner.title}</p>
                 {banner.subtitle ? (
-                  <p className="text-[11px] text-stone-400 truncate">{banner.subtitle}</p>
+                  <p className="text-[11px] text-[#c9b69a] truncate">{banner.subtitle}</p>
                 ) : null}
-                <p className="text-[11px] text-stone-500 font-mono truncate">
+                <p className="text-[11px] text-[#a98a5f] font-mono truncate">
                   {banner.link_url || 'không có liên kết'} · thứ tự {banner.sort_order}
                 </p>
-                <p className="text-[11px] text-stone-500">
+                <p className="text-[11px] text-[#a98a5f]">
                   {formatDateTime(banner.starts_at)} → {formatDateTime(banner.ends_at)} ·{' '}
                   {banner.is_active ? (
-                    <span className="text-emerald-400">Đang hiện</span>
+                    <span className="text-[#34d399]">Đang hiện</span>
                   ) : (
                     <span>Đã ẩn</span>
                   )}
@@ -103,7 +103,7 @@ export function BannerManager({
                 <button
                   type="button"
                   onClick={() => setEditingId(banner.banner_id)}
-                  className="rounded-lg border border-stone-700 px-3 py-1.5 text-[11px] font-medium text-stone-300 hover:bg-stone-800"
+                  className="rounded-lg border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
                 >
                   Sửa
                 </button>
@@ -116,7 +116,7 @@ export function BannerManager({
                   />
                   <button
                     type="submit"
-                    className="rounded-lg border border-stone-700 px-3 py-1.5 text-[11px] font-medium text-stone-300 hover:bg-stone-800"
+                    className="rounded-lg border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
                   >
                     {banner.is_active ? 'Ẩn' : 'Hiện'}
                   </button>
@@ -130,7 +130,7 @@ export function BannerManager({
                   <input type="hidden" name="banner_id" value={String(banner.banner_id)} />
                   <button
                     type="submit"
-                    className="rounded-lg border border-red-800 bg-red-950/70 px-3 py-1.5 text-[11px] font-medium text-rose-200 hover:bg-red-900"
+                    className="rounded-lg border border-[#a33b20] bg-[#2a0707]/70 px-3 py-1.5 text-[11px] font-medium text-rose-200 hover:bg-[#2a0707]"
                   >
                     Xóa
                   </button>
@@ -145,14 +145,14 @@ export function BannerManager({
 
       <section className={`${adminCardClass} space-y-4`}>
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-stone-100">
+          <h3 className="text-sm font-bold text-[#f3dfae]">
             {openNew ? 'Thêm banner' : editing ? `Sửa: ${editing.title}` : 'Chọn một banner'}
           </h3>
           {formOpen ? (
             <button
               type="button"
               onClick={() => setEditingId(null)}
-              className="text-[11px] text-stone-400 hover:text-amber-400"
+              className="text-[11px] text-[#c9b69a] hover:text-[#c59a4b]"
             >
               Đóng
             </button>
@@ -160,7 +160,7 @@ export function BannerManager({
         </div>
 
         {!formOpen ? (
-          <p className="text-xs text-stone-500">Bấm “Sửa” hoặc “Thêm banner” để hiện form.</p>
+          <p className="text-xs text-[#a98a5f]">Bấm “Sửa” hoặc “Thêm banner” để hiện form.</p>
         ) : (
           <form key={editing?.banner_id ?? 'new'} action={formAction} encType="multipart/form-data" className="space-y-4">
             {state.message ? (
@@ -222,7 +222,7 @@ export function BannerManager({
                 name="image"
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
-                className={`${adminInputClass} file:mr-3 file:rounded-lg file:border-0 file:bg-stone-800 file:px-3 file:py-1.5 file:text-stone-200`}
+                className={`${adminInputClass} file:mr-3 file:rounded-lg file:border-0 file:bg-[#210c04] file:px-3 file:py-1.5 file:text-[#f3dfae]`}
               />
             </Field>
 
@@ -237,12 +237,12 @@ export function BannerManager({
                   className={adminInputClass}
                 />
               </Field>
-              <label className="flex items-center gap-2 text-xs text-stone-300 pb-2 self-end">
+              <label className="flex items-center gap-2 text-xs text-[#c9b69a] pb-2 self-end">
                 <input
                   type="checkbox"
                   name="is_active"
                   defaultChecked={editing?.is_active ?? true}
-                  className="h-4 w-4 rounded border-stone-600 bg-stone-950 accent-amber-500"
+                  className="h-4 w-4 rounded border-[#78502a] bg-[#120401] accent-[#c59a4b]"
                 />
                 Đang hiện
               </label>

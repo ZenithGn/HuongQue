@@ -57,7 +57,7 @@ export default async function AdminProductsPage({
         />
         <Link
           href="/admin/san-pham/new"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 text-stone-950 text-xs font-bold hover:bg-amber-400 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#c59a4b] text-[#120401] text-xs font-bold hover:bg-[#d4af37] transition-colors"
         >
           <Plus className="w-4 h-4" /> Thêm sản phẩm
         </Link>
@@ -74,7 +74,7 @@ export default async function AdminProductsPage({
             placeholder="Tìm theo tên hoặc slug…"
             className={`${adminInputClass} pl-9`}
           />
-          <Search className="w-4 h-4 text-stone-500 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-[#a98a5f] absolute left-3 top-2.5" />
         </div>
         <select name="danh_muc" defaultValue={categoryFilter} className={`${adminInputClass} sm:w-64`}>
           <option value="all">Tất cả danh mục</option>
@@ -86,15 +86,15 @@ export default async function AdminProductsPage({
         </select>
         <button
           type="submit"
-          className="px-5 py-2.5 rounded-xl bg-stone-800 text-stone-100 text-xs font-semibold hover:bg-stone-700 transition-colors"
+          className="px-5 py-2.5 rounded-xl bg-[#210c04] text-[#f3dfae] text-xs font-semibold hover:bg-[#381a0b] transition-colors"
         >
           Lọc
         </button>
       </form>
 
       <div className={`${adminCardClass} overflow-x-auto`}>
-        <table className="w-full text-left text-xs text-stone-300">
-          <thead className="uppercase font-mono tracking-wider text-stone-400 border-b border-stone-800">
+        <table className="w-full text-left text-xs text-[#c9b69a]">
+          <thead className="uppercase font-mono tracking-wider text-[#c9b69a] border-b border-[#5c2b12]">
             <tr>
               <th className="py-3 pr-4">Ảnh</th>
               <th className="py-3 pr-4">Sản phẩm</th>
@@ -105,16 +105,16 @@ export default async function AdminProductsPage({
               <th className="py-3 text-right">Thao tác</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-stone-800">
+          <tbody className="divide-y divide-[#381a0b]">
             {page.rows.length === 0 && (
               <tr>
-                <td colSpan={7} className="py-8 text-center text-stone-500">
+                <td colSpan={7} className="py-8 text-center text-[#a98a5f]">
                   Không có sản phẩm nào khớp bộ lọc.
                 </td>
               </tr>
             )}
             {page.rows.map((product) => (
-              <tr key={product.product_id} className="hover:bg-stone-800/40 transition-colors">
+              <tr key={product.product_id} className="hover:bg-[#210c04]/40 transition-colors">
                 <td className="py-3 pr-4">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -123,15 +123,15 @@ export default async function AdminProductsPage({
                       'https://i.pinimg.com/736x/22/1f/04/221f049c7d6b71722f484f5cf37978ca.jpg'
                     }
                     alt={product.name}
-                    className="w-11 h-11 rounded-lg object-cover border border-stone-700"
+                    className="w-11 h-11 rounded-lg object-cover border border-[#5c2b12]"
                   />
                 </td>
                 <td className="py-3 pr-4">
-                  <p className="font-semibold text-stone-200">{product.name}</p>
-                  <p className="text-[11px] text-stone-500 font-mono">/{product.slug}</p>
+                  <p className="font-semibold text-[#f3dfae]">{product.name}</p>
+                  <p className="text-[11px] text-[#a98a5f] font-mono">/{product.slug}</p>
                 </td>
                 <td className="py-3 pr-4">{categoryNameById.get(product.category_id) ?? '—'}</td>
-                <td className="py-3 pr-4 text-right font-mono text-amber-400">
+                <td className="py-3 pr-4 text-right font-mono text-[#c59a4b]">
                   {formatVND(product.price)}
                 </td>
                 <td className="py-3 pr-4 text-right font-mono">
@@ -139,11 +139,11 @@ export default async function AdminProductsPage({
                 </td>
                 <td className="py-3 pr-4">
                   {product.is_active ? (
-                    <span className="px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 text-[11px]">
+                    <span className="px-2 py-0.5 rounded-full bg-[#34d399]/10 text-[#34d399] border border-[#34d399]/40 text-[11px]">
                       Đang bán
                     </span>
                   ) : (
-                    <span className="px-2 py-0.5 rounded-full bg-stone-800 text-stone-400 text-[11px]">
+                    <span className="px-2 py-0.5 rounded-full bg-[#210c04] text-[#c9b69a] text-[11px]">
                       Đã ẩn
                     </span>
                   )}
@@ -152,7 +152,7 @@ export default async function AdminProductsPage({
                   <div className="flex items-center justify-end gap-2">
                     <Link
                       href={`/admin/san-pham/${product.product_id}`}
-                      className="px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 font-medium"
+                      className="px-3 py-1.5 rounded-lg bg-[#210c04] hover:bg-[#381a0b] text-[#f3dfae] font-medium"
                     >
                       Sửa
                     </Link>
@@ -165,7 +165,7 @@ export default async function AdminProductsPage({
                       />
                       <button
                         type="submit"
-                        className="px-3 py-1.5 rounded-lg border border-stone-700 hover:bg-stone-800 text-stone-300 font-medium"
+                        className="px-3 py-1.5 rounded-lg border border-[#5c2b12] hover:bg-[#210c04] text-[#c9b69a] font-medium"
                       >
                         {product.is_active ? 'Ẩn' : 'Hiện'}
                       </button>

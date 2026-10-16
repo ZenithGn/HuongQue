@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Inter } from 'next/font/google';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import './globals.css';
@@ -20,6 +20,18 @@ export const metadata: Metadata = {
   description: 'Nền tảng quà Tết cao cấp: Hộp quà An Khang, Phúc Lộc, Thịnh Vượng, đặc sản OCOP chính gốc 3 miền Bắc - Trung - Nam sum vầy ngày xuân.',
 };
 
+/**
+ * `viewportFit: 'cover'` là điều kiện để `env(safe-area-inset-*)` trả về số thật trên máy có
+ * notch/góc bo; thiếu nó thì mọi khai báo safe area ở `globals.css` đều bằng 0.
+ * Không đặt `maximumScale`/`userScalable: false`: chặn zoom là lỗi tiếp cận.
+ */
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#120401',
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="vi" className={`dark ${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <body
-        className="min-h-screen bg-stone-950 text-stone-100 antialiased selection:bg-amber-500 selection:text-stone-950 flex flex-col font-sans"
+        className="min-h-screen bg-[#120401] text-[#f3dfae] antialiased selection:bg-[#c59a4b] selection:text-[#120401] flex flex-col font-sans"
         suppressHydrationWarning
       >
         {children}

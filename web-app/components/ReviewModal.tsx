@@ -53,7 +53,7 @@ export function ReviewModal({
         type="button"
         onClick={() => setOpen(true)}
         disabled={alreadyReviewed}
-        className="inline-flex items-center gap-1.5 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 text-xs font-semibold text-amber-300 transition-colors hover:bg-amber-500 hover:text-stone-950 disabled:cursor-not-allowed disabled:border-stone-700 disabled:bg-stone-800 disabled:text-stone-500"
+        className="inline-flex items-center gap-1.5 rounded-lg border border-[#c59a4b]/40 bg-[#c59a4b]/10 px-3 py-1.5 text-xs font-semibold text-[#c59a4b] transition-colors hover:bg-[#c59a4b] hover:text-[#120401] disabled:cursor-not-allowed disabled:border-[#5c2b12] disabled:bg-[#210c04] disabled:text-[#a98a5f]"
       >
         {alreadyReviewed ? (
           <>
@@ -70,7 +70,7 @@ export function ReviewModal({
 
       {open && (
         <div
-          className="fixed inset-0 z-[70] flex items-end justify-center bg-stone-950/80 p-0 backdrop-blur-sm sm:items-center sm:p-4"
+          className="fixed inset-0 z-[70] flex items-end justify-center bg-[#120401]/80 p-0 backdrop-blur-sm sm:items-center sm:p-4"
           onClick={closeModal}
         >
           <div
@@ -78,18 +78,18 @@ export function ReviewModal({
             aria-modal="true"
             aria-label={`Đánh giá ${productName}`}
             onClick={(event) => event.stopPropagation()}
-            className="max-h-[92vh] w-full overflow-y-auto rounded-t-3xl border border-stone-800 bg-stone-900 p-5 shadow-2xl sm:max-w-lg sm:rounded-2xl sm:p-6"
+            className="max-h-[92vh] w-full overflow-y-auto rounded-t-3xl border border-[#5c2b12] bg-[#180702] p-5 shadow-2xl sm:max-w-lg sm:rounded-2xl sm:p-6"
           >
-            <div className="flex items-start justify-between gap-4 border-b border-stone-800 pb-4">
+            <div className="flex items-start justify-between gap-4 border-b border-[#5c2b12] pb-4">
               <div>
-                <h2 className="font-serif text-lg font-bold text-stone-100">Đánh giá sản phẩm</h2>
-                <p className="mt-0.5 line-clamp-2 text-xs text-stone-400">{productName}</p>
+                <h2 className="font-serif text-lg font-bold text-[#f3dfae]">Đánh giá sản phẩm</h2>
+                <p className="mt-0.5 line-clamp-2 text-xs text-[#c9b69a]">{productName}</p>
               </div>
               <button
                 type="button"
                 onClick={closeModal}
                 aria-label="Đóng"
-                className="rounded-lg p-1.5 text-stone-400 transition-colors hover:bg-stone-800 hover:text-stone-200"
+                className="rounded-lg p-1.5 text-[#c9b69a] transition-colors hover:bg-[#210c04] hover:text-[#f3dfae]"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -97,7 +97,7 @@ export function ReviewModal({
 
             {locked ? (
               <div className="space-y-4 pt-5">
-                <p className="flex items-center gap-2 rounded-xl border border-emerald-800/60 bg-emerald-950/40 px-3 py-3 text-sm text-emerald-300">
+                <p className="flex items-center gap-2 rounded-xl border border-[#34d399]/40 bg-[#34d399]/10 px-3 py-3 text-sm text-[#34d399]">
                   <CheckCircle2 className="h-4 w-4 shrink-0" />
                   {state?.alreadyReviewed || alreadyReviewed
                     ? 'Bạn đã đánh giá sản phẩm này.'
@@ -106,7 +106,7 @@ export function ReviewModal({
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="w-full rounded-xl bg-stone-800 px-4 py-2.5 text-sm font-semibold text-stone-200 transition-colors hover:bg-stone-700"
+                  className="w-full rounded-xl bg-[#210c04] px-4 py-2.5 text-sm font-semibold text-[#f3dfae] transition-colors hover:bg-[#381a0b]"
                 >
                   Đóng
                 </button>
@@ -118,7 +118,7 @@ export function ReviewModal({
                 {orderCode ? <input type="hidden" name="orderCode" value={orderCode} /> : null}
 
                 <div className="space-y-2">
-                  <span className="block text-xs font-semibold uppercase tracking-wide text-stone-400">
+                  <span className="block text-xs font-semibold uppercase tracking-wide text-[#c9b69a]">
                     Chất lượng sản phẩm
                   </span>
                   <div className="flex items-center gap-2">
@@ -136,13 +136,13 @@ export function ReviewModal({
                         <Star
                           className={`h-7 w-7 ${
                             star <= activeStars
-                              ? 'fill-amber-400 text-amber-400'
-                              : 'text-stone-600'
+                              ? 'fill-[#c59a4b] text-[#c59a4b]'
+                              : 'text-[#a98a5f]'
                           }`}
                         />
                       </button>
                     ))}
-                    <span className="ml-1 text-xs text-stone-400">
+                    <span className="ml-1 text-xs text-[#c9b69a]">
                       {rating > 0 ? `${rating}/5 sao` : 'Chọn số sao'}
                     </span>
                   </div>
@@ -151,7 +151,7 @@ export function ReviewModal({
                 <div className="space-y-2">
                   <label
                     htmlFor={`review-comment-${productId}`}
-                    className="block text-xs font-semibold uppercase tracking-wide text-stone-400"
+                    className="block text-xs font-semibold uppercase tracking-wide text-[#c9b69a]"
                   >
                     Nhận xét của bạn
                   </label>
@@ -163,15 +163,15 @@ export function ReviewModal({
                     value={comment}
                     onChange={(event) => setComment(event.target.value)}
                     placeholder="Chia sẻ cảm nhận về hương vị, đóng gói, dịch vụ giao hàng…"
-                    className="w-full resize-none rounded-xl border border-stone-700 bg-stone-950 px-3 py-2.5 text-sm text-stone-100 placeholder:text-stone-600 focus:border-amber-500/60 focus:outline-none"
+                    className="w-full resize-none rounded-xl border border-[#5c2b12] bg-[#120401] px-3 py-2.5 text-sm text-[#f3dfae] placeholder:text-[#a98a5f] focus:border-[#c59a4b]/60 focus:outline-none"
                   />
-                  <p className="text-right text-[11px] text-stone-500">
+                  <p className="text-right text-[11px] text-[#a98a5f]">
                     {comment.length}/{MAX_COMMENT_LENGTH} ký tự
                   </p>
                 </div>
 
                 {state?.status === 'error' && state.message && (
-                  <p className="rounded-xl border border-red-800/60 bg-red-950/40 px-3 py-2.5 text-xs text-red-300">
+                  <p className="rounded-xl border border-[#a33b20]/60 bg-[#2a0707]/40 px-3 py-2.5 text-xs text-[#e08a8a]">
                     {state.message}
                   </p>
                 )}
@@ -180,14 +180,14 @@ export function ReviewModal({
                   <button
                     type="button"
                     onClick={closeModal}
-                    className="rounded-xl px-4 py-2.5 text-sm font-medium text-stone-300 transition-colors hover:bg-stone-800"
+                    className="rounded-xl px-4 py-2.5 text-sm font-medium text-[#c9b69a] transition-colors hover:bg-[#210c04]"
                   >
                     Hủy
                   </button>
                   <button
                     type="submit"
                     disabled={isPending || rating === 0}
-                    className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-semibold text-stone-950 transition-all hover:bg-amber-400 disabled:cursor-not-allowed disabled:bg-stone-700 disabled:text-stone-400"
+                    className="inline-flex items-center gap-2 rounded-xl bg-[#c59a4b] px-4 py-2.5 text-sm font-semibold text-[#120401] transition-all hover:bg-[#d4af37] disabled:cursor-not-allowed disabled:bg-[#381a0b] disabled:text-[#c9b69a]"
                   >
                     {isPending ? (
                       <Loader2 className="h-4 w-4 animate-spin" />

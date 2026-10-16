@@ -80,27 +80,27 @@ export default async function KetQuaPage({ searchParams }: KetQuaPageProps) {
           cancelled={cancelled}
         />
       ) : (
-        <div className="mx-auto max-w-2xl rounded-3xl border border-stone-800 bg-stone-900/80 p-10 text-center">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-500/10 text-amber-400">
+        <div className="mx-auto max-w-2xl rounded-3xl border border-[#5c2b12] bg-[#180702]/80 p-10 text-center">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#c59a4b]/10 text-[#c59a4b]">
             <ReceiptText className="h-8 w-8" />
           </div>
-          <h1 className="mt-4 font-serif text-2xl font-bold text-stone-100">
+          <h1 className="mt-4 font-serif text-2xl font-bold text-[#f3dfae]">
             Thiếu hoặc sai mã đơn hàng
           </h1>
-          <p className="mt-2 text-sm text-stone-400">
+          <p className="mt-2 text-sm text-[#c9b69a]">
             Đường dẫn không kèm mã đơn hợp lệ. Bạn có thể tra cứu đơn hàng bằng mã đơn và số điện
             thoại đã dùng khi đặt.
           </p>
           <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
               href="/tra-cuu-don"
-              className="inline-flex justify-center rounded-xl bg-amber-500 px-5 py-3 text-sm font-bold text-stone-950 hover:bg-amber-400"
+              className="inline-flex justify-center rounded-xl bg-[#c59a4b] px-5 py-3 text-sm font-bold text-[#120401] hover:bg-[#d4af37]"
             >
               Tra cứu đơn hàng
             </Link>
             <Link
               href="/san-pham"
-              className="inline-flex justify-center rounded-xl border border-stone-700 px-5 py-3 text-sm font-semibold text-stone-200 hover:border-amber-500/50"
+              className="inline-flex justify-center rounded-xl border border-[#5c2b12] px-5 py-3 text-sm font-semibold text-[#f3dfae] hover:border-[#c59a4b]/50"
             >
               Về trang sản phẩm
             </Link>

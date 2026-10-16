@@ -20,9 +20,9 @@ interface CheckoutFormProps {
 }
 
 const inputClassName =
-  'w-full rounded-xl border border-stone-700 bg-stone-950 px-4 py-2.5 text-sm text-stone-100 placeholder:text-stone-500 focus:border-amber-500 focus:outline-none disabled:opacity-60';
+  'w-full rounded-xl border border-[#5c2b12] bg-[#120401] px-4 py-2.5 text-sm text-[#f3dfae] placeholder:text-[#a98a5f] focus:border-[#c59a4b] focus:outline-none disabled:opacity-60';
 
-const labelClassName = 'block text-xs font-semibold uppercase tracking-wide text-stone-300';
+const labelClassName = 'block text-xs font-semibold uppercase tracking-wide text-[#c9b69a]';
 
 export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormProps) {
   const [values, setValues] = useState<CheckoutFormValues>(initialValues);
@@ -71,9 +71,9 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
   return (
     <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-8 lg:grid-cols-12" noValidate>
       <div className="space-y-6 lg:col-span-8">
-        <section className="rounded-3xl border border-stone-800 bg-stone-900/60 p-6">
-          <h2 className="font-serif text-xl font-bold text-stone-100">Thông tin người nhận</h2>
-          <p className="mt-1 text-xs text-stone-400">
+        <section className="rounded-3xl border border-[#5c2b12] bg-[#180702]/60 p-6">
+          <h2 className="font-serif text-xl font-bold text-[#f3dfae]">Thông tin người nhận</h2>
+          <p className="mt-1 text-xs text-[#c9b69a]">
             Hương Quê giao tận tay người nhận, kèm thiệp viết tay theo lời chúc của bạn.
           </p>
 
@@ -94,7 +94,7 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
                 placeholder="Nguyễn Văn An"
               />
               {fieldErrors.recipientName && (
-                <p className="text-xs text-red-300">{fieldErrors.recipientName}</p>
+                <p className="text-xs text-[#e08a8a]">{fieldErrors.recipientName}</p>
               )}
             </div>
 
@@ -116,7 +116,7 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
                 placeholder="0901234567"
               />
               {fieldErrors.recipientPhone && (
-                <p className="text-xs text-red-300">{fieldErrors.recipientPhone}</p>
+                <p className="text-xs text-[#e08a8a]">{fieldErrors.recipientPhone}</p>
               )}
             </div>
 
@@ -137,13 +137,13 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
                   placeholder="ban@email.com"
                 />
                 {isLoggedIn && (
-                  <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-stone-500">
+                  <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#a98a5f]">
                     <Lock className="h-3.5 w-3.5" />
                   </span>
                 )}
               </div>
               {fieldErrors.customerEmail && (
-                <p className="text-xs text-red-300">{fieldErrors.customerEmail}</p>
+                <p className="text-xs text-[#e08a8a]">{fieldErrors.customerEmail}</p>
               )}
             </div>
 
@@ -163,7 +163,7 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
                 placeholder="Hà Nội"
               />
               {fieldErrors.province && (
-                <p className="text-xs text-red-300">{fieldErrors.province}</p>
+                <p className="text-xs text-[#e08a8a]">{fieldErrors.province}</p>
               )}
             </div>
 
@@ -183,15 +183,15 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
                 placeholder="Số 12, phố Hàng Mã, quận Hoàn Kiếm"
               />
               {fieldErrors.shippingAddress && (
-                <p className="text-xs text-red-300">{fieldErrors.shippingAddress}</p>
+                <p className="text-xs text-[#e08a8a]">{fieldErrors.shippingAddress}</p>
               )}
             </div>
           </div>
         </section>
 
-        <section className="rounded-3xl border border-stone-800 bg-stone-900/60 p-6">
-          <h2 className="flex items-center gap-2 font-serif text-xl font-bold text-stone-100">
-            <Gift className="h-5 w-5 text-amber-400" />
+        <section className="rounded-3xl border border-[#5c2b12] bg-[#180702]/60 p-6">
+          <h2 className="flex items-center gap-2 font-serif text-xl font-bold text-[#f3dfae]">
+            <Gift className="h-5 w-5 text-[#c59a4b]" />
             Thiệp chúc Tết & ghi chú
           </h2>
 
@@ -211,11 +211,11 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
                 className={inputClassName}
                 placeholder="Kính chúc gia đình năm mới An Khang Thịnh Vượng!"
               />
-              <p className="text-right text-[11px] text-stone-500">
+              <p className="text-right text-[11px] text-[#a98a5f]">
                 {values.giftMessage.length}/300
               </p>
               {fieldErrors.giftMessage && (
-                <p className="text-xs text-red-300">{fieldErrors.giftMessage}</p>
+                <p className="text-xs text-[#e08a8a]">{fieldErrors.giftMessage}</p>
               )}
             </div>
 
@@ -234,13 +234,13 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
                 className={inputClassName}
                 placeholder="Giao buổi sáng, gọi trước khi đến…"
               />
-              {fieldErrors.note && <p className="text-xs text-red-300">{fieldErrors.note}</p>}
+              {fieldErrors.note && <p className="text-xs text-[#e08a8a]">{fieldErrors.note}</p>}
             </div>
           </div>
         </section>
 
-        <section className="rounded-3xl border border-stone-800 bg-stone-900/60 p-6">
-          <h2 className="font-serif text-xl font-bold text-stone-100">Phương thức thanh toán</h2>
+        <section className="rounded-3xl border border-[#5c2b12] bg-[#180702]/60 p-6">
+          <h2 className="font-serif text-xl font-bold text-[#f3dfae]">Phương thức thanh toán</h2>
 
           <div className="mt-5 space-y-3">
             {PAYMENT_METHOD_OPTIONS.map((option) => {
@@ -251,8 +251,8 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
                   key={option.value}
                   className={`flex cursor-pointer items-start gap-3 rounded-2xl border p-4 transition-colors ${
                     selected
-                      ? 'border-amber-500 bg-amber-500/10'
-                      : 'border-stone-800 bg-stone-950/60 hover:border-stone-700'
+                      ? 'border-[#c59a4b] bg-[#c59a4b]/10'
+                      : 'border-[#5c2b12] bg-[#120401]/60 hover:border-[#5c2b12]'
                   }`}
                 >
                   <input
@@ -262,14 +262,14 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
                     checked={selected}
                     onChange={() => update('paymentMethod', option.value)}
                     disabled={submitting}
-                    className="mt-1 h-4 w-4 accent-amber-500"
+                    className="mt-1 h-4 w-4 accent-[#c59a4b]"
                   />
                   <span className="flex-1">
-                    <span className="flex items-center gap-2 text-sm font-semibold text-stone-100">
-                      <Icon className="h-4 w-4 text-amber-400" />
+                    <span className="flex items-center gap-2 text-sm font-semibold text-[#f3dfae]">
+                      <Icon className="h-4 w-4 text-[#c59a4b]" />
                       {option.label}
                     </span>
-                    <span className="mt-1 block text-xs text-stone-400">
+                    <span className="mt-1 block text-xs text-[#c9b69a]">
                       {option.description}
                     </span>
                   </span>
@@ -278,27 +278,27 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
             })}
           </div>
           {fieldErrors.paymentMethod && (
-            <p className="mt-3 text-xs text-red-300">{fieldErrors.paymentMethod}</p>
+            <p className="mt-3 text-xs text-[#e08a8a]">{fieldErrors.paymentMethod}</p>
           )}
         </section>
       </div>
 
       <aside className="lg:col-span-4">
-        <div className="sticky top-24 space-y-4 rounded-3xl border border-stone-800 bg-stone-900/80 p-6">
-          <h2 className="font-serif text-xl font-bold text-stone-100">Đơn hàng của bạn</h2>
+        <div className="sticky top-24 space-y-4 rounded-3xl border border-[#5c2b12] bg-[#180702]/80 p-6">
+          <h2 className="font-serif text-xl font-bold text-[#f3dfae]">Đơn hàng của bạn</h2>
 
-          <ul className="max-h-64 space-y-2 overflow-y-auto pr-1 text-xs text-stone-300">
+          <ul className="max-h-64 space-y-2 overflow-y-auto pr-1 text-xs text-[#c9b69a]">
             {cart.items.map((item) => (
               <li key={item.productId} className="flex items-start justify-between gap-3">
                 <span className="min-w-0 flex-1 truncate">
                   {item.name} × {item.quantity}
                 </span>
-                <span className="font-mono text-amber-300">{formatVND(item.lineTotal)}</span>
+                <span className="font-mono text-[#c59a4b]">{formatVND(item.lineTotal)}</span>
               </li>
             ))}
           </ul>
 
-          <div className="space-y-2 border-t border-stone-800 pt-4">
+          <div className="space-y-2 border-t border-[#5c2b12] pt-4">
             <label htmlFor="couponCode" className={labelClassName}>
               Mã giảm giá
             </label>
@@ -312,27 +312,27 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
               className={inputClassName}
               placeholder="TET2027"
             />
-            <p className="text-[11px] text-stone-500">
+            <p className="text-[11px] text-[#a98a5f]">
               Tổng tiền sẽ được tính lại theo mã hợp lệ khi bạn bấm Đặt hàng.
             </p>
           </div>
 
-          <dl className="space-y-2 border-t border-stone-800 pt-4 text-sm">
-            <div className="flex items-center justify-between text-stone-300">
+          <dl className="space-y-2 border-t border-[#5c2b12] pt-4 text-sm">
+            <div className="flex items-center justify-between text-[#c9b69a]">
               <dt>Tạm tính</dt>
               <dd className="font-mono">{formatVND(cart.subtotal)}</dd>
             </div>
             {cart.discountAmount > 0 && (
-              <div className="flex items-center justify-between text-emerald-300">
+              <div className="flex items-center justify-between text-[#34d399]">
                 <dt>Giảm giá {cart.coupon?.code ? `(${cart.coupon.code})` : ''}</dt>
                 <dd className="font-mono">-{formatVND(cart.discountAmount)}</dd>
               </div>
             )}
-            <div className="flex items-center justify-between text-stone-300">
+            <div className="flex items-center justify-between text-[#c9b69a]">
               <dt>Phí vận chuyển</dt>
               <dd className="font-mono">{shippingFree ? 'Miễn phí' : formatVND(cart.shippingFee)}</dd>
             </div>
-            <div className="flex items-center justify-between border-t border-stone-800 pt-3 text-base font-bold text-amber-300">
+            <div className="flex items-center justify-between border-t border-[#5c2b12] pt-3 text-base font-bold text-[#c59a4b]">
               <dt>Tổng thanh toán</dt>
               <dd className="font-mono">{formatVND(cart.total)}</dd>
             </div>
@@ -341,7 +341,7 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
           {formError && (
             <p
               role="alert"
-              className="flex items-start gap-2 rounded-xl border border-red-900/60 bg-red-950/50 px-3 py-2 text-xs text-red-200"
+              className="flex items-start gap-2 rounded-xl border border-[#a33b20]/60 bg-[#2a0707]/50 px-3 py-2 text-xs text-[#e08a8a]"
             >
               <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
               {formError}
@@ -351,7 +351,7 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
           <button
             type="submit"
             disabled={submitting}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-bold text-stone-950 hover:bg-amber-400 disabled:cursor-not-allowed disabled:opacity-60"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#c59a4b] px-6 py-3.5 text-sm font-bold text-[#120401] hover:bg-[#d4af37] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {submitting ? (
               <>
@@ -363,7 +363,7 @@ export function CheckoutForm({ initialValues, cart, isLoggedIn }: CheckoutFormPr
             )}
           </button>
 
-          <p className="text-center text-[11px] text-stone-500">
+          <p className="text-center text-[11px] text-[#a98a5f]">
             Bằng việc đặt hàng, bạn đồng ý với chính sách đổi trả và bảo mật của Hương Quê.
           </p>
         </div>

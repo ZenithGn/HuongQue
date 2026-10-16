@@ -57,12 +57,12 @@ export function AdminPagination({
       aria-label="Phân trang"
       className={`flex flex-wrap items-center justify-between gap-3 pt-4 ${className}`}
     >
-      <p className="text-[11px] text-stone-400">
-        Trang <strong className="font-mono text-stone-200">{current}</strong>/
+      <p className="text-[11px] text-[#c9b69a]">
+        Trang <strong className="font-mono text-[#f3dfae]">{current}</strong>/
         <span className="font-mono">{totalPages}</span> · tổng{' '}
-        <strong className="font-mono text-stone-200">{formatNumber(totalItems)}</strong> {itemLabel}
+        <strong className="font-mono text-[#f3dfae]">{formatNumber(totalItems)}</strong> {itemLabel}
         {totalItems > 0 ? (
-          <span className="text-stone-500">
+          <span className="text-[#a98a5f]">
             {' '}
             (đang xem {formatNumber(from)}–{formatNumber(to)})
           </span>
@@ -74,7 +74,7 @@ export function AdminPagination({
           <Link
             href={hrefFor(current - 1)}
             rel="prev"
-            className={`${navButton} border-stone-700 text-stone-200 hover:bg-stone-800`}
+            className={`${navButton} border-[#5c2b12] text-[#f3dfae] hover:bg-[#210c04]`}
           >
             <ChevronLeft className="w-3.5 h-3.5" />
             Trước
@@ -82,7 +82,7 @@ export function AdminPagination({
         ) : (
           <span
             aria-disabled="true"
-            className={`${navButton} border-stone-800 text-stone-600 cursor-not-allowed`}
+            className={`${navButton} border-[#5c2b12] text-[#a98a5f] cursor-not-allowed`}
           >
             <ChevronLeft className="w-3.5 h-3.5" />
             Trước
@@ -93,7 +93,7 @@ export function AdminPagination({
           <Link
             href={hrefFor(current + 1)}
             rel="next"
-            className={`${navButton} border-stone-700 text-stone-200 hover:bg-stone-800`}
+            className={`${navButton} border-[#5c2b12] text-[#f3dfae] hover:bg-[#210c04]`}
           >
             Sau
             <ChevronRight className="w-3.5 h-3.5" />
@@ -101,7 +101,7 @@ export function AdminPagination({
         ) : (
           <span
             aria-disabled="true"
-            className={`${navButton} border-stone-800 text-stone-600 cursor-not-allowed`}
+            className={`${navButton} border-[#5c2b12] text-[#a98a5f] cursor-not-allowed`}
           >
             Sau
             <ChevronRight className="w-3.5 h-3.5" />

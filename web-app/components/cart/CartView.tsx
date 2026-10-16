@@ -38,9 +38,9 @@ function CartRow({
   onRemove: (productId: number) => void;
 }) {
   return (
-    <div className="flex flex-col gap-4 py-5 sm:flex-row sm:items-center border-b border-stone-800 last:border-b-0">
+    <div className="flex flex-col gap-4 py-5 sm:flex-row sm:items-center border-b border-[#5c2b12] last:border-b-0">
       <div className="flex flex-1 items-start gap-4">
-        <div className="h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-stone-800 bg-stone-950">
+        <div className="h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-[#5c2b12] bg-[#120401]">
           <img
             src={
               item.thumbnailUrl ||
@@ -56,23 +56,23 @@ function CartRow({
           {item.slug ? (
             <Link
               href={`/san-pham/${item.slug}`}
-              className="font-serif text-base font-bold text-stone-100 hover:text-amber-300"
+              className="font-serif text-base font-bold text-[#f3dfae] hover:text-[#c59a4b]"
             >
               {item.name}
             </Link>
           ) : (
-            <span className="font-serif text-base font-bold text-stone-100">
+            <span className="font-serif text-base font-bold text-[#f3dfae]">
               {item.name}
             </span>
           )}
 
-          <p className="mt-1 text-xs text-stone-400">
+          <p className="mt-1 text-xs text-[#c9b69a]">
             {formatVND(item.price)}
             {item.unit ? ` / ${item.unit}` : ''}
           </p>
 
           {!item.available && (
-            <p className="mt-1.5 inline-flex items-center gap-1.5 rounded-lg bg-red-950/70 px-2 py-1 text-[11px] font-medium text-red-200">
+            <p className="mt-1.5 inline-flex items-center gap-1.5 rounded-lg bg-[#2a0707]/70 px-2 py-1 text-[11px] font-medium text-[#e08a8a]">
               <AlertTriangle className="h-3.5 w-3.5" />
               Tạm hết hàng hoặc không đủ số lượng — vui lòng giảm số lượng hoặc xoá dòng này
               trước khi thanh toán.
@@ -82,17 +82,17 @@ function CartRow({
       </div>
 
       <div className="flex items-center justify-between gap-4 sm:justify-end">
-        <div className="flex items-center rounded-xl border border-stone-700 bg-stone-950">
+        <div className="flex items-center rounded-xl border border-[#5c2b12] bg-[#120401]">
           <button
             type="button"
             aria-label={`Giảm số lượng ${item.name}`}
             onClick={() => onQuantityChange(item.productId, Math.max(0, item.quantity - 1))}
             disabled={busy}
-            className="px-3 py-2 text-stone-300 hover:text-amber-300 disabled:opacity-50"
+            className="px-3 py-2 text-[#c9b69a] hover:text-[#c59a4b] disabled:opacity-50"
           >
             <Minus className="h-4 w-4" />
           </button>
-          <span className="min-w-10 text-center text-sm font-semibold text-amber-200">
+          <span className="min-w-10 text-center text-sm font-semibold text-[#c59a4b]">
             {item.quantity}
           </span>
           <button
@@ -100,13 +100,13 @@ function CartRow({
             aria-label={`Tăng số lượng ${item.name}`}
             onClick={() => onQuantityChange(item.productId, Math.min(99, item.quantity + 1))}
             disabled={busy}
-            className="px-3 py-2 text-stone-300 hover:text-amber-300 disabled:opacity-50"
+            className="px-3 py-2 text-[#c9b69a] hover:text-[#c59a4b] disabled:opacity-50"
           >
             <Plus className="h-4 w-4" />
           </button>
         </div>
 
-        <span className="w-28 text-right font-mono text-sm font-bold text-amber-400">
+        <span className="w-28 text-right font-mono text-sm font-bold text-[#c59a4b]">
           {formatVND(item.lineTotal)}
         </span>
 
@@ -115,7 +115,7 @@ function CartRow({
           aria-label={`Xoá ${item.name} khỏi giỏ`}
           onClick={() => onRemove(item.productId)}
           disabled={busy}
-          className="rounded-lg border border-stone-800 p-2 text-stone-400 hover:border-red-800 hover:text-red-300 disabled:opacity-50"
+          className="rounded-lg border border-[#5c2b12] p-2 text-[#c9b69a] hover:border-[#a33b20] hover:text-[#e08a8a] disabled:opacity-50"
         >
           <Trash2 className="h-4 w-4" />
         </button>
@@ -192,21 +192,21 @@ export function CartView({ initialCart, isLoggedIn }: CartViewProps) {
 
   if (cart.items.length === 0) {
     return (
-      <div className="rounded-3xl border border-stone-800 bg-stone-900/60 p-10 text-center">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-500/10 text-amber-400">
+      <div className="rounded-3xl border border-[#5c2b12] bg-[#180702]/60 p-10 text-center">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#c59a4b]/10 text-[#c59a4b]">
           <ShoppingBag className="h-8 w-8" />
         </div>
-        <h2 className="mt-4 font-serif text-2xl font-bold text-stone-100">
+        <h2 className="mt-4 font-serif text-2xl font-bold text-[#f3dfae]">
           Giỏ hàng đang trống
         </h2>
-        <p className="mt-2 text-sm text-stone-400">
-          Hãy chọn vài set quà Tết ba miền để gửi trọn nghĩa tình nhé.
+        <p className="mt-2 text-sm text-[#c9b69a]">
+          Hãy chọn vài hộp quà Tết ba miền để gửi trọn nghĩa tình nhé.
         </p>
         <Link
           href="/san-pham"
-          className="mt-6 inline-flex rounded-xl bg-amber-500 px-6 py-3 text-sm font-bold text-stone-950 hover:bg-amber-400"
+          className="mt-6 inline-flex rounded-xl bg-[#c59a4b] px-6 py-3 text-sm font-bold text-[#120401] hover:bg-[#d4af37]"
         >
-          Khám phá quà Tết
+          Chọn hộp quà Tết
         </Link>
       </div>
     );
@@ -215,7 +215,7 @@ export function CartView({ initialCart, isLoggedIn }: CartViewProps) {
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
       <section className="lg:col-span-8">
-        <div className="rounded-3xl border border-stone-800 bg-stone-900/60 px-5 py-2 sm:px-6">
+        <div className="rounded-3xl border border-[#5c2b12] bg-[#180702]/60 px-5 py-2 sm:px-6">
           {cart.items.map((item) => (
             <CartRow
               key={item.productId}
@@ -228,17 +228,17 @@ export function CartView({ initialCart, isLoggedIn }: CartViewProps) {
         </div>
 
         {error && (
-          <p role="alert" className="mt-4 rounded-xl border border-red-900/60 bg-red-950/50 px-4 py-3 text-sm text-red-200">
+          <p role="alert" className="mt-4 rounded-xl border border-[#a33b20]/60 bg-[#2a0707]/50 px-4 py-3 text-sm text-[#e08a8a]">
             {error}
           </p>
         )}
 
-        <div className="mt-6 rounded-2xl border border-stone-800 bg-stone-900/60 p-5">
+        <div className="mt-6 rounded-2xl border border-[#5c2b12] bg-[#180702]/60 p-5">
           <label
             htmlFor="coupon"
-            className="flex items-center gap-2 text-sm font-semibold text-stone-200"
+            className="flex items-center gap-2 text-sm font-semibold text-[#f3dfae]"
           >
-            <BadgePercent className="h-4 w-4 text-amber-400" />
+            <BadgePercent className="h-4 w-4 text-[#c59a4b]" />
             Mã giảm giá
           </label>
           <div className="mt-3 flex flex-col gap-3 sm:flex-row">
@@ -248,13 +248,13 @@ export function CartView({ initialCart, isLoggedIn }: CartViewProps) {
               onChange={(event) => setCouponInput(event.target.value.toUpperCase())}
               placeholder="VD: TET2027"
               maxLength={50}
-              className="flex-1 rounded-xl border border-stone-700 bg-stone-950 px-4 py-2.5 text-sm text-stone-100 placeholder:text-stone-500 focus:border-amber-500 focus:outline-none"
+              className="flex-1 rounded-xl border border-[#5c2b12] bg-[#120401] px-4 py-2.5 text-sm text-[#f3dfae] placeholder:text-[#a98a5f] focus:border-[#c59a4b] focus:outline-none"
             />
             <button
               type="button"
               onClick={handleApplyCoupon}
               disabled={couponBusy}
-              className="rounded-xl border border-amber-500/40 px-5 py-2.5 text-sm font-semibold text-amber-200 hover:bg-amber-500 hover:text-stone-950 disabled:opacity-60"
+              className="rounded-xl border border-[#c59a4b]/40 px-5 py-2.5 text-sm font-semibold text-[#c59a4b] hover:bg-[#c59a4b] hover:text-[#120401] disabled:opacity-60"
             >
               {couponBusy ? 'Đang kiểm tra…' : 'Áp dụng'}
             </button>
@@ -262,7 +262,7 @@ export function CartView({ initialCart, isLoggedIn }: CartViewProps) {
 
           {cart.coupon && (
             <p
-              className={`mt-3 text-xs ${cart.coupon.valid ? 'text-emerald-300' : 'text-red-300'
+              className={`mt-3 text-xs ${cart.coupon.valid ? 'text-[#34d399]' : 'text-[#e08a8a]'
                 }`}
             >
               {cart.coupon.valid
@@ -276,47 +276,47 @@ export function CartView({ initialCart, isLoggedIn }: CartViewProps) {
       </section>
 
       <aside className="lg:col-span-4">
-        <div className="sticky top-24 space-y-4 rounded-3xl border border-stone-800 bg-stone-900/80 p-6">
-          <h2 className="font-serif text-xl font-bold text-stone-100">Tóm tắt đơn hàng</h2>
+        <div className="sticky top-24 space-y-4 rounded-3xl border border-[#5c2b12] bg-[#180702]/80 p-6">
+          <h2 className="font-serif text-xl font-bold text-[#f3dfae]">Tóm tắt đơn hàng</h2>
 
           <dl className="space-y-3 text-sm">
-            <div className="flex items-center justify-between text-stone-300">
+            <div className="flex items-center justify-between text-[#c9b69a]">
               <dt>Tạm tính ({cart.itemCount} phần)</dt>
               <dd className="font-mono">{formatVND(cart.subtotal)}</dd>
             </div>
             {cart.discountAmount > 0 && (
-              <div className="flex items-center justify-between text-emerald-300">
+              <div className="flex items-center justify-between text-[#34d399]">
                 <dt>Giảm giá</dt>
                 <dd className="font-mono">-{formatVND(cart.discountAmount)}</dd>
               </div>
             )}
-            <div className="flex items-center justify-between text-stone-300">
+            <div className="flex items-center justify-between text-[#c9b69a]">
               <dt>Phí vận chuyển</dt>
               <dd className="font-mono">
                 {cart.shippingFee > 0 ? formatVND(cart.shippingFee) : 'Miễn phí'}
               </dd>
             </div>
-            <div className="flex items-center justify-between border-t border-stone-800 pt-3 text-base font-bold text-amber-300">
+            <div className="flex items-center justify-between border-t border-[#5c2b12] pt-3 text-base font-bold text-[#c59a4b]">
               <dt>Tổng cộng</dt>
               <dd className="font-mono">{formatVND(cart.total)}</dd>
             </div>
           </dl>
 
           {cart.freeShippingFrom > 0 && remainingForFreeShipping > 0 && (
-            <p className="flex items-start gap-2 rounded-xl bg-amber-500/10 px-3 py-2 text-xs text-amber-200">
+            <p className="flex items-start gap-2 rounded-xl bg-[#c59a4b]/10 px-3 py-2 text-xs text-[#c59a4b]">
               <Truck className="mt-0.5 h-4 w-4 shrink-0" />
-              Còn {formatVND(remainingForFreeShipping)} để được miễn phí ship.
+              Còn {formatVND(remainingForFreeShipping)} để được miễn phí vận chuyển.
             </p>
           )}
           {cart.freeShippingFrom > 0 && remainingForFreeShipping <= 0 && (
-            <p className="flex items-start gap-2 rounded-xl bg-emerald-950/50 px-3 py-2 text-xs text-emerald-200">
+            <p className="flex items-start gap-2 rounded-xl bg-[#34d399]/10 px-3 py-2 text-xs text-[#34d399]">
               <Truck className="mt-0.5 h-4 w-4 shrink-0" />
               Đơn hàng đã được miễn phí vận chuyển.
             </p>
           )}
 
           {hasUnavailable ? (
-            <div className="rounded-xl border border-red-900/60 bg-red-950/50 px-3 py-3 text-xs text-red-200">
+            <div className="rounded-xl border border-[#a33b20]/60 bg-[#2a0707]/50 px-3 py-3 text-xs text-[#e08a8a]">
               <p className="flex items-center gap-2 font-semibold">
                 <AlertTriangle className="h-4 w-4" />
                 Chưa thể thanh toán
@@ -328,7 +328,7 @@ export function CartView({ initialCart, isLoggedIn }: CartViewProps) {
           ) : (
             <Link
               href={checkoutHref}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 py-3.5 text-sm font-bold text-stone-950 hover:bg-amber-400"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#c59a4b] px-6 py-3.5 text-sm font-bold text-[#120401] hover:bg-[#d4af37]"
             >
               Tiến hành thanh toán
             </Link>
@@ -336,7 +336,7 @@ export function CartView({ initialCart, isLoggedIn }: CartViewProps) {
 
           <Link
             href="/san-pham"
-            className="block text-center text-xs font-medium text-stone-400 hover:text-amber-300"
+            className="block text-center text-xs font-medium text-[#c9b69a] hover:text-[#c59a4b]"
           >
             Tiếp tục chọn quà Tết
           </Link>

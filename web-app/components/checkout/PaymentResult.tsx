@@ -172,32 +172,32 @@ export function PaymentResult({ orderCode, phone, cancelled }: PaymentResultProp
 
   return (
     <div className="mx-auto max-w-2xl">
-      <div className="rounded-3xl border border-stone-800 bg-stone-900/80 p-8 text-center shadow-xl">
+      <div className="rounded-3xl border border-[#5c2b12] bg-[#180702]/80 p-8 text-center shadow-xl">
         {phase === 'checking' && (
           <>
-            <Loader2 className="mx-auto h-12 w-12 animate-spin text-amber-400" />
-            <h1 className="mt-4 font-serif text-2xl font-bold text-stone-100">
+            <Loader2 className="mx-auto h-12 w-12 animate-spin text-[#c59a4b]" />
+            <h1 className="mt-4 font-serif text-2xl font-bold text-[#f3dfae]">
               Đang kiểm tra thanh toán…
             </h1>
-            <p className="mt-2 text-sm text-stone-400">
+            <p className="mt-2 text-sm text-[#c9b69a]">
               Hệ thống đang chờ xác nhận từ PayOS cho đơn{' '}
-              <span className="font-mono text-amber-300">{orderCode}</span>.
+              <span className="font-mono text-[#c59a4b]">{orderCode}</span>.
             </p>
           </>
         )}
 
         {phase === 'paid' && (
           <>
-            <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-400" />
-            <h1 className="mt-4 font-serif text-2xl font-bold text-emerald-200">
+            <CheckCircle2 className="mx-auto h-12 w-12 text-[#34d399]" />
+            <h1 className="mt-4 font-serif text-2xl font-bold text-[#34d399]">
               Thanh toán thành công!
             </h1>
-            <p className="mt-2 text-sm text-stone-300">
+            <p className="mt-2 text-sm text-[#c9b69a]">
               Cảm ơn bạn đã đặt quà Tết tại Hương Quê. Đơn{' '}
-              <span className="font-mono text-amber-300">{orderCode}</span> đã được xác nhận
+              <span className="font-mono text-[#c59a4b]">{orderCode}</span> đã được xác nhận
               {status?.total ? ` với tổng tiền ${formatVND(Number(status.total))}` : ''}.
             </p>
-            <p className="mt-2 text-xs text-stone-400">
+            <p className="mt-2 text-xs text-[#c9b69a]">
               Email xác nhận đã được gửi tới hộp thư của bạn.
             </p>
           </>
@@ -205,16 +205,16 @@ export function PaymentResult({ orderCode, phone, cancelled }: PaymentResultProp
 
         {phase === 'placed' && (
           <>
-            <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-400" />
-            <h1 className="mt-4 font-serif text-2xl font-bold text-emerald-200">
+            <CheckCircle2 className="mx-auto h-12 w-12 text-[#34d399]" />
+            <h1 className="mt-4 font-serif text-2xl font-bold text-[#34d399]">
               Đặt hàng thành công!
             </h1>
-            <p className="mt-2 text-sm text-stone-300">
-              Đơn <span className="font-mono text-amber-300">{orderCode}</span> đã được ghi nhận
+            <p className="mt-2 text-sm text-[#c9b69a]">
+              Đơn <span className="font-mono text-[#c59a4b]">{orderCode}</span> đã được ghi nhận
               {status?.total ? ` với tổng tiền ${formatVND(Number(status.total))}` : ''}. Bạn sẽ
               thanh toán khi nhận hàng (COD).
             </p>
-            <p className="mt-2 text-xs text-stone-400">
+            <p className="mt-2 text-xs text-[#c9b69a]">
               Hương Quê sẽ gọi xác nhận trước khi giao quà Tết.
             </p>
           </>
@@ -222,12 +222,12 @@ export function PaymentResult({ orderCode, phone, cancelled }: PaymentResultProp
 
         {phase === 'pending' && (
           <>
-            <Clock className="mx-auto h-12 w-12 text-amber-400" />
-            <h1 className="mt-4 font-serif text-2xl font-bold text-stone-100">
+            <Clock className="mx-auto h-12 w-12 text-[#c59a4b]" />
+            <h1 className="mt-4 font-serif text-2xl font-bold text-[#f3dfae]">
               Chưa nhận được thanh toán
             </h1>
-            <p className="mt-2 text-sm text-stone-400">
-              Đơn <span className="font-mono text-amber-300">{orderCode}</span> vẫn đang chờ thanh
+            <p className="mt-2 text-sm text-[#c9b69a]">
+              Đơn <span className="font-mono text-[#c59a4b]">{orderCode}</span> vẫn đang chờ thanh
               toán. Nếu bạn đã chuyển khoản, vui lòng đợi thêm ít phút hoặc bấm kiểm tra lại.
             </p>
           </>
@@ -235,13 +235,13 @@ export function PaymentResult({ orderCode, phone, cancelled }: PaymentResultProp
 
         {phase === 'cancelled' && (
           <>
-            <XCircle className="mx-auto h-12 w-12 text-stone-400" />
-            <h1 className="mt-4 font-serif text-2xl font-bold text-stone-100">
+            <XCircle className="mx-auto h-12 w-12 text-[#c9b69a]" />
+            <h1 className="mt-4 font-serif text-2xl font-bold text-[#f3dfae]">
               Giao dịch chưa hoàn tất
             </h1>
-            <p className="mt-2 text-sm text-stone-400">
+            <p className="mt-2 text-sm text-[#c9b69a]">
               Bạn đã rời trang thanh toán PayOS nên đơn{' '}
-              <span className="font-mono text-amber-300">{orderCode}</span> chưa được thanh toán.
+              <span className="font-mono text-[#c59a4b]">{orderCode}</span> chưa được thanh toán.
               Bạn có thể kiểm tra lại nếu đã chuyển khoản.
             </p>
           </>
@@ -249,12 +249,12 @@ export function PaymentResult({ orderCode, phone, cancelled }: PaymentResultProp
 
         {phase === 'failed' && (
           <>
-            <AlertTriangle className="mx-auto h-12 w-12 text-red-400" />
-            <h1 className="mt-4 font-serif text-2xl font-bold text-red-200">
+            <AlertTriangle className="mx-auto h-12 w-12 text-[#e08a8a]" />
+            <h1 className="mt-4 font-serif text-2xl font-bold text-[#e08a8a]">
               Thanh toán không thành công
             </h1>
-            <p className="mt-2 text-sm text-stone-400">
-              Giao dịch cho đơn <span className="font-mono text-amber-300">{orderCode}</span> bị
+            <p className="mt-2 text-sm text-[#c9b69a]">
+              Giao dịch cho đơn <span className="font-mono text-[#c59a4b]">{orderCode}</span> bị
               đánh dấu lỗi. Vui lòng liên hệ hotline 0901 000 000 để được hỗ trợ.
             </p>
           </>
@@ -266,7 +266,7 @@ export function PaymentResult({ orderCode, phone, cancelled }: PaymentResultProp
               type="button"
               onClick={handleRecheck}
               disabled={manualChecking}
-              className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-5 py-3 text-sm font-bold text-stone-950 hover:bg-amber-400 disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#c59a4b] px-5 py-3 text-sm font-bold text-[#120401] hover:bg-[#d4af37] disabled:opacity-60"
             >
               {manualChecking ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -280,7 +280,7 @@ export function PaymentResult({ orderCode, phone, cancelled }: PaymentResultProp
           {(phase === 'paid' || phase === 'placed') && (
             <Link
               href={orderHref}
-              className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-5 py-3 text-sm font-bold text-stone-950 hover:bg-amber-400"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#c59a4b] px-5 py-3 text-sm font-bold text-[#120401] hover:bg-[#d4af37]"
             >
               Xem đơn hàng
             </Link>
@@ -288,16 +288,16 @@ export function PaymentResult({ orderCode, phone, cancelled }: PaymentResultProp
 
           <Link
             href="/san-pham"
-            className="inline-flex items-center gap-2 rounded-xl border border-stone-700 px-5 py-3 text-sm font-semibold text-stone-200 hover:border-amber-500/50 hover:text-amber-200"
+            className="inline-flex items-center gap-2 rounded-xl border border-[#5c2b12] px-5 py-3 text-sm font-semibold text-[#f3dfae] hover:border-[#c59a4b]/50 hover:text-[#c59a4b]"
           >
             Tiếp tục mua quà Tết
           </Link>
         </div>
       </div>
 
-      <p className="mt-4 text-center text-xs text-stone-500">
+      <p className="mt-4 text-center text-xs text-[#a98a5f]">
         Cần tra cứu đơn? Dùng{' '}
-        <Link href="/tra-cuu-don" className="text-amber-400 hover:text-amber-300">
+        <Link href="/tra-cuu-don" className="text-[#c59a4b] hover:text-[#c59a4b]">
           trang tra cứu đơn hàng
         </Link>{' '}
         với mã đơn và số điện thoại.

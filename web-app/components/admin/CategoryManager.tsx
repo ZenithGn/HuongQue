@@ -43,20 +43,20 @@ export function CategoryManager({
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 max-w-7xl">
       <section className={`${adminCardClass} xl:col-span-2 overflow-x-auto`}>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-bold text-stone-100">
+          <h3 className="text-sm font-bold text-[#f3dfae]">
             Danh sách danh mục ({formatNumber(totalCount)})
           </h3>
           <button
             type="button"
             onClick={() => setEditingId('new')}
-            className="rounded-xl bg-amber-500 px-3.5 py-2 text-xs font-bold text-stone-950 hover:bg-amber-400 transition-colors"
+            className="rounded-xl bg-[#c59a4b] px-3.5 py-2 text-xs font-bold text-[#120401] hover:bg-[#d4af37] transition-colors"
           >
             + Thêm danh mục
           </button>
         </div>
 
-        <table className="w-full text-left text-xs text-stone-300">
-          <thead className="uppercase font-mono tracking-wider text-stone-400 border-b border-stone-800">
+        <table className="w-full text-left text-xs text-[#c9b69a]">
+          <thead className="uppercase font-mono tracking-wider text-[#c9b69a] border-b border-[#5c2b12]">
             <tr>
               <th className="py-2.5 pr-3">#</th>
               <th className="py-2.5 pr-3">Tên / slug</th>
@@ -65,22 +65,22 @@ export function CategoryManager({
               <th className="py-2.5 text-right">Thao tác</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-stone-800">
+          <tbody className="divide-y divide-[#381a0b]">
             {categories.map((category) => (
-              <tr key={category.category_id} className="hover:bg-stone-800/40">
-                <td className="py-2.5 pr-3 font-mono text-stone-500">{category.category_id}</td>
+              <tr key={category.category_id} className="hover:bg-[#210c04]/40">
+                <td className="py-2.5 pr-3 font-mono text-[#a98a5f]">{category.category_id}</td>
                 <td className="py-2.5 pr-3">
-                  <p className="font-semibold text-stone-200">{category.name}</p>
-                  <p className="text-[11px] text-stone-500 font-mono">/{category.slug}</p>
+                  <p className="font-semibold text-[#f3dfae]">{category.name}</p>
+                  <p className="text-[11px] text-[#a98a5f] font-mono">/{category.slug}</p>
                 </td>
                 <td className="py-2.5 pr-3 text-right font-mono">{category.sort_order}</td>
                 <td className="py-2.5 pr-3">
                   {category.is_active ? (
-                    <span className="rounded-full border border-emerald-800 bg-emerald-950 px-2 py-0.5 text-[11px] text-emerald-400">
+                    <span className="rounded-full border border-[#34d399]/40 bg-[#34d399]/10 px-2 py-0.5 text-[11px] text-[#34d399]">
                       Hiện
                     </span>
                   ) : (
-                    <span className="rounded-full bg-stone-800 px-2 py-0.5 text-[11px] text-stone-400">
+                    <span className="rounded-full bg-[#210c04] px-2 py-0.5 text-[11px] text-[#c9b69a]">
                       Ẩn
                     </span>
                   )}
@@ -90,7 +90,7 @@ export function CategoryManager({
                     <button
                       type="button"
                       onClick={() => setEditingId(category.category_id)}
-                      className="rounded-lg border border-stone-700 px-3 py-1.5 text-[11px] font-medium text-stone-300 hover:bg-stone-800"
+                      className="rounded-lg border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
                     >
                       Sửa
                     </button>
@@ -120,14 +120,14 @@ export function CategoryManager({
 
       <section className={`${adminCardClass} space-y-4`}>
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-stone-100">
+          <h3 className="text-sm font-bold text-[#f3dfae]">
             {openNew ? 'Thêm danh mục' : editing ? `Sửa: ${editing.name}` : 'Chọn một danh mục'}
           </h3>
           {formOpen ? (
             <button
               type="button"
               onClick={() => setEditingId(null)}
-              className="text-[11px] text-stone-400 hover:text-amber-400"
+              className="text-[11px] text-[#c9b69a] hover:text-[#c59a4b]"
             >
               Đóng
             </button>
@@ -135,7 +135,7 @@ export function CategoryManager({
         </div>
 
         {!formOpen ? (
-          <p className="text-xs text-stone-500">
+          <p className="text-xs text-[#a98a5f]">
             Bấm “Sửa” hoặc “Thêm danh mục” để hiện form.
           </p>
         ) : (
@@ -204,12 +204,12 @@ export function CategoryManager({
                 />
               </Field>
 
-              <label className="flex items-center gap-2 text-xs text-stone-300 pb-2">
+              <label className="flex items-center gap-2 text-xs text-[#c9b69a] pb-2">
                 <input
                   type="checkbox"
                   name="is_active"
                   defaultChecked={editing?.is_active ?? true}
-                  className="h-4 w-4 rounded border-stone-600 bg-stone-950 accent-amber-500"
+                  className="h-4 w-4 rounded border-[#78502a] bg-[#120401] accent-[#c59a4b]"
                 />
                 Đang hiện
               </label>
