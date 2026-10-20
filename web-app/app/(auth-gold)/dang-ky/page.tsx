@@ -1,220 +1,257 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import Link from 'next/link';
 import { registerAction, ActionResponse } from '@/lib/actions/auth';
+import AuthBrand from '@/components/auth/AuthBrand';
 import {
-  User,
+  AlertCircle,
+  ArrowRight,
+  CheckCircle2,
+  Eye,
+  EyeOff,
+  LockKeyhole,
   Mail,
   Phone,
-  Lock,
-  ShieldCheck,
-  AlertCircle,
-  CheckCircle2,
-  ArrowRight,
-  UserPlus,
+  UserRound,
 } from 'lucide-react';
 
-const initialState: ActionResponse = {
-  success: false,
-};
+const initialState: ActionResponse = { success: false };
 
-const CARD_CLASS =
-  'w-full max-w-md rounded-2xl border border-[#5c2b12]/80 bg-[#180702]/90 p-8 shadow-[0_10px_40px_rgba(0,0,0,0.8)] backdrop-blur-md relative overflow-hidden text-[#f3dfae]';
-
-// Placeholder dùng tông vàng nâu sáng (#a98a5f) để đạt tương phản ≥4.5:1 trên nền #120401.
-const INPUT_CLASS =
-  'w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#120401]/90 border border-[#5c2b12] text-xs text-[#f3dfae] placeholder-[#a98a5f] caret-[#d4af37] focus:outline-none focus:border-[#c59a4b] focus:ring-1 focus:ring-[#c59a4b] transition-all';
-
-const LABEL_CLASS = 'block text-xs font-medium text-[#c9b69a]';
-const ICON_CLASS = 'absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#c49a52]';
-const HINT_CLASS = 'text-[11px] text-[#c9b69a] pl-1';
+const inputClass =
+  'w-full rounded-xl border border-[#d9cbb5] bg-white/85 px-4 py-2.5 text-base text-[#29170f] placeholder:text-[#806f5e] caret-[#861b1b] transition-colors focus:border-[#861b1b] focus:outline-none focus:ring-2 focus:ring-[#861b1b]/20';
 
 export default function DangKyPage() {
   const [state, formAction, isPending] = useActionState(registerAction, initialState);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   return (
-    <div className={CARD_CLASS}>
-      {/* Viền sáng ánh kim tinh tế phía trên */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#c59a4b]/60 to-transparent"
-        aria-hidden="true"
-      />
+    <main
+      className="auth-scene auth-scene-register fixed inset-0 z-[100] isolate flex min-h-0 items-start justify-center overflow-x-hidden overflow-y-auto px-4 pb-6 pt-20 text-[#29170f] selection:bg-[#861b1b]/20 selection:text-[#29170f] sm:px-6 sm:pb-8 sm:pt-20"
+      style={{
+        backgroundImage:
+          "linear-gradient(90deg, rgb(40 19 9 / 18%), rgb(40 19 9 / 8%) 48%, rgb(40 19 9 / 20%)), linear-gradient(180deg, rgb(38 19 10 / 10%), transparent 34%, rgb(38 19 10 / 14%)), url('/images/register-backgruond.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center 52%',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      <Link
+        href="/"
+        className="absolute left-5 top-5 z-10 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/50 bg-[#fffaf0]/85 px-4 text-sm font-semibold text-[#502c1b] shadow-[0_4px_16px_rgba(43,20,8,0.12)] transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b] sm:left-8 sm:top-8"
+      >
+        <ArrowRight className="h-4 w-4 rotate-180" aria-hidden="true" />
+        Về trang chủ
+      </Link>
 
-      {/* Header Form */}
-      <div className="text-center space-y-2 mb-8">
-        <h1 className="text-2xl font-serif font-black text-[#f3dfae] tracking-tight">
-          Đăng Ký Thành Viên
-        </h1>
-        <p className="text-xs text-[#c9b69a]">
-          Tạo tài khoản để nhận ưu đãi Tết và lưu sổ địa chỉ giao quà
-        </p>
-      </div>
+      <section
+        aria-labelledby="register-title"
+        className="relative z-10 mx-auto w-full max-w-[440px] rounded-2xl border border-white/70 bg-[#fffaf0]/95 px-6 py-6 shadow-[0_18px_55px_rgba(43,20,8,0.28)] sm:px-9 sm:py-7"
+      >
+        <header className="mb-5 text-center">
+          <AuthBrand />
+          <h1 id="register-title" className="font-serif text-[1.8rem] font-bold leading-tight tracking-[-0.02em] text-[#301a12]">
+            Tạo tài khoản
+          </h1>
+          <p className="mt-2 text-sm leading-6 text-[#634b39]">
+            Tham gia Hương Quê để khám phá những giá trị truyền thống.
+          </p>
+        </header>
 
-      {/* Thông báo thành công */}
-      {state?.success && state.message && (
-        <div className="mb-5 p-3.5 rounded-xl bg-[#34d399]/10 border border-[#34d399]/40 text-[#34d399] text-xs flex items-center gap-2.5">
-          <CheckCircle2 className="w-4 h-4 shrink-0 text-[#34d399]" />
-          <span>{state.message}</span>
-        </div>
-      )}
-
-      {/* Thông báo lỗi server */}
-      {!state?.success && state?.message && (
-        <div className="mb-5 p-3.5 rounded-xl bg-[#2a0707]/80 border border-[#a33b20]/80 text-rose-300 text-xs flex items-center gap-2.5">
-          <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
-          <span>{state.message}</span>
-        </div>
-      )}
-
-      {/* Form Nhập Liệu */}
-      <form action={formAction} className="space-y-5">
-        {/* Họ và tên */}
-        <div className="space-y-1.5">
-          <label className={LABEL_CLASS} htmlFor="register-fullname">
-            Họ và tên
-          </label>
-          <div className="relative">
-            <div className={ICON_CLASS}>
-              <User className="w-4 h-4" />
-            </div>
-            <input
-              id="register-fullname"
-              type="text"
-              name="fullName"
-              required
-              autoComplete="name"
-              placeholder="Nguyễn Văn An"
-              className={INPUT_CLASS}
-            />
+        {state?.success && state.message && (
+          <div role="status" className="mb-4 flex gap-2.5 rounded-xl border border-emerald-800/20 bg-emerald-50 px-3.5 py-3 text-sm leading-5 text-emerald-900">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>{state.message}</span>
           </div>
-          {state?.fieldErrors?.fullName && (
-            <p className="text-[11px] text-rose-400 pl-1">{state.fieldErrors.fullName[0]}</p>
-          )}
-        </div>
+        )}
 
-        {/* Email */}
-        <div className="space-y-1.5">
-          <label className={LABEL_CLASS} htmlFor="register-email">
-            Địa chỉ Email
-          </label>
-          <div className="relative">
-            <div className={ICON_CLASS}>
-              <Mail className="w-4 h-4" />
-            </div>
-            <input
-              id="register-email"
-              type="email"
-              name="email"
-              required
-              autoComplete="email"
-              placeholder="an.nguyen@vidu.vn"
-              className={INPUT_CLASS}
-            />
+        {!state?.success && state?.message && (
+          <div role="alert" className="mb-4 flex gap-2.5 rounded-xl border border-[#a33b20]/30 bg-[#fcece5] px-3.5 py-3 text-sm leading-5 text-[#702414]">
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>{state.message}</span>
           </div>
-          {state?.fieldErrors?.email && (
-            <p className="text-[11px] text-rose-400 pl-1">{state.fieldErrors.email[0]}</p>
-          )}
-        </div>
+        )}
 
-        {/* Số điện thoại */}
-        <div className="space-y-1.5">
-          <label className={LABEL_CLASS} htmlFor="register-phone">
-            Số điện thoại nhận hàng
-          </label>
-          <div className="relative">
-            <div className={ICON_CLASS}>
-              <Phone className="w-4 h-4" />
+        <form action={formAction} className="space-y-3.5">
+          <div className="space-y-1.5">
+            <label className="block text-sm font-semibold text-[#38251a]" htmlFor="register-fullname">
+              Họ và tên
+            </label>
+            <div className="relative">
+              <UserRound className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#76502f]" aria-hidden="true" />
+              <input
+                id="register-fullname"
+                type="text"
+                name="fullName"
+                required
+                autoComplete="name"
+                placeholder="Nguyễn Văn An"
+                aria-invalid={Boolean(state?.fieldErrors?.fullName)}
+                aria-describedby={state?.fieldErrors?.fullName ? 'register-fullname-error' : undefined}
+                className={`${inputClass} pl-11`}
+              />
             </div>
-            <input
-              id="register-phone"
-              type="tel"
-              name="phone"
-              required
-              autoComplete="tel"
-              inputMode="numeric"
-              placeholder="0912345678"
-              className={INPUT_CLASS}
-            />
+            {state?.fieldErrors?.fullName && (
+              <p id="register-fullname-error" className="pl-1 text-sm text-[#702414]">
+                {state.fieldErrors.fullName[0]}
+              </p>
+            )}
           </div>
-          {state?.fieldErrors?.phone ? (
-            <p className="text-[11px] text-rose-400 pl-1">{state.fieldErrors.phone[0]}</p>
-          ) : (
-            <p className={HINT_CLASS}>10 số, bắt đầu bằng 0 — dùng để liên hệ giao quà Tết.</p>
-          )}
-        </div>
 
-        {/* Mật khẩu */}
-        <div className="space-y-1.5">
-          <label className={LABEL_CLASS} htmlFor="register-password">
-            Mật khẩu
-          </label>
-          <div className="relative">
-            <div className={ICON_CLASS}>
-              <Lock className="w-4 h-4" />
+          <div className="space-y-1.5">
+            <label className="block text-sm font-semibold text-[#38251a]" htmlFor="register-email">
+              Địa chỉ email
+            </label>
+            <div className="relative">
+              <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#76502f]" aria-hidden="true" />
+              <input
+                id="register-email"
+                type="email"
+                name="email"
+                required
+                autoComplete="email"
+                placeholder="ten@vidu.vn"
+                aria-invalid={Boolean(state?.fieldErrors?.email)}
+                aria-describedby={state?.fieldErrors?.email ? 'register-email-error' : undefined}
+                className={`${inputClass} pl-11`}
+              />
             </div>
-            <input
-              id="register-password"
-              type="password"
-              name="password"
-              required
-              autoComplete="new-password"
-              placeholder="••••••••"
-              className={INPUT_CLASS}
-            />
+            {state?.fieldErrors?.email && (
+              <p id="register-email-error" className="pl-1 text-sm text-[#702414]">
+                {state.fieldErrors.email[0]}
+              </p>
+            )}
           </div>
-          {state?.fieldErrors?.password ? (
-            <p className="text-[11px] text-rose-400 pl-1">{state.fieldErrors.password[0]}</p>
-          ) : (
-            <p className={HINT_CLASS}>Tối thiểu 8 ký tự, có cả chữ và số.</p>
-          )}
-        </div>
 
-        {/* Xác nhận mật khẩu */}
-        <div className="space-y-1.5">
-          <label className={LABEL_CLASS} htmlFor="register-confirm">
-            Xác nhận mật khẩu
-          </label>
-          <div className="relative">
-            <div className={ICON_CLASS}>
-              <ShieldCheck className="w-4 h-4" />
+          <div className="space-y-1.5">
+            <label className="block text-sm font-semibold text-[#38251a]" htmlFor="register-phone">
+              Số điện thoại
+            </label>
+            <div className="relative">
+              <Phone className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#76502f]" aria-hidden="true" />
+              <input
+                id="register-phone"
+                type="tel"
+                name="phone"
+                required
+                autoComplete="tel"
+                inputMode="numeric"
+                placeholder="0912345678"
+                aria-invalid={Boolean(state?.fieldErrors?.phone)}
+                aria-describedby={state?.fieldErrors?.phone ? 'register-phone-error' : 'register-phone-hint'}
+                className={`${inputClass} pl-11`}
+              />
             </div>
-            <input
-              id="register-confirm"
-              type="password"
-              name="confirmPassword"
-              required
-              autoComplete="new-password"
-              placeholder="••••••••"
-              className={INPUT_CLASS}
-            />
+            {state?.fieldErrors?.phone ? (
+              <p id="register-phone-error" className="pl-1 text-sm text-[#702414]">
+                {state.fieldErrors.phone[0]}
+              </p>
+            ) : (
+              <p id="register-phone-hint" className="pl-1 text-xs leading-5 text-[#634b39]">
+                10 chữ số, bắt đầu bằng 0.
+              </p>
+            )}
           </div>
-          {state?.fieldErrors?.confirmPassword && (
-            <p className="text-[11px] text-rose-400 pl-1">{state.fieldErrors.confirmPassword[0]}</p>
-          )}
+
+          <div className="space-y-1.5">
+            <label className="block text-sm font-semibold text-[#38251a]" htmlFor="register-password">
+              Mật khẩu
+            </label>
+            <div className="relative">
+              <LockKeyhole className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#76502f]" aria-hidden="true" />
+              <input
+                id="register-password"
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                required
+                autoComplete="new-password"
+                placeholder="Tối thiểu 8 ký tự"
+                aria-invalid={Boolean(state?.fieldErrors?.password)}
+                aria-describedby={state?.fieldErrors?.password ? 'register-password-error' : 'register-password-hint'}
+                className={`${inputClass} pl-11 pr-12`}
+              />
+              <button
+                type="button"
+                aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
+                aria-pressed={showPassword}
+                onClick={() => setShowPassword((visible) => !visible)}
+                className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-lg text-[#634b39] transition-colors hover:bg-[#f2e8d8] hover:text-[#4a2418] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b]"
+              >
+                {showPassword ? <EyeOff className="h-[18px] w-[18px]" /> : <Eye className="h-[18px] w-[18px]" />}
+              </button>
+            </div>
+            {state?.fieldErrors?.password ? (
+              <p id="register-password-error" className="pl-1 text-sm text-[#702414]">
+                {state.fieldErrors.password[0]}
+              </p>
+            ) : (
+              <p id="register-password-hint" className="pl-1 text-xs leading-5 text-[#634b39]">
+                Tối thiểu 8 ký tự, có chữ và số.
+              </p>
+            )}
+          </div>
+
+          <div className="space-y-1.5">
+            <label className="block text-sm font-semibold text-[#38251a]" htmlFor="register-confirm">
+              Xác nhận mật khẩu
+            </label>
+            <div className="relative">
+              <LockKeyhole className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#76502f]" aria-hidden="true" />
+              <input
+                id="register-confirm"
+                type={showConfirmation ? 'text' : 'password'}
+                name="confirmPassword"
+                required
+                autoComplete="new-password"
+                placeholder="Nhập lại mật khẩu"
+                aria-invalid={Boolean(state?.fieldErrors?.confirmPassword)}
+                aria-describedby={state?.fieldErrors?.confirmPassword ? 'register-confirm-error' : undefined}
+                className={`${inputClass} pl-11 pr-12`}
+              />
+              <button
+                type="button"
+                aria-label={showConfirmation ? 'Ẩn mật khẩu xác nhận' : 'Hiện mật khẩu xác nhận'}
+                aria-pressed={showConfirmation}
+                onClick={() => setShowConfirmation((visible) => !visible)}
+                className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-lg text-[#634b39] transition-colors hover:bg-[#f2e8d8] hover:text-[#4a2418] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b]"
+              >
+                {showConfirmation ? <EyeOff className="h-[18px] w-[18px]" /> : <Eye className="h-[18px] w-[18px]" />}
+              </button>
+            </div>
+            {state?.fieldErrors?.confirmPassword && (
+              <p id="register-confirm-error" className="pl-1 text-sm text-[#702414]">
+                {state.fieldErrors.confirmPassword[0]}
+              </p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            disabled={isPending}
+            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#861b1b] px-4 py-3 text-sm font-bold text-[#fff9ed] shadow-[0_6px_16px_rgba(95,25,18,0.22)] transition-colors hover:bg-[#6f1416] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b] focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-60"
+          >
+            {isPending ? (
+              <>
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true" />
+                Đang tạo tài khoản...
+              </>
+            ) : (
+              <>Tạo tài khoản <ArrowRight className="h-4 w-4" aria-hidden="true" /></>
+            )}
+          </button>
+        </form>
+
+        <div className="mt-5 border-t border-[#dfd2bf] pt-4 text-center text-sm leading-6 text-[#634b39]">
+          Đã có tài khoản?{' '}
+          <Link
+            href="/dang-nhap"
+            className="font-bold text-[#7a271e] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b]"
+          >
+            Đăng nhập
+          </Link>
         </div>
-
-        {/* Nút Đăng ký */}
-        <button
-          type="submit"
-          disabled={isPending}
-          className="group w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#b8863b] via-[#d4af37] to-[#b8863b] text-[#120401] font-bold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:brightness-110 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
-        >
-          <UserPlus className="w-4 h-4" />
-          <span>{isPending ? 'Đang tạo tài khoản...' : 'Đăng ký ngay'}</span>
-        </button>
-      </form>
-
-      {/* Chuyển hướng tới Đăng nhập */}
-      <div className="mt-8 pt-6 border-t border-[#381a0b] text-center text-xs text-[#c9b69a]">
-        Đã có tài khoản quà Tết?{' '}
-        <Link
-          href="/dang-nhap"
-          className="font-bold text-[#c59a4b] hover:text-[#f3dfae] hover:underline transition-colors inline-flex items-center gap-1"
-        >
-          Đăng nhập ngay <ArrowRight className="w-3 h-3" />
-        </Link>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
