@@ -53,7 +53,7 @@ export function ReviewModal({
         type="button"
         onClick={() => setOpen(true)}
         disabled={alreadyReviewed}
-        className="inline-flex items-center gap-1.5 rounded-lg border border-[#c59a4b]/40 bg-[#c59a4b]/10 px-3 py-1.5 text-xs font-semibold text-[#c59a4b] transition-colors hover:bg-[#c59a4b] hover:text-[#120401] disabled:cursor-not-allowed disabled:border-[#5c2b12] disabled:bg-[#210c04] disabled:text-[#a98a5f]"
+        className="inline-flex items-center gap-1.5 rounded-xl border border-[#c59a4b]/40 bg-[#c59a4b]/10 px-3 py-1.5 text-xs font-semibold text-[#c59a4b] transition-colors hover:bg-[#c59a4b] hover:text-[#120401] disabled:cursor-not-allowed disabled:border-[#5c2b12] disabled:bg-[#210c04] disabled:text-[#a98a5f]"
       >
         {alreadyReviewed ? (
           <>
@@ -89,7 +89,7 @@ export function ReviewModal({
                 type="button"
                 onClick={closeModal}
                 aria-label="Đóng"
-                className="rounded-lg p-1.5 text-[#c9b69a] transition-colors hover:bg-[#210c04] hover:text-[#f3dfae]"
+                className="rounded-xl p-1.5 text-[#c9b69a] transition-colors hover:bg-[#210c04] hover:text-[#f3dfae]"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -131,7 +131,7 @@ export function ReviewModal({
                         onMouseLeave={() => setHovered(0)}
                         aria-label={`${star} sao`}
                         aria-pressed={rating === star}
-                        className="rounded-lg p-1 transition-transform hover:scale-110"
+                        className="rounded-xl p-1 transition-transform hover:scale-110"
                       >
                         <Star
                           className={`h-7 w-7 ${

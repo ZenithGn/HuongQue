@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowRight, CalendarClock, MapPin, PackageCheck } from 'lucide-react';
+import { ArrowRight, CalendarClock, Check, MapPin, PackageCheck } from 'lucide-react';
 import {
   DELIVERY_WINDOWS,
   TET_2027,
@@ -188,11 +188,12 @@ export function CheckoutWindow({ initialDays, initialPhase, initialTodayKey }: C
                   <div
                     aria-hidden
                     className={[
-                      'mx-auto mt-[46px] h-[19px] w-[19px] rotate-45 border-2',
+                      'mx-auto mt-[46px] h-[19px] w-[19px] border-2',
+                      isActive ? 'rounded-full' : 'rotate-45',
                       isTet
                         ? 'border-[#f3dfae] bg-[#861b1b]'
                         : isActive
-                          ? 'border-[#f3dfae] bg-[#d4af37] shadow-[0_0_15px_rgba(212,175,55,0.7)]'
+                          ? 'border-[#f3dfae] bg-[#d4af37]'
                           : isCutoff
                             ? 'border-[#c59a4b] bg-[#120401]'
                             : 'border-[#5c2b12] bg-[#120401]',
@@ -245,7 +246,8 @@ export function CheckoutWindow({ initialDays, initialPhase, initialTodayKey }: C
                   <span
                     aria-hidden
                     className={[
-                      'mt-1 h-3 w-3 shrink-0 rotate-45 border',
+                      'mt-1 h-3 w-3 shrink-0 border',
+                      isActive ? 'rounded-full' : 'rotate-45',
                       s.id === 'tet'
                         ? 'border-[#f3dfae] bg-[#861b1b]'
                         : isActive
@@ -258,6 +260,9 @@ export function CheckoutWindow({ initialDays, initialPhase, initialTodayKey }: C
                         "Mùng 1 Tết · Mùng 1 Tết". Chỉ ghép khi hai chuỗi thật sự khác. */}
                     <p className="text-xs text-[#c9b69a]">
                       {s.short === s.lunar ? s.short : `${s.short} · ${s.lunar}`}
+                      {isActive && isCutoff ? (
+                        <span className="font-semibold text-[#d4af37]"> · đang xem</span>
+                      ) : null}
                     </p>
                     <p className="font-serif text-base font-bold text-[#f3dfae]">
                       {formatCutoffWeekday(s.iso)}, {formatCutoffDate(s.iso)}
@@ -306,12 +311,20 @@ export function CheckoutWindow({ initialDays, initialPhase, initialTodayKey }: C
                       'rounded-xl border px-3 py-3 text-left transition-colors duration-200',
                       'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d4af37]',
                       selected
-                        ? 'border-[#c59a4b] bg-[#120401] shadow-[0_0_15px_rgba(212,175,55,0.25)]'
+                        ? 'border-[#c59a4b] bg-[#120401]'
                         : 'border-[#5c2b12] bg-[#120401] hover:border-[#78502a]',
                     ].join(' ')}
                   >
                     <span className="block text-sm font-bold text-[#f3dfae]">{w.label}</span>
                     <span className="mt-1 block text-xs leading-snug text-[#c9b69a]">{w.scope}</span>
+                    {selected ? (
+                      <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-[#f3dfae]">
+                        <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#c59a4b] text-[#120401]">
+                          <Check aria-hidden className="h-3 w-3" />
+                        </span>
+                        Đang chọn
+                      </span>
+                    ) : null}
                     {/* Cửa sổ đã đóng phải tự nói ra, thay vì để người dùng chọn rồi mới biết. */}
                     {cutoffState(days[w.id] ?? 0) === 'closed' ? (
                       <span className="mt-1 block text-xs font-semibold text-[#e08a8a]">

@@ -191,7 +191,7 @@ function ToastCard({
         type="button"
         onClick={() => onDismiss(item.id)}
         aria-label="Đóng thông báo"
-        className="shrink-0 rounded-md p-1 text-[#c9b69a] transition-colors hover:bg-[#210c04] hover:text-[#f3dfae]"
+        className="shrink-0 rounded-xl p-1 text-[#c9b69a] transition-colors hover:bg-[#210c04] hover:text-[#f3dfae]"
       >
         <X className="h-3.5 w-3.5" aria-hidden />
       </button>

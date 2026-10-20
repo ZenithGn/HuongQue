@@ -136,7 +136,7 @@ export async function Header() {
                 <Link
                   href="/tai-khoan"
                   aria-label="Tài khoản của tôi"
-                  className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-[#78502a] text-[#f3dfae] transition-all hover:bg-[#2b1408]"
+                  className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#78502a] text-[#f3dfae] transition-all hover:bg-[#2b1408]"
                   title="Tài khoản của tôi"
                 >
                   <UserIcon className="w-4 h-4" aria-hidden />
@@ -144,7 +144,7 @@ export async function Header() {
                 <form action={logoutAction}>
                   <button
                     type="submit"
-                    className="inline-flex min-h-11 items-center gap-1 rounded-lg border border-[#78502a] px-3 text-xs font-medium text-[#f3dfae] transition-all hover:bg-[#2b1408] shrink-0"
+                    className="inline-flex min-h-11 items-center gap-1 rounded-xl border border-[#78502a] px-3 text-xs font-medium text-[#f3dfae] transition-all hover:bg-[#2b1408] shrink-0"
                     title="Đăng xuất"
                   >
                     <LogOut className="w-3.5 h-3.5" aria-hidden />
@@ -158,13 +158,13 @@ export async function Header() {
               <div className="hidden items-center gap-1.5 border-l border-[#5c2b12] pl-2 ml-1 shrink-0 sm:flex">
                 <Link
                   href="/dang-nhap"
-                  className="inline-flex min-h-11 items-center whitespace-nowrap rounded-lg px-2 xl:px-3 text-xs font-medium text-[#f3dfae] transition-colors hover:bg-[#2b1408]"
+                  className="inline-flex min-h-11 items-center whitespace-nowrap rounded-xl px-2 xl:px-3 text-xs font-medium text-[#f3dfae] transition-colors hover:bg-[#2b1408]"
                 >
                   Đăng nhập
                 </Link>
                 <Link
                   href="/dang-ky"
-                  className="inline-flex min-h-11 items-center whitespace-nowrap rounded-lg bg-[#c59a4b] px-3 xl:px-3.5 text-xs font-semibold text-[#120401] shadow-sm transition-all hover:bg-[#cca154]"
+                  className="inline-flex min-h-11 items-center whitespace-nowrap rounded-xl bg-[#c59a4b] px-3 xl:px-3.5 text-xs font-semibold text-[#120401] shadow-sm transition-all hover:bg-[#cca154]"
                 >
                   Đăng ký
                 </Link>

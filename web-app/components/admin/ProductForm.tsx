@@ -308,7 +308,7 @@ export function ProductForm({
               <button
                 type="button"
                 onClick={clearNewImage}
-                className="rounded-lg border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
+                className="rounded-xl border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
               >
                 Bỏ ảnh mới, giữ ảnh cũ
               </button>
@@ -331,7 +331,7 @@ export function ProductForm({
             type="file"
             accept="image/jpeg,image/png,image/webp"
             onChange={handleImageChange}
-            className={`${adminInputClass} file:mr-3 file:rounded-lg file:border-0 file:bg-[#210c04] file:px-3 file:py-1.5 file:text-[#f3dfae]`}
+            className={`${adminInputClass} file:mr-3 file:rounded-xl file:border-0 file:bg-[#210c04] file:px-3 file:py-1.5 file:text-[#f3dfae]`}
           />
         </Field>
       </section>

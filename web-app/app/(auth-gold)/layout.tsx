@@ -1,5 +1,8 @@
+"use client";
+
 import { Suspense } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 /**
  * Shell cho 2 trang auth có thiết kế riêng: **đăng nhập** và **đăng ký**.
@@ -14,9 +17,11 @@ import Link from 'next/link';
  * Route group `(auth-gold)` không xuất hiện trong URL: `/dang-nhap` và `/dang-ky` giữ nguyên.
  */
 export default function AuthGoldLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
   return (
-    <div className="min-h-screen bg-[#120401] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#381a0b]/40 via-[#120401] to-[#0a0200] flex flex-col items-center justify-center px-4 py-12 text-[#f3dfae] selection:bg-[#c59a4b]/30 selection:text-[#fff7e0]">
-      <Link
+    <div className="auth-gold-shell min-h-screen bg-[#120401] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#381a0b]/40 via-[#120401] to-[#0a0200] flex flex-col items-center justify-center px-4 py-12 text-[#f3dfae] selection:bg-[#c59a4b]/30 selection:text-[#fff7e0]">
+      {pathname !== '/dang-nhap' && <Link
         href="/"
         className="group flex items-center gap-3 mb-8 rounded-2xl transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c59a4b] focus-visible:ring-offset-4 focus-visible:ring-offset-[#120401]"
       >
@@ -46,7 +51,7 @@ export default function AuthGoldLayout({ children }: { children: React.ReactNode
             Tinh Hoa Quà Việt
           </span>
         </div>
-      </Link>
+      </Link>}
 
       <Suspense
         fallback={<div className="py-10 text-center text-xs text-[#c9b69a]">Đang tải giao diện...</div>}

@@ -133,7 +133,7 @@ export default async function DonHangPage() {
                     <td className="px-5 py-4 text-right">
                       <Link
                         href={`/tai-khoan/don-hang/${encodeURIComponent(order.orderCode)}`}
-                        className="inline-flex items-center gap-1 whitespace-nowrap rounded-lg border border-[#c59a4b]/40 bg-[#c59a4b]/10 px-3 py-1.5 text-xs font-semibold text-[#c59a4b] transition-colors hover:bg-[#c59a4b] hover:text-[#120401]"
+                        className="inline-flex items-center gap-1 whitespace-nowrap rounded-xl border border-[#c59a4b]/40 bg-[#c59a4b]/10 px-3 py-1.5 text-xs font-semibold text-[#c59a4b] transition-colors hover:bg-[#c59a4b] hover:text-[#120401]"
                       >
                         Xem chi tiết
                         <ChevronRight className="h-3.5 w-3.5" />

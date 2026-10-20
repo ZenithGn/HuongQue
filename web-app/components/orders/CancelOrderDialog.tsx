@@ -90,7 +90,7 @@ export function CancelOrderDialog({ orderCode }: { orderCode: string }) {
                     type="button"
                     onClick={() => setOpen(false)}
                     aria-label="Đóng"
-                    className="rounded-lg p-1.5 text-[#c9b69a] transition-colors hover:bg-[#210c04] hover:text-[#f3dfae]"
+                    className="rounded-xl p-1.5 text-[#c9b69a] transition-colors hover:bg-[#210c04] hover:text-[#f3dfae]"
                   >
                     <X className="h-4 w-4" />
                   </button>

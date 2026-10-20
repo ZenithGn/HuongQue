@@ -80,7 +80,7 @@ export function BannerManager({
               <img
                 src={banner.image_url || 'https://i.pinimg.com/736x/22/1f/04/221f049c7d6b71722f484f5cf37978ca.jpg'}
                 alt={banner.title}
-                className="h-20 w-full sm:w-32 rounded-lg object-cover border border-[#5c2b12]"
+                className="h-20 w-full sm:w-32 rounded-xl object-cover border border-[#5c2b12]"
               />
               <div className="flex-1 min-w-0 space-y-1">
                 <p className="text-sm font-semibold text-[#f3dfae] truncate">{banner.title}</p>
@@ -103,7 +103,7 @@ export function BannerManager({
                 <button
                   type="button"
                   onClick={() => setEditingId(banner.banner_id)}
-                  className="rounded-lg border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
+                  className="rounded-xl border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
                 >
                   Sửa
                 </button>
@@ -116,7 +116,7 @@ export function BannerManager({
                   />
                   <button
                     type="submit"
-                    className="rounded-lg border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
+                    className="rounded-xl border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
                   >
                     {banner.is_active ? 'Ẩn' : 'Hiện'}
                   </button>
@@ -130,7 +130,7 @@ export function BannerManager({
                   <input type="hidden" name="banner_id" value={String(banner.banner_id)} />
                   <button
                     type="submit"
-                    className="rounded-lg border border-[#a33b20] bg-[#2a0707]/70 px-3 py-1.5 text-[11px] font-medium text-rose-200 hover:bg-[#2a0707]"
+                    className="rounded-xl border border-[#a33b20] bg-[#2a0707]/70 px-3 py-1.5 text-[11px] font-medium text-rose-200 hover:bg-[#2a0707]"
                   >
                     Xóa
                   </button>
@@ -222,7 +222,7 @@ export function BannerManager({
                 name="image"
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
-                className={`${adminInputClass} file:mr-3 file:rounded-lg file:border-0 file:bg-[#210c04] file:px-3 file:py-1.5 file:text-[#f3dfae]`}
+                className={`${adminInputClass} file:mr-3 file:rounded-xl file:border-0 file:bg-[#210c04] file:px-3 file:py-1.5 file:text-[#f3dfae]`}
               />
             </Field>
 

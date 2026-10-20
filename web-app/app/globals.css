@@ -29,6 +29,18 @@ body {
   font-family: var(--font-sans);
 }
 
+/* Full-bleed photo treatment is scoped to the login route only. */
+.login-scene {
+  color-scheme: light;
+  scrollbar-color: #8a5630 #f3dfae;
+}
+
+@media (max-width: 640px) {
+  .login-scene {
+    background-position: 51% center !important;
+  }
+}
+
 /*
  * Bề mặt trình duyệt cũng thuộc hệ: thanh cuộn, vệt chọn chữ và con trỏ đều lấy từ bảng Sơn Mài
  * thay vì để mặc định của trình duyệt (mặc định là xám sáng, lạc hẳn khỏi nền nâu).

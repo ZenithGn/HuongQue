@@ -51,7 +51,7 @@ export function ActionForm({
         <input key={key} type="hidden" name={key} value={String(value)} />
       ))}
       <div className={className === 'inline' ? 'inline-flex' : undefined}>
-        <button type="submit" className={`rounded-lg px-3 py-1.5 text-[11px] font-medium ${buttonTone}`}>
+        <button type="submit" className={`rounded-xl px-3 py-1.5 text-[11px] font-medium ${buttonTone}`}>
           {children}
         </button>
       </div>

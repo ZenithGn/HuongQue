@@ -70,7 +70,7 @@ export function ProductCrossSell({ items, isCategoryFallback = false }: ProductC
                 <span className="text-sm font-bold font-mono text-[#c59a4b]">{formatVND(item.price)}</span>
                 <Link
                   href={`/san-pham/${item.slug}`}
-                  className="text-[11px] font-semibold px-2.5 py-1.5 rounded-lg bg-[#c59a4b]/15 text-[#c59a4b] hover:bg-[#c59a4b] hover:text-[#120401] transition-all flex items-center gap-1"
+                  className="text-[11px] font-semibold px-2.5 py-1.5 rounded-xl bg-[#c59a4b]/15 text-[#c59a4b] hover:bg-[#c59a4b] hover:text-[#120401] transition-all flex items-center gap-1"
                 >
                   Xem <ArrowUpRight className="w-3 h-3" />
                 </Link>

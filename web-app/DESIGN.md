@@ -48,9 +48,6 @@ typography:
     fontWeight: 400
     lineHeight: 1.5
 rounded:
-  sm: "4px"
-  md: "6px"
-  lg: "8px"
   xl: "12px"
   "2xl": "16px"
   "3xl": "24px"
@@ -214,9 +211,9 @@ Hệ **cũng** đang dùng halo lệch 0 màu (nút `0 0 15px`) — chúng chỉ
 
 ## Shapes
 
-Ngôn ngữ hình học là **bo tròn lớn và nhất quán**. `rounded-xl` (12px) là mặc định cho mọi thứ tương tác — nút, ô nhập, chip, tile (145 lần). `rounded-2xl` (16px) dành cho card và khối nội dung (70 lần). `rounded-3xl` (24px) chỉ cho khung lớn (17 lần). `rounded-full` cho vòng tròn logo, badge vùng miền, chip nhãn (55 lần).
+Ngôn ngữ hình học là **bo tròn lớn và nhất quán**. `rounded-xl` (12px) là mặc định cho mọi thứ tương tác — nút, ô nhập, chip, tile. `rounded-2xl` (16px) dành cho card và khối nội dung. `rounded-3xl` (24px) chỉ cho khung lớn. `rounded-full` cho vòng tròn logo, badge vùng miền, chip nhãn.
 
-`rounded-sm`/`rounded-md` gần như không tồn tại (1 và 2 lần) — **không dùng góc nhọn**; một góc 2px trong hệ này đọc như lỗi.
+Không dùng bán kính dưới 12px (`rounded-sm`, `rounded-md`, `rounded-lg`) — **không dùng góc nhọn**; bán kính nhỏ làm lệch ngôn ngữ hình học của hệ.
 
 Viền: **1px, luôn là Vỏ Trấu** (#5c2b12). Không có viền trái/phải màu dày — dấu hiệu báo lỗi dùng **nền đỏ tối + viền đỏ 1px**, không dùng thanh màu bên hông.
 

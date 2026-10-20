@@ -123,7 +123,7 @@ export default async function AdminProductsPage({
                       'https://i.pinimg.com/736x/22/1f/04/221f049c7d6b71722f484f5cf37978ca.jpg'
                     }
                     alt={product.name}
-                    className="w-11 h-11 rounded-lg object-cover border border-[#5c2b12]"
+                    className="w-11 h-11 rounded-xl object-cover border border-[#5c2b12]"
                   />
                 </td>
                 <td className="py-3 pr-4">
@@ -152,7 +152,7 @@ export default async function AdminProductsPage({
                   <div className="flex items-center justify-end gap-2">
                     <Link
                       href={`/admin/san-pham/${product.product_id}`}
-                      className="px-3 py-1.5 rounded-lg bg-[#210c04] hover:bg-[#381a0b] text-[#f3dfae] font-medium"
+                      className="px-3 py-1.5 rounded-xl bg-[#210c04] hover:bg-[#381a0b] text-[#f3dfae] font-medium"
                     >
                       Sửa
                     </Link>
@@ -165,7 +165,7 @@ export default async function AdminProductsPage({
                       />
                       <button
                         type="submit"
-                        className="px-3 py-1.5 rounded-lg border border-[#5c2b12] hover:bg-[#210c04] text-[#c9b69a] font-medium"
+                        className="px-3 py-1.5 rounded-xl border border-[#5c2b12] hover:bg-[#210c04] text-[#c9b69a] font-medium"
                       >
                         {product.is_active ? 'Ẩn' : 'Hiện'}
                       </button>

@@ -90,7 +90,7 @@ export function CategoryManager({
                     <button
                       type="button"
                       onClick={() => setEditingId(category.category_id)}
-                      className="rounded-lg border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
+                      className="rounded-xl border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
                     >
                       Sửa
                     </button>

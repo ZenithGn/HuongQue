@@ -30,7 +30,7 @@ export function ProductGrid({
           <div className="pt-2">
             <Link
               href="/san-pham"
-              className="inline-block text-xs font-semibold px-4 py-2 rounded-lg bg-[#c59a4b] text-[#120401] hover:bg-[#d4af37] transition-colors"
+              className="inline-block text-xs font-semibold px-4 py-2 rounded-xl bg-[#c59a4b] text-[#120401] hover:bg-[#d4af37] transition-colors"
             >
               Xem tất cả sản phẩm
             </Link>

@@ -71,7 +71,7 @@ export function MobileNav({ isAuthenticated }: MobileNavProps) {
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={open ? 'Đóng menu' : 'Mở menu'}
-        className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-[#5c2b12] text-[#f3dfae] transition-colors hover:border-[#c59a4b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d4af37]"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[#5c2b12] text-[#f3dfae] transition-colors hover:border-[#c59a4b] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d4af37]"
       >
         {open ? <X aria-hidden className="h-5 w-5" /> : <Menu aria-hidden className="h-5 w-5" />}
       </button>

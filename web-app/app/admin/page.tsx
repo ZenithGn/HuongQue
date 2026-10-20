@@ -39,7 +39,7 @@ function StatCard({
     <div className={`${adminCardClass} space-y-3`}>
       <div className="flex items-center justify-between">
         <span className="text-xs text-[#c9b69a] font-medium">{label}</span>
-        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${tones[tone]}`}>
+        <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${tones[tone]}`}>
           <Icon className="w-4 h-4" />
         </div>
       </div>

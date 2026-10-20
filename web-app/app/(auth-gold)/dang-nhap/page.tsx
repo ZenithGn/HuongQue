@@ -1,166 +1,201 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { loginAction, ActionResponse } from '@/lib/actions/auth';
-import { Mail, Lock, AlertCircle, ArrowRight, LogIn, CheckCircle2 } from 'lucide-react';
+import {
+  AlertCircle,
+  ArrowRight,
+  CheckCircle2,
+  Eye,
+  EyeOff,
+  LockKeyhole,
+  Mail,
+  ShieldCheck,
+} from 'lucide-react';
 
-const initialState: ActionResponse = {
-  success: false,
-};
+const initialState: ActionResponse = { success: false };
 
-const CARD_CLASS =
-  'w-full max-w-md rounded-2xl border border-[#5c2b12]/80 bg-[#180702]/90 p-8 shadow-[0_10px_40px_rgba(0,0,0,0.8)] backdrop-blur-md relative overflow-hidden text-[#f3dfae]';
-
-// Placeholder dùng tông vàng nâu sáng (#a98a5f) để đạt tương phản ≥4.5:1 trên nền #120401.
-const INPUT_CLASS =
-  'w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#120401]/90 border border-[#5c2b12] text-xs text-[#f3dfae] placeholder-[#a98a5f] caret-[#d4af37] focus:outline-none focus:border-[#c59a4b] focus:ring-1 focus:ring-[#c59a4b] transition-all';
-
-const LABEL_CLASS = 'block text-xs font-medium text-[#c9b69a]';
-const ICON_CLASS = 'absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#c49a52]';
+const inputClass =
+  'w-full rounded-xl border border-[#d9cbb5] bg-white/85 px-4 py-3 text-base text-[#29170f] placeholder:text-[#806f5e] caret-[#861b1b] transition-colors focus:border-[#861b1b] focus:outline-none focus:ring-2 focus:ring-[#861b1b]/20';
 
 export default function DangNhapPage() {
   const searchParams = useSearchParams();
   const nextParam = searchParams.get('next') || '/';
   const justRegistered = searchParams.get('registered') === '1';
   const linkError = searchParams.get('error');
-
   const [state, formAction, isPending] = useActionState(loginAction, initialState);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className={CARD_CLASS}>
-      {/* Viền sáng ánh kim tinh tế phía trên */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-[#c59a4b]/60 to-transparent"
-        aria-hidden="true"
-      />
+    <main
+      className="login-scene fixed inset-0 z-[100] isolate flex min-h-0 items-center justify-center overflow-x-hidden overflow-y-auto px-4 py-6 text-[#29170f] selection:bg-[#861b1b]/20 selection:text-[#29170f] sm:px-6 sm:py-8"
+      style={{
+        backgroundImage:
+          "linear-gradient(90deg, rgb(40 19 9 / 18%), rgb(40 19 9 / 8%) 48%, rgb(40 19 9 / 20%)), linear-gradient(180deg, rgb(38 19 10 / 10%), transparent 34%, rgb(38 19 10 / 14%)), url('/images/login-background.jpg')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center 54%',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
 
-      {/* Header Form */}
-      <div className="text-center space-y-2 mb-8">
-        <h1 className="text-2xl font-serif font-black text-[#f3dfae] tracking-tight">
-          Đăng Nhập Tài Khoản
-        </h1>
-        <p className="text-xs text-[#c9b69a]">
-          Đăng nhập để theo dõi đơn hàng và nhận ưu đãi Tết độc quyền
-        </p>
-      </div>
+      <Link
+        href="/"
+        className="absolute left-5 top-5 z-10 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/50 bg-[#fffaf0]/85 px-4 text-sm font-semibold text-[#502c1b] shadow-[0_4px_16px_rgba(43,20,8,0.12)] transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b] sm:left-8 sm:top-8"
+      >
+        <span aria-hidden="true">←</span> Về trang chủ
+      </Link>
 
-      {/* Thông báo đăng ký thành công */}
-      {justRegistered && (
-        <div className="mb-5 p-3.5 rounded-xl bg-[#34d399]/10 border border-[#34d399]/40 text-[#34d399] text-xs flex items-center gap-2.5">
-          <CheckCircle2 className="w-4 h-4 shrink-0 text-[#34d399]" />
-          <span>Đăng ký thành công! Hãy đăng nhập bằng thông tin vừa tạo.</span>
-        </div>
-      )}
+      <section
+        aria-labelledby="login-title"
+        className="login-card relative z-10 w-full max-w-[420px] rounded-2xl border border-white/70 bg-[#fffaf0]/95 px-6 py-7 shadow-[0_18px_55px_rgba(43,20,8,0.28)] sm:px-9 sm:py-8"
+      >
+        <header className="mb-7 text-center">
+          <Link
+            href="/"
+            aria-label="Hương Quê – về trang chủ"
+            className="mx-auto mb-5 inline-flex items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b] focus-visible:ring-offset-4"
+          >
+            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#b8863b]/60 bg-[#861b1b] text-[#fff2d3] shadow-[0_5px_12px_rgba(93,25,14,0.18)]">
+              <svg viewBox="0 0 24 24" fill="none" className="h-7 w-7" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
+                <path d="M12 3c-1.5 3-4 4.5-7 4.5 3 3 4.5 5.5 4.5 8.5 3-1.5 5.5-1.5 8.5 0 0-3 1.5-5.5 4.5-8.5-3 0-5.5-1.5-7-4.5z" fill="currentColor" fillOpacity=".22" />
+                <circle cx="12" cy="12" r="2" fill="currentColor" />
+              </svg>
+            </span>
+            <span className="text-left">
+              <span className="block font-serif text-xl font-bold tracking-wide text-[#4a2418]">HƯƠNG QUÊ</span>
+              <span className="mt-0.5 block text-[10px] font-semibold uppercase tracking-[0.16em] text-[#76502f]">
+                Tinh Hoa Quà Tết Ba Miền
+              </span>
+            </span>
+          </Link>
+          <h1 id="login-title" className="font-serif text-[1.85rem] font-bold leading-tight tracking-[-0.02em] text-[#301a12]">
+            Đăng nhập
+          </h1>
+          <p className="mt-2 text-sm leading-6 text-[#634b39]">
+            Chào mừng bạn trở lại. Cùng chuẩn bị món quà Tết thật trọn vẹn.
+          </p>
+        </header>
 
-      {/* Thông báo lỗi link xác nhận */}
-      {linkError && (
-        <div className="mb-5 p-3.5 rounded-xl bg-[#2a0707]/80 border border-[#a33b20]/80 text-rose-300 text-xs flex items-center gap-2.5">
-          <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+        {justRegistered && (
+          <div role="status" className="mb-5 flex gap-2.5 rounded-xl border border-emerald-800/20 bg-emerald-50 px-3.5 py-3 text-sm leading-5 text-emerald-900">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>Đăng ký thành công! Hãy đăng nhập bằng thông tin vừa tạo.</span>
+          </div>
+        )}
+
+        {linkError && (
+          <div role="alert" className="mb-5 flex gap-2.5 rounded-xl border border-[#a33b20]/30 bg-[#fcece5] px-3.5 py-3 text-sm leading-5 text-[#702414]">
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>Link xác nhận không hợp lệ hoặc đã hết hạn. Vui lòng đăng nhập hoặc yêu cầu link mới.</span>
+          </div>
+        )}
+
+        {state?.message && !state.success && (
+          <div role="alert" className="mb-5 flex gap-2.5 rounded-xl border border-[#a33b20]/30 bg-[#fcece5] px-3.5 py-3 text-sm leading-5 text-[#702414]">
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>{state.message}</span>
+          </div>
+        )}
+
+        {state?.success && state.message && (
+          <div role="status" className="mb-5 flex gap-2.5 rounded-xl border border-emerald-800/20 bg-emerald-50 px-3.5 py-3 text-sm leading-5 text-emerald-900">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>{state.message}</span>
+          </div>
+        )}
+
+        <form action={formAction} className="space-y-5">
+          <input type="hidden" name="next" value={nextParam} />
+
+          <div className="space-y-2">
+            <label className="block text-sm font-semibold text-[#38251a]" htmlFor="login-email">
+              Địa chỉ email
+            </label>
+            <div className="relative">
+              <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#76502f]" aria-hidden="true" />
+              <input
+                id="login-email"
+                type="email"
+                name="email"
+                required
+                autoComplete="email"
+                placeholder="ten@vidu.vn"
+                aria-invalid={Boolean(state?.fieldErrors?.email)}
+                aria-describedby={state?.fieldErrors?.email ? 'login-email-error' : undefined}
+                className={`${inputClass} pl-11`}
+              />
+            </div>
+            {state?.fieldErrors?.email && (
+              <p id="login-email-error" className="pl-1 text-sm text-[#702414]">{state.fieldErrors.email[0]}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center justify-between gap-3">
+              <label className="block text-sm font-semibold text-[#38251a]" htmlFor="login-password">
+                Mật khẩu
+              </label>
+              <Link
+                href="/quen-mat-khau"
+                className="rounded text-sm font-semibold text-[#7a271e] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b]"
+              >
+                Quên mật khẩu?
+              </Link>
+            </div>
+            <div className="relative">
+              <LockKeyhole className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#76502f]" aria-hidden="true" />
+              <input
+                id="login-password"
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                required
+                autoComplete="current-password"
+                placeholder="Nhập mật khẩu"
+                aria-invalid={Boolean(state?.fieldErrors?.password)}
+                aria-describedby={state?.fieldErrors?.password ? 'login-password-error' : undefined}
+                className={`${inputClass} pl-11 pr-12`}
+              />
+              <button
+                type="button"
+                aria-label={showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'}
+                aria-pressed={showPassword}
+                onClick={() => setShowPassword((visible) => !visible)}
+                className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-lg text-[#634b39] transition-colors hover:bg-[#f2e8d8] hover:text-[#4a2418] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b]"
+              >
+                {showPassword ? <EyeOff className="h-[18px] w-[18px]" /> : <Eye className="h-[18px] w-[18px]" />}
+              </button>
+            </div>
+            {state?.fieldErrors?.password && (
+              <p id="login-password-error" className="pl-1 text-sm text-[#702414]">{state.fieldErrors.password[0]}</p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            disabled={isPending}
+            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#861b1b] px-4 py-3 text-sm font-bold text-[#fff9ed] shadow-[0_6px_16px_rgba(95,25,18,0.22)] transition-colors hover:bg-[#6f1416] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b] focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-60"
+          >
+            {isPending ? (
+              <><span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true" /> Đang xác thực...</>
+            ) : (
+              <>Đăng nhập <ArrowRight className="h-4 w-4" aria-hidden="true" /></>
+            )}
+          </button>
+        </form>
+
+        <div className="mt-6 flex items-start justify-center gap-2 border-t border-[#dfd2bf] pt-5 text-center text-sm leading-6 text-[#634b39]">
+          <ShieldCheck className="mt-1 h-4 w-4 shrink-0 text-[#76502f]" aria-hidden="true" />
           <span>
-            Link xác nhận không hợp lệ hoặc đã hết hạn. Vui lòng đăng nhập hoặc yêu cầu link mới.
+            Chưa có tài khoản?{' '}
+            <Link href="/dang-ky" className="font-bold text-[#7a271e] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b]">
+              Đăng ký ngay
+            </Link>
           </span>
         </div>
-      )}
-
-      {/* Thông báo lỗi server/xác thực */}
-      {state?.message && !state.success && (
-        <div className="mb-5 p-3.5 rounded-xl bg-[#2a0707]/80 border border-[#a33b20]/80 text-rose-300 text-xs flex items-center gap-2.5">
-          <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
-          <span>{state.message}</span>
-        </div>
-      )}
-
-      {/* Thông báo thành công từ server */}
-      {state?.success && state.message && (
-        <div className="mb-5 p-3.5 rounded-xl bg-[#34d399]/10 border border-[#34d399]/40 text-[#34d399] text-xs flex items-center gap-2.5">
-          <CheckCircle2 className="w-4 h-4 shrink-0 text-[#34d399]" />
-          <span>{state.message}</span>
-        </div>
-      )}
-
-      {/* Form Nhập Liệu */}
-      <form action={formAction} className="space-y-5">
-        <input type="hidden" name="next" value={nextParam} />
-
-        {/* Ô nhập Email */}
-        <div className="space-y-1.5">
-          <label className={LABEL_CLASS} htmlFor="login-email">
-            Địa chỉ Email
-          </label>
-          <div className="relative">
-            <div className={ICON_CLASS}>
-              <Mail className="w-4 h-4" />
-            </div>
-            <input
-              id="login-email"
-              type="email"
-              name="email"
-              required
-              autoComplete="email"
-              placeholder="ten@vidu.vn"
-              className={INPUT_CLASS}
-            />
-          </div>
-          {state?.fieldErrors?.email && (
-            <p className="text-[11px] text-rose-400 pl-1">{state.fieldErrors.email[0]}</p>
-          )}
-        </div>
-
-        {/* Ô nhập Mật khẩu */}
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between">
-            <label className={LABEL_CLASS} htmlFor="login-password">
-              Mật khẩu
-            </label>
-            <Link
-              href="/quen-mat-khau"
-              className="text-[11px] text-[#c49a52] hover:text-[#f3dfae] hover:underline transition-colors"
-            >
-              Quên mật khẩu?
-            </Link>
-          </div>
-          <div className="relative">
-            <div className={ICON_CLASS}>
-              <Lock className="w-4 h-4" />
-            </div>
-            <input
-              id="login-password"
-              type="password"
-              name="password"
-              required
-              autoComplete="current-password"
-              placeholder="••••••••"
-              className={INPUT_CLASS}
-            />
-          </div>
-          {state?.fieldErrors?.password && (
-            <p className="text-[11px] text-rose-400 pl-1">{state.fieldErrors.password[0]}</p>
-          )}
-        </div>
-
-        {/* Nút Đăng nhập */}
-        <button
-          type="submit"
-          disabled={isPending}
-          className="group w-full py-3 px-4 rounded-xl bg-gradient-to-r from-[#b8863b] via-[#d4af37] to-[#b8863b] text-[#120401] font-bold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:brightness-110 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
-        >
-          <LogIn className="w-4 h-4" />
-          <span>{isPending ? 'Đang xác thực...' : 'Đăng nhập ngay'}</span>
-        </button>
-      </form>
-
-      {/* Chuyển hướng tới Đăng ký */}
-      <div className="mt-8 pt-6 border-t border-[#381a0b] text-center text-xs text-[#c9b69a]">
-        Chưa có tài khoản quà Tết?{' '}
-        <Link
-          href="/dang-ky"
-          className="font-bold text-[#c59a4b] hover:text-[#f3dfae] hover:underline transition-colors inline-flex items-center gap-1"
-        >
-          Đăng ký ngay <ArrowRight className="w-3 h-3" />
-        </Link>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }

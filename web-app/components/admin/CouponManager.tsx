@@ -116,7 +116,7 @@ export function CouponManager({
                           ? 'Mã đã có đơn nên chỉ được tắt, không sửa'
                           : 'Sửa mã'
                       }
-                      className="rounded-lg border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04] disabled:cursor-not-allowed disabled:opacity-40"
+                      className="rounded-xl border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04] disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       Sửa
                     </button>
@@ -129,7 +129,7 @@ export function CouponManager({
                       />
                       <button
                         type="submit"
-                        className="rounded-lg border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
+                        className="rounded-xl border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
                       >
                         {coupon.isActive ? 'Tắt' : 'Bật'}
                       </button>

@@ -72,7 +72,7 @@ function CartRow({
           </p>
 
           {!item.available && (
-            <p className="mt-1.5 inline-flex items-center gap-1.5 rounded-lg bg-[#2a0707]/70 px-2 py-1 text-[11px] font-medium text-[#e08a8a]">
+            <p className="mt-1.5 inline-flex items-center gap-1.5 rounded-xl bg-[#2a0707]/70 px-2 py-1 text-[11px] font-medium text-[#e08a8a]">
               <AlertTriangle className="h-3.5 w-3.5" />
               Tạm hết hàng hoặc không đủ số lượng — vui lòng giảm số lượng hoặc xoá dòng này
               trước khi thanh toán.
@@ -115,7 +115,7 @@ function CartRow({
           aria-label={`Xoá ${item.name} khỏi giỏ`}
           onClick={() => onRemove(item.productId)}
           disabled={busy}
-          className="rounded-lg border border-[#5c2b12] p-2 text-[#c9b69a] hover:border-[#a33b20] hover:text-[#e08a8a] disabled:opacity-50"
+          className="rounded-xl border border-[#5c2b12] p-2 text-[#c9b69a] hover:border-[#a33b20] hover:text-[#e08a8a] disabled:opacity-50"
         >
           <Trash2 className="h-4 w-4" />
         </button>
