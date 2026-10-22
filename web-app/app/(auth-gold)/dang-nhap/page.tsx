@@ -4,6 +4,9 @@ import { useActionState, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { loginAction, ActionResponse } from '@/lib/actions/auth';
+import AuthBrand from '@/components/auth/AuthBrand';
+import AuthPageTransition from '@/components/auth/AuthPageTransition';
+import AuthTransitionLink from '@/components/auth/AuthTransitionLink';
 import {
   AlertCircle,
   ArrowRight,
@@ -30,15 +33,17 @@ export default function DangNhapPage() {
 
   return (
     <main
-      className="login-scene fixed inset-0 z-[100] isolate flex min-h-0 items-center justify-center overflow-x-hidden overflow-y-auto px-4 py-6 text-[#29170f] selection:bg-[#861b1b]/20 selection:text-[#29170f] sm:px-6 sm:py-8"
-      style={{
+      className="login-scene fixed inset-0 z-[100] isolate flex min-h-0 items-center justify-center overflow-x-hidden overflow-y-auto bg-[#2a1309] px-4 py-6 text-[#29170f] selection:bg-[#861b1b]/20 selection:text-[#29170f] sm:px-6 sm:py-8"
+    >
+      <AuthPageTransition name="auth-login">
+        <div aria-hidden="true" className="auth-page-backdrop absolute inset-0" style={{
         backgroundImage:
           "linear-gradient(90deg, rgb(40 19 9 / 18%), rgb(40 19 9 / 8%) 48%, rgb(40 19 9 / 20%)), linear-gradient(180deg, rgb(38 19 10 / 10%), transparent 34%, rgb(38 19 10 / 14%)), url('/images/login-background.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center 54%',
         backgroundRepeat: 'no-repeat',
-      }}
-    >
+        }} />
+      </AuthPageTransition>
 
       <Link
         href="/"
@@ -47,30 +52,13 @@ export default function DangNhapPage() {
         <span aria-hidden="true">←</span> Về trang chủ
       </Link>
 
+      <AuthPageTransition name="auth-login">
       <section
         aria-labelledby="login-title"
-        className="login-card relative z-10 w-full max-w-[420px] rounded-2xl border border-white/70 bg-[#fffaf0]/95 px-6 py-7 shadow-[0_18px_55px_rgba(43,20,8,0.28)] sm:px-9 sm:py-8"
+        className="login-card auth-entry-card relative z-10 w-full max-w-[420px] rounded-2xl border border-white/70 bg-[#fffaf0]/95 px-6 py-7 shadow-[0_18px_55px_rgba(43,20,8,0.28)] sm:px-9 sm:py-8"
       >
         <header className="mb-7 text-center">
-          <Link
-            href="/"
-            aria-label="Hương Quê – về trang chủ"
-            className="mx-auto mb-5 inline-flex items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b] focus-visible:ring-offset-4"
-          >
-            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#b8863b]/60 bg-[#861b1b] text-[#fff2d3] shadow-[0_5px_12px_rgba(93,25,14,0.18)]">
-              <svg viewBox="0 0 24 24" fill="none" className="h-7 w-7" aria-hidden="true">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-                <path d="M12 3c-1.5 3-4 4.5-7 4.5 3 3 4.5 5.5 4.5 8.5 3-1.5 5.5-1.5 8.5 0 0-3 1.5-5.5 4.5-8.5-3 0-5.5-1.5-7-4.5z" fill="currentColor" fillOpacity=".22" />
-                <circle cx="12" cy="12" r="2" fill="currentColor" />
-              </svg>
-            </span>
-            <span className="text-left">
-              <span className="block font-serif text-xl font-bold tracking-wide text-[#4a2418]">HƯƠNG QUÊ</span>
-              <span className="mt-0.5 block text-[10px] font-semibold uppercase tracking-[0.16em] text-[#76502f]">
-                Tinh Hoa Quà Tết Ba Miền
-              </span>
-            </span>
-          </Link>
+          <AuthBrand />
           <h1 id="login-title" className="font-serif text-[1.85rem] font-bold leading-tight tracking-[-0.02em] text-[#301a12]">
             Đăng nhập
           </h1>
@@ -138,12 +126,13 @@ export default function DangNhapPage() {
               <label className="block text-sm font-semibold text-[#38251a]" htmlFor="login-password">
                 Mật khẩu
               </label>
-              <Link
+              <AuthTransitionLink
                 href="/quen-mat-khau"
+                direction="forward"
                 className="rounded text-sm font-semibold text-[#7a271e] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b]"
               >
                 Quên mật khẩu?
-              </Link>
+              </AuthTransitionLink>
             </div>
             <div className="relative">
               <LockKeyhole className="pointer-events-none absolute left-3.5 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#76502f]" aria-hidden="true" />
@@ -190,12 +179,14 @@ export default function DangNhapPage() {
           <ShieldCheck className="mt-1 h-4 w-4 shrink-0 text-[#76502f]" aria-hidden="true" />
           <span>
             Chưa có tài khoản?{' '}
-            <Link href="/dang-ky" className="font-bold text-[#7a271e] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b]">
+            <AuthTransitionLink href="/dang-ky" direction="forward" className="font-bold text-[#7a271e] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b]">
               Đăng ký ngay
-            </Link>
+            </AuthTransitionLink>
           </span>
         </div>
       </section>
+      </AuthPageTransition>
     </main>
   );
 }
+

@@ -30,13 +30,21 @@ body {
 }
 
 /* Full-bleed photo treatment is scoped to the login route only. */
-.login-scene {
+.login-scene,
+.auth-scene {
   color-scheme: light;
   scrollbar-color: #8a5630 #f3dfae;
 }
 
+@media (min-width: 768px) and (min-height: 900px) {
+  .auth-scene-register {
+    align-items: center;
+  }
+}
+
 @media (max-width: 640px) {
-  .login-scene {
+  .login-scene,
+  .auth-scene {
     background-position: 51% center !important;
   }
 }
@@ -128,6 +136,80 @@ html {
   padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
 }
 
+/* Direct entry and route changes use one deterministic CSS lifecycle. */
+@keyframes auth-backdrop-fade-in {
+  from {
+    opacity: 0.78;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes auth-card-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(5vh) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.auth-page-backdrop {
+  animation: auth-backdrop-fade-in 720ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.auth-entry-card {
+  animation: auth-card-rise-in 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes auth-route-exit-left {
+  from { opacity: 1; transform: translateX(0) scale(1); }
+  to { opacity: 0; transform: translateX(calc(-50vw - 50%)) scale(0.985); }
+}
+
+@keyframes auth-route-enter-right {
+  from { opacity: 0.12; transform: translateX(calc(50vw + 50%)) scale(0.985); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes auth-route-exit-right {
+  from { opacity: 1; transform: translateX(0) scale(1); }
+  to { opacity: 0; transform: translateX(calc(50vw + 50%)) scale(0.985); }
+}
+
+@keyframes auth-route-enter-left {
+  from { opacity: 0.12; transform: translateX(calc(-50vw - 50%)) scale(0.985); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes auth-backdrop-crossfade-in {
+  from { opacity: 0.76; }
+  to { opacity: 1; }
+}
+
+html[data-auth-route-state='exit'][data-auth-route-direction='forward'] .auth-entry-card {
+  animation: auth-route-exit-left 220ms cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+html[data-auth-route-state='exit'][data-auth-route-direction='back'] .auth-entry-card {
+  animation: auth-route-exit-right 220ms cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+html[data-auth-route-state='enter'][data-auth-route-direction='forward'] .auth-entry-card {
+  animation: auth-route-enter-right 620ms cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+html[data-auth-route-state='enter'][data-auth-route-direction='back'] .auth-entry-card {
+  animation: auth-route-enter-left 620ms cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+html[data-auth-route-state='enter'] .auth-page-backdrop {
+  animation: auth-backdrop-crossfade-in 500ms ease-out both !important;
+}
+
 /*
  * Landscape trên điện thoại: khung nhìn chỉ còn ~390px chiều cao, nên phần dẫn nhập (vốn lặp
  * lại điều nút chọn nơi nhận đã nói) được bỏ để mốc chốt đơn và hành động chính lên gần màn đầu.
@@ -151,5 +233,11 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  html[data-auth-route-state] .auth-entry-card,
+  html[data-auth-route-state] .auth-page-backdrop {
+    animation-duration: 0.01ms !important;
+    transform: none !important;
   }
 }

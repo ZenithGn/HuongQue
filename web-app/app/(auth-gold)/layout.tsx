@@ -21,10 +21,11 @@ export default function AuthGoldLayout({ children }: { children: React.ReactNode
 
   return (
     <div className="auth-gold-shell min-h-screen bg-[#120401] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#381a0b]/40 via-[#120401] to-[#0a0200] flex flex-col items-center justify-center px-4 py-12 text-[#f3dfae] selection:bg-[#c59a4b]/30 selection:text-[#fff7e0]">
-      {pathname !== '/dang-nhap' && <Link
-        href="/"
-        className="group flex items-center gap-3 mb-8 rounded-2xl transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c59a4b] focus-visible:ring-offset-4 focus-visible:ring-offset-[#120401]"
-      >
+      {pathname !== '/dang-nhap' && pathname !== '/dang-ky' && (
+        <Link
+          href="/"
+          className="group mb-8 flex items-center gap-3 rounded-2xl transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c59a4b] focus-visible:ring-offset-4 focus-visible:ring-offset-[#120401]"
+        >
         <div className="relative flex h-12 w-12 items-center justify-center rounded-full border border-[#c59a4b]/60 bg-gradient-to-br from-[#381a0b] to-[#120401] p-2 shadow-[0_0_15px_rgba(197,154,75,0.25)] transition-all group-hover:border-[#f3dfae] group-hover:shadow-[0_0_20px_rgba(243,223,174,0.4)]">
           <svg
             className="h-7 w-7 text-[#c59a4b] transition-colors group-hover:text-[#f3dfae]"
@@ -51,7 +52,8 @@ export default function AuthGoldLayout({ children }: { children: React.ReactNode
             Tinh Hoa Quà Việt
           </span>
         </div>
-      </Link>}
+        </Link>
+      )}
 
       <Suspense
         fallback={<div className="py-10 text-center text-xs text-[#c9b69a]">Đang tải giao diện...</div>}

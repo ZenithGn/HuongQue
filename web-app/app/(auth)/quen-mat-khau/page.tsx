@@ -1,9 +1,10 @@
 'use client';
 
 import { useActionState, useState } from 'react';
-import Link from 'next/link';
 import { requestResetAction, ActionResponse } from '@/lib/actions/auth';
 import AuthBrand from '@/components/auth/AuthBrand';
+import AuthPageTransition from '@/components/auth/AuthPageTransition';
+import AuthTransitionLink from '@/components/auth/AuthTransitionLink';
 import { AlertCircle, ArrowLeft, ArrowRight, CheckCircle2, Mail } from 'lucide-react';
 
 const initialState: ActionResponse = { success: false };
@@ -14,18 +15,21 @@ export default function QuenMatKhauPage() {
 
   return (
     <main
-      className="auth-scene auth-forgot-scene fixed inset-0 z-[100] isolate flex min-h-0 items-center justify-center overflow-x-hidden overflow-y-auto px-4 py-6 text-[#29170f] selection:bg-[#861b1b]/20 selection:text-[#29170f] sm:px-6 sm:py-8"
-      style={{
+      className="auth-scene fixed inset-0 z-[100] isolate flex min-h-0 items-center justify-center overflow-x-hidden overflow-y-auto bg-[#2a1309] px-4 py-6 text-[#29170f] selection:bg-[#861b1b]/20 selection:text-[#29170f] sm:px-6 sm:py-8"
+    >
+      <AuthPageTransition name="auth-forgot-password">
+        <div aria-hidden="true" className="auth-page-backdrop absolute inset-0" style={{
         backgroundImage:
           "linear-gradient(90deg, rgb(40 19 9 / 18%), rgb(40 19 9 / 8%) 48%, rgb(40 19 9 / 20%)), linear-gradient(180deg, rgb(38 19 10 / 10%), transparent 34%, rgb(38 19 10 / 14%)), url('/images/register-backgruond.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center 52%',
         backgroundRepeat: 'no-repeat',
-      }}
-    >
+        }} />
+      </AuthPageTransition>
+      <AuthPageTransition name="auth-forgot-password">
       <section
         aria-labelledby="forgot-password-title"
-        className="auth-forgot-card relative z-10 w-full max-w-[420px] rounded-2xl border border-white/70 bg-[#fffaf0]/95 px-6 py-7 shadow-[0_18px_55px_rgba(43,20,8,0.28)] sm:px-9 sm:py-8"
+        className="auth-entry-card relative z-10 w-full max-w-[420px] rounded-2xl border border-white/70 bg-[#fffaf0]/95 px-6 py-7 shadow-[0_18px_55px_rgba(43,20,8,0.28)] sm:px-9 sm:py-8"
       >
         <header className="mb-7 text-center">
           <AuthBrand />
@@ -111,15 +115,18 @@ export default function QuenMatKhauPage() {
         </form>
 
         <div className="mt-6 border-t border-[#dfd2bf] pt-5 text-center">
-          <Link
+          <AuthTransitionLink
             href="/dang-nhap"
+            direction="back"
             className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-3 text-sm font-semibold text-[#7a271e] underline-offset-4 transition-colors hover:bg-[#f2e8d8] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b]"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             Quay lại đăng nhập
-          </Link>
+          </AuthTransitionLink>
         </div>
       </section>
+      </AuthPageTransition>
     </main>
   );
 }
+

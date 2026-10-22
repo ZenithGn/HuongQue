@@ -1,11 +1,20 @@
+'use client';
+
 import Link from 'next/link';
 import { Sparkles } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
+  if (pathname === '/quen-mat-khau') {
+    return <>{children}</>;
+  }
+
   return (
     <div className="min-h-screen bg-[#120401] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
       <div className="absolute inset-0 bg-radial from-[#861b1b]/40 via-[#120401] to-[#120401] pointer-events-none" />

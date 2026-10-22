@@ -4,6 +4,8 @@ import { useActionState, useState } from 'react';
 import Link from 'next/link';
 import { registerAction, ActionResponse } from '@/lib/actions/auth';
 import AuthBrand from '@/components/auth/AuthBrand';
+import AuthPageTransition from '@/components/auth/AuthPageTransition';
+import AuthTransitionLink from '@/components/auth/AuthTransitionLink';
 import {
   AlertCircle,
   ArrowRight,
@@ -28,15 +30,17 @@ export default function DangKyPage() {
 
   return (
     <main
-      className="auth-scene auth-scene-register fixed inset-0 z-[100] isolate flex min-h-0 items-start justify-center overflow-x-hidden overflow-y-auto px-4 pb-6 pt-20 text-[#29170f] selection:bg-[#861b1b]/20 selection:text-[#29170f] sm:px-6 sm:pb-8 sm:pt-20"
-      style={{
+      className="auth-scene auth-scene-register fixed inset-0 z-[100] isolate flex min-h-0 items-start justify-center overflow-x-hidden overflow-y-auto bg-[#2a1309] px-4 pb-6 pt-20 text-[#29170f] selection:bg-[#861b1b]/20 selection:text-[#29170f] sm:px-6 sm:pb-8 sm:pt-20"
+    >
+      <AuthPageTransition name="auth-register">
+        <div aria-hidden="true" className="auth-page-backdrop absolute inset-0" style={{
         backgroundImage:
           "linear-gradient(90deg, rgb(40 19 9 / 18%), rgb(40 19 9 / 8%) 48%, rgb(40 19 9 / 20%)), linear-gradient(180deg, rgb(38 19 10 / 10%), transparent 34%, rgb(38 19 10 / 14%)), url('/images/register-backgruond.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center 52%',
         backgroundRepeat: 'no-repeat',
-      }}
-    >
+        }} />
+      </AuthPageTransition>
       <Link
         href="/"
         className="absolute left-5 top-5 z-10 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/50 bg-[#fffaf0]/85 px-4 text-sm font-semibold text-[#502c1b] shadow-[0_4px_16px_rgba(43,20,8,0.12)] transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b] sm:left-8 sm:top-8"
@@ -45,9 +49,10 @@ export default function DangKyPage() {
         Về trang chủ
       </Link>
 
+      <AuthPageTransition name="auth-register">
       <section
         aria-labelledby="register-title"
-        className="relative z-10 mx-auto w-full max-w-[440px] rounded-2xl border border-white/70 bg-[#fffaf0]/95 px-6 py-6 shadow-[0_18px_55px_rgba(43,20,8,0.28)] sm:px-9 sm:py-7"
+        className="auth-entry-card relative z-10 mx-auto w-full max-w-[440px] rounded-2xl border border-white/70 bg-[#fffaf0]/95 px-6 py-6 shadow-[0_18px_55px_rgba(43,20,8,0.28)] sm:px-9 sm:py-7"
       >
         <header className="mb-5 text-center">
           <AuthBrand />
@@ -244,14 +249,17 @@ export default function DangKyPage() {
 
         <div className="mt-5 border-t border-[#dfd2bf] pt-4 text-center text-sm leading-6 text-[#634b39]">
           Đã có tài khoản?{' '}
-          <Link
+          <AuthTransitionLink
             href="/dang-nhap"
+            direction="back"
             className="font-bold text-[#7a271e] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#861b1b]"
           >
             Đăng nhập
-          </Link>
+          </AuthTransitionLink>
         </div>
       </section>
+      </AuthPageTransition>
     </main>
   );
 }
+
