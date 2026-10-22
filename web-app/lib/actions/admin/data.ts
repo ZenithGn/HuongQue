@@ -533,6 +533,52 @@ export async function listOrdersPaged(
   return { ...outcome, data: paginateAdmin(outcome.data, page, pageSize) };
 }
 
+/**
+ * Đọc dòng sản phẩm cho một trang đơn bằng một truy vấn gộp, tránh N+1.
+ * Fallback giữ cùng giới hạn quét đã dùng ở luồng chi tiết khi schema không
+ * hỗ trợ bộ lọc order_id trực tiếp.
+ */
+export async function getOrderItemsForOrders(
+  orderIds: number[]
+): Promise<{ itemsByOrderId: Record<string, AdminOrderItemRow[]>; error: string | null }> {
+  const itemsByOrderId: Record<string, AdminOrderItemRow[]> = {};
+  const ids = [...new Set(orderIds.filter((id) => Number.isInteger(id) && id > 0))];
+  if (!ids.length) return { itemsByOrderId, error: null };
+  if (!hasSupabaseAdminConfig()) {
+    return { itemsByOrderId, error: MISSING_SERVICE_ROLE_MESSAGE };
+  }
+
+  const db = getSupabaseAdmin();
+  const direct = await db.from('order_items').select('*').in('order_id', ids);
+  let rows: unknown[];
+  if (!direct.error) {
+    rows = direct.data ?? [];
+  } else {
+    const fallback = await db.from('order_items').select('*').limit(1000);
+    if (fallback.error) {
+      return {
+        itemsByOrderId,
+        error: translateDbError(fallback.error.message, 'Không đọc được sản phẩm trong đơn hàng.'),
+      };
+    }
+    const idSet = new Set(ids);
+    rows = (fallback.data ?? []).filter((row) => {
+      const rawId = pickString(row, ['order_id', 'orderid']);
+      return rawId !== null && idSet.has(Number(rawId));
+    });
+  }
+
+  for (const row of rows) {
+    const rawId = pickString(row, ['order_id', 'orderid']);
+    if (rawId === null) continue;
+    const orderId = Number(rawId);
+    if (!ids.includes(orderId)) continue;
+    (itemsByOrderId[String(orderId)] ??= []).push(mapOrderItemRow(row));
+  }
+
+  return { itemsByOrderId, error: null };
+}
+
 export interface AdminOrderDetail {
   order: AdminOrderRow | null;
   items: AdminOrderItemRow[];
