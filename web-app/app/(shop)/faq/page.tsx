@@ -73,12 +73,12 @@ const FAQ_ITEMS: { question: string; answer: string }[] = [
 export default function FaqPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-      <header className="space-y-3 border-b border-stone-800 pb-6">
-        <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
+      <header className="space-y-3 border-b border-[#5c2b12] pb-6">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#c59a4b]">
           Hỗ trợ khách hàng
         </span>
-        <h1 className="text-3xl font-serif font-black text-stone-100">Câu Hỏi Thường Gặp</h1>
-        <p className="text-sm text-stone-400 leading-relaxed">
+        <h1 className="text-3xl font-serif font-black text-[#f3dfae]">Câu Hỏi Thường Gặp</h1>
+        <p className="text-sm text-[#c9b69a] leading-relaxed">
           Tổng hợp những thắc mắc phổ biến nhất về đặt quà Tết, thanh toán, giao nhận và dữ liệu cá nhân
           tại Hương Quê. Nếu chưa tìm thấy câu trả lời, hãy gọi hotline 0901 000 000 hoặc email
           lienhe@huongque.vn.
@@ -89,39 +89,39 @@ export default function FaqPage() {
         {FAQ_ITEMS.map((item) => (
           <details
             key={item.question}
-            className="group rounded-2xl bg-stone-900/70 border border-stone-800 open:border-amber-600/40 transition-colors"
+            className="group rounded-2xl bg-[#180702]/70 border border-[#5c2b12] open:border-[#5c2b12]/40 transition-colors"
           >
-            <summary className="cursor-pointer list-none px-5 py-4 flex items-center justify-between gap-4 text-sm font-semibold text-stone-100 hover:text-amber-300 transition-colors">
+            <summary className="cursor-pointer list-none px-5 py-4 flex items-center justify-between gap-4 text-sm font-semibold text-[#f3dfae] hover:text-[#c59a4b] transition-colors">
               <span>{item.question}</span>
-              <span className="shrink-0 text-amber-400 text-lg leading-none group-open:rotate-45 transition-transform">
+              <span className="shrink-0 text-[#c59a4b] text-lg leading-none group-open:rotate-45 transition-transform">
                 +
               </span>
             </summary>
-            <div className="px-5 pb-5 text-xs sm:text-sm text-stone-300 leading-relaxed">
+            <div className="px-5 pb-5 text-xs sm:text-sm text-[#c9b69a] leading-relaxed">
               {item.answer}
             </div>
           </details>
         ))}
       </div>
 
-      <section className="rounded-2xl bg-gradient-to-r from-red-950 via-stone-900 to-amber-950 border border-amber-600/30 p-6 sm:p-8 space-y-3 text-center">
-        <h2 className="text-lg font-serif font-bold text-amber-100">Vẫn cần hỗ trợ thêm?</h2>
-        <p className="text-xs text-stone-300">
+      <section className="rounded-2xl bg-gradient-to-r from-[#861b1b] via-[#180702] to-[#381a0b] border border-[#5c2b12]/30 p-6 sm:p-8 space-y-3 text-center">
+        <h2 className="text-lg font-serif font-bold text-[#f3dfae]">Vẫn cần hỗ trợ thêm?</h2>
+        <p className="text-xs text-[#c9b69a]">
           Đội ngũ tư vấn quà biếu Hương Quê hỗ trợ từ 8h00 – 21h00 mỗi ngày, kể cả cuối tuần.
         </p>
         <div className="pt-1 flex flex-wrap items-center justify-center gap-3 text-xs">
-          <span className="px-4 py-2 rounded-xl bg-amber-500 text-stone-950 font-bold">
+          <span className="px-4 py-2 rounded-xl bg-[#c59a4b] text-[#120401] font-bold">
             Hotline 0901 000 000
           </span>
           <Link
             href="/van-chuyen"
-            className="px-4 py-2 rounded-xl border border-amber-500/40 text-amber-200 hover:bg-red-900/60 transition-colors"
+            className="px-4 py-2 rounded-xl border border-[#c59a4b]/40 text-[#c59a4b] hover:bg-[#2a0707]/60 transition-colors"
           >
             Chính sách vận chuyển
           </Link>
           <Link
             href="/chinh-sach-doi-tra"
-            className="px-4 py-2 rounded-xl border border-amber-500/40 text-amber-200 hover:bg-red-900/60 transition-colors"
+            className="px-4 py-2 rounded-xl border border-[#c59a4b]/40 text-[#c59a4b] hover:bg-[#2a0707]/60 transition-colors"
           >
             Chính sách đổi trả
           </Link>

@@ -56,23 +56,30 @@ export function AddToCartButton({
           description: details.length > 0 ? details.join(' • ') : undefined,
         });
       } else {
-        const message = result.error ?? 'Không thêm được sản phẩm vào giỏ hàng.';
-        setError(message);
+        // Trước đây toast nói CÙNG một thất bại hai lần: tiêu đề "Không thêm được vào giỏ" rồi mô tả
+        // "Không thêm được sản phẩm vào giỏ hàng", và không chỗ nào nói làm gì tiếp. Giờ tiêu đề nói
+        // thất bại một lần, phần mô tả giữ LÝ DO (nếu server có) hoặc LỜI KHUYÊN, và dòng lỗi tại chỗ
+        // là câu đầy đủ vì nó đứng một mình.
+        const reason = result.error ?? 'Bạn thử lại giúp nhé. Nếu vẫn không được, tải lại trang.';
+        setError(`Không thêm được vào giỏ hàng. ${reason}`);
         toast({
           tone: 'error',
-          title: 'Không thêm được vào giỏ',
-          description: productName ? `${productName} • ${message}` : message,
+          title: 'Không thêm được vào giỏ hàng',
+          description: productName ? `${productName} • ${reason}` : reason,
         });
       }
     });
   }
 
+  // Trạng thái chờ giữ nguyên độ tương phản của nút (không hạ opacity): chữ "Đang thêm…"
+  // cộng vòng xoay đã đủ báo trạng thái, còn hạ opacity sẽ kéo màu chữ xuống dưới ngưỡng AA.
+  // `min-h-11` (44px) là sàn vùng chạm: đây là nút chốt đơn, không được thấp hơn ngón tay.
   const baseClassName =
-    'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-60';
+    'inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all disabled:cursor-not-allowed';
 
   const stateClassName = outOfStock
-    ? 'bg-stone-800 text-stone-400 border border-stone-700'
-    : 'bg-amber-500 text-stone-950 shadow-sm shadow-amber-500/20 hover:bg-amber-400';
+    ? 'border border-[#5c2b12] bg-[#210c04] text-[#c9b69a]'
+    : 'bg-gradient-to-r from-[#b8863b] via-[#d4af37] to-[#b8863b] text-[#120401] hover:brightness-110 hover:shadow-[0_0_20px_rgba(212,175,55,0.5)]';
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -107,7 +114,7 @@ export function AddToCartButton({
       </button>
 
       {error && (
-        <p role="alert" className="text-xs text-red-300">
+        <p role="alert" className="text-xs text-[#e08a8a]">
           {error}
         </p>
       )}

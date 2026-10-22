@@ -1,8 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  /*
+   * Mặc định của hệ, không phải của Next. Hai biến này được `body {}` bên dưới dùng ở dạng CSS
+   * KHÔNG LỚP, nên chúng đè cả utility của Tailwind — trước đây để nguyên `#0a0a0a`/`#ededed`
+   * (xám lạnh mặc định) thì mọi phần tử không tự khai màu sẽ thừa hưởng một sắc ngoài bảng Sơn Mài.
+   */
+  --background: #120401;
+  --foreground: #f3dfae;
+  /*
+   * Khai báo nền tối cho CHÍNH trình duyệt. Thiếu dòng này, các widget native vẫn vẽ theo
+   * light mode: checkbox đồng ý ở footer và nút xoá của `type="search"` hiện ra dưới dạng ô
+   * trắng xám trung tính, lạc hẳn khỏi bảng màu ấm.
+   */
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -16,4 +27,217 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+}
+
+/* Full-bleed photo treatment is scoped to the login route only. */
+.login-scene,
+.auth-scene {
+  color-scheme: light;
+  scrollbar-color: #8a5630 #f3dfae;
+}
+
+@media (min-width: 768px) and (min-height: 900px) {
+  .auth-scene-register {
+    align-items: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .login-scene,
+  .auth-scene {
+    background-position: 51% center !important;
+  }
+}
+
+/*
+ * Bề mặt trình duyệt cũng thuộc hệ: thanh cuộn, vệt chọn chữ và con trỏ đều lấy từ bảng Sơn Mài
+ * thay vì để mặc định của trình duyệt (mặc định là xám sáng, lạc hẳn khỏi nền nâu).
+ */
+html {
+  scrollbar-color: #5c2b12 #120401;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #120401;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5c2b12;
+  border: 3px solid #120401;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8a5630;
+}
+
+:focus-visible {
+  outline-color: #d4af37;
+}
+
+/*
+ * ---------------------------------------------------------------------------
+ * Vùng chạm theo THIẾT BỊ TRỎ, không theo bề rộng màn hình.
+ *
+ * Bề rộng không cho biết người dùng đang chạm hay đang dùng chuột: laptop cảm ứng và tablet
+ * gắn bàn phím đều tồn tại. Các nút và CTA chính đã được đặt sẵn ≥44px trong lớp gốc (tốt cho
+ * cả hai), nhưng HÀNG LIÊN KẾT ĐIỀU HƯỚNG ở chân trang thì không: kéo chúng lên 44px ở desktop
+ * sẽ làm chân trang rỗng và khó quét. Nên chúng chỉ nở ra khi con trỏ là thô.
+ * ---------------------------------------------------------------------------
+ */
+@media (pointer: coarse) {
+  .tap-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .tap-row {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  /*
+   * Sàn 16px cho MỌI ô nhập trên thiết bị cảm ứng.
+   *
+   * Lý do không phải thẩm mỹ: iOS Safari TỰ PHÓNG TO khung nhìn khi focus vào ô nhập có cỡ chữ
+   * dưới 16px. Trang bị đẩy lệch ngay lúc khách chạm vào ô đầu tiên — và persona chính của
+   * Hương Quê là người duyệt và đặt quà bằng điện thoại. Trước quy tắc này, toàn bộ ô nhập của
+   * sản phẩm đều dưới ngưỡng: bảng tin và đăng nhập/đăng ký 12px, tìm kiếm và tra cứu đơn 14px.
+   *
+   * Đặt ở đây thay vì sửa từng ô: đây là một quy tắc của NỀN TẢNG, không phải của từng màn.
+   * `:not()` mang độ đặc hiệu (0,2,1) nên thắng được lớp tiện ích `.text-xs` (0,1,0). Ô tick và
+   * nút radio được miễn — chúng không kích hoạt phóng to, và cỡ chữ ở đó vô nghĩa.
+   *
+   * Chỉ áp dụng khi con trỏ thô, nên bố cục desktop giữ nguyên mật độ dày như thiết kế.
+   */
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']),
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/*
+ * Safe area: điện thoại có notch, góc bo và thanh home. Chỉ áp dụng khi viewport đã khai
+ * `viewport-fit=cover` (xem `app/layout.tsx`); ở nơi khác env() trả 0 nên vô hại.
+ */
+.safe-x {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+.safe-bottom {
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+}
+
+/* Direct entry and route changes use one deterministic CSS lifecycle. */
+@keyframes auth-backdrop-fade-in {
+  from {
+    opacity: 0.78;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes auth-card-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(5vh) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.auth-page-backdrop {
+  animation: auth-backdrop-fade-in 720ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.auth-entry-card {
+  animation: auth-card-rise-in 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes auth-route-exit-left {
+  from { opacity: 1; transform: translateX(0) scale(1); }
+  to { opacity: 0; transform: translateX(calc(-50vw - 50%)) scale(0.985); }
+}
+
+@keyframes auth-route-enter-right {
+  from { opacity: 0.12; transform: translateX(calc(50vw + 50%)) scale(0.985); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes auth-route-exit-right {
+  from { opacity: 1; transform: translateX(0) scale(1); }
+  to { opacity: 0; transform: translateX(calc(50vw + 50%)) scale(0.985); }
+}
+
+@keyframes auth-route-enter-left {
+  from { opacity: 0.12; transform: translateX(calc(-50vw - 50%)) scale(0.985); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes auth-backdrop-crossfade-in {
+  from { opacity: 0.76; }
+  to { opacity: 1; }
+}
+
+html[data-auth-route-state='exit'][data-auth-route-direction='forward'] .auth-entry-card {
+  animation: auth-route-exit-left 220ms cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+html[data-auth-route-state='exit'][data-auth-route-direction='back'] .auth-entry-card {
+  animation: auth-route-exit-right 220ms cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+html[data-auth-route-state='enter'][data-auth-route-direction='forward'] .auth-entry-card {
+  animation: auth-route-enter-right 620ms cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+html[data-auth-route-state='enter'][data-auth-route-direction='back'] .auth-entry-card {
+  animation: auth-route-enter-left 620ms cubic-bezier(0.22, 1, 0.36, 1) both !important;
+}
+
+html[data-auth-route-state='enter'] .auth-page-backdrop {
+  animation: auth-backdrop-crossfade-in 500ms ease-out both !important;
+}
+
+/*
+ * Landscape trên điện thoại: khung nhìn chỉ còn ~390px chiều cao, nên phần dẫn nhập (vốn lặp
+ * lại điều nút chọn nơi nhận đã nói) được bỏ để mốc chốt đơn và hành động chính lên gần màn đầu.
+ * Không cắt thông tin: mọi ngày tháng vẫn nằm nguyên trong ô "Mốc áp dụng".
+ */
+@media (orientation: landscape) and (max-height: 520px) {
+  .hide-short-landscape {
+    display: none;
+  }
+}
+
+/*
+ * Tôn trọng lựa chọn giảm chuyển động của hệ điều hành: bỏ mọi transition/animation và đưa
+ * thẳng về trạng thái cuối, không để phần tử nào mắc kẹt ở trạng thái bị ẩn bởi animation.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html[data-auth-route-state] .auth-entry-card,
+  html[data-auth-route-state] .auth-page-backdrop {
+    animation-duration: 0.01ms !important;
+    transform: none !important;
+  }
 }

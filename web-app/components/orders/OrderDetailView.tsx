@@ -63,23 +63,23 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
   return (
     <div className="space-y-6">
       {/* Tổng quan đơn */}
-      <section className="rounded-2xl border border-stone-800 bg-stone-900/80 p-5 sm:p-6">
+      <section className="rounded-2xl border border-[#5c2b12] bg-[#180702]/80 p-5 sm:p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="space-y-1.5">
-            <p className="text-xs uppercase tracking-widest text-stone-500">Mã đơn hàng</p>
-            <h1 className="font-mono text-xl font-bold text-amber-300 sm:text-2xl">
+            <p className="text-xs uppercase tracking-widest text-[#a98a5f]">Mã đơn hàng</p>
+            <h1 className="font-mono text-xl font-bold text-[#c59a4b] sm:text-2xl">
               {order.orderCode}
             </h1>
-            <p className="text-xs text-stone-400">
-              Đặt lúc <span className="text-stone-300">{formatDateTime(order.createdAt)}</span>
+            <p className="text-xs text-[#c9b69a]">
+              Đặt lúc <span className="text-[#c9b69a]">{formatDateTime(order.createdAt)}</span>
             </p>
           </div>
           <div className="flex flex-col items-start gap-2 sm:items-end">
             <OrderStatusBadge status={order.status} />
             {order.paymentStatus && (
-              <span className="text-[11px] text-stone-400">
+              <span className="text-[11px] text-[#c9b69a]">
                 Thanh toán:{' '}
-                <span className="font-medium text-stone-300">
+                <span className="font-medium text-[#c9b69a]">
                   {paymentStatusLabel(order.paymentStatus)}
                 </span>
               </span>
@@ -87,26 +87,26 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
           </div>
         </div>
 
-        <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-stone-800 pt-5 sm:grid-cols-3">
+        <dl className="mt-5 grid grid-cols-1 gap-4 border-t border-[#5c2b12] pt-5 sm:grid-cols-3">
           <div>
-            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-stone-500">
+            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-[#a98a5f]">
               <CreditCard className="h-3.5 w-3.5" /> Phương thức thanh toán
             </dt>
-            <dd className="mt-1 text-sm text-stone-200">
+            <dd className="mt-1 text-sm text-[#f3dfae]">
               {paymentMethodLabel(order.paymentMethod)}
             </dd>
           </div>
           <div>
-            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-stone-500">
+            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-[#a98a5f]">
               <Package className="h-3.5 w-3.5" /> Số mặt hàng
             </dt>
-            <dd className="mt-1 text-sm text-stone-200">{order.items.length} món</dd>
+            <dd className="mt-1 text-sm text-[#f3dfae]">{order.items.length} món</dd>
           </div>
           <div>
-            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-stone-500">
+            <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-[#a98a5f]">
               <CreditCard className="h-3.5 w-3.5" /> Tổng thanh toán
             </dt>
-            <dd className="mt-1 font-mono text-base font-bold text-amber-400">
+            <dd className="mt-1 font-mono text-base font-bold text-[#c59a4b]">
               {formatVND(order.total)}
             </dd>
           </div>
@@ -118,15 +118,15 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
         <section
           className={`rounded-2xl border p-4 sm:p-5 ${
             paymentExpired
-              ? 'border-stone-800 bg-stone-900/60'
-              : 'border-amber-700/50 bg-amber-950/30'
+              ? 'border-[#5c2b12] bg-[#180702]/60'
+              : 'border-[#5c2b12]/50 bg-[#381a0b]/30'
           }`}
         >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-start gap-3">
               <span
                 className={`mt-0.5 rounded-full p-2 ${
-                  paymentExpired ? 'bg-stone-800 text-stone-400' : 'bg-amber-500/15 text-amber-300'
+                  paymentExpired ? 'bg-[#210c04] text-[#c9b69a]' : 'bg-[#c59a4b]/15 text-[#c59a4b]'
                 }`}
               >
                 {paymentExpired ? (
@@ -136,10 +136,10 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
                 )}
               </span>
               <div>
-                <p className="text-sm font-semibold text-stone-100">
+                <p className="text-sm font-semibold text-[#f3dfae]">
                   {paymentExpired ? 'Đã hết hạn thanh toán' : 'Đơn hàng đang chờ thanh toán'}
                 </p>
-                <p className="mt-0.5 text-xs text-stone-400">
+                <p className="mt-0.5 text-xs text-[#c9b69a]">
                   {order.expiresAt
                     ? `Hạn thanh toán: ${formatDateTime(order.expiresAt)}${
                         paymentExpired ? '' : ` (${formatTimeLeft(order.expiresAt)})`
@@ -154,7 +154,7 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
                 href={order.payosCheckoutUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-semibold text-stone-950 shadow-sm transition-all hover:bg-amber-400"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#c59a4b] px-4 py-2.5 text-sm font-semibold text-[#120401] shadow-sm transition-all hover:bg-[#d4af37]"
               >
                 Thanh toán ngay
                 <ExternalLink className="h-4 w-4" />
@@ -165,24 +165,24 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
       )}
 
       {/* Danh sách món */}
-      <section className="overflow-hidden rounded-2xl border border-stone-800 bg-stone-900/80">
-        <header className="flex items-center gap-2 border-b border-stone-800 px-5 py-4">
-          <Package className="h-4 w-4 text-amber-400" />
-          <h2 className="font-serif text-base font-bold text-stone-100">Sản phẩm trong đơn</h2>
+      <section className="overflow-hidden rounded-2xl border border-[#5c2b12] bg-[#180702]/80">
+        <header className="flex items-center gap-2 border-b border-[#5c2b12] px-5 py-4">
+          <Package className="h-4 w-4 text-[#c59a4b]" />
+          <h2 className="font-serif text-base font-bold text-[#f3dfae]">Sản phẩm trong đơn</h2>
         </header>
 
         {order.items.length === 0 ? (
-          <p className="px-5 py-6 text-sm text-stone-400">
+          <p className="px-5 py-6 text-sm text-[#c9b69a]">
             Không có thông tin chi tiết sản phẩm cho đơn này.
           </p>
         ) : (
-          <ul className="divide-y divide-stone-800">
+          <ul className="divide-y divide-[#381a0b]">
             {order.items.map((item, index) => (
               <li
                 key={`${item.productId ?? 'item'}-${index}`}
                 className="flex flex-wrap items-center gap-4 px-5 py-4"
               >
-                <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-stone-800 bg-stone-950">
+                <div className="h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-[#5c2b12] bg-[#120401]">
                   {item.imageUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -192,7 +192,7 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
                       loading="lazy"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center text-stone-600">
+                    <div className="flex h-full w-full items-center justify-center text-[#a98a5f]">
                       <Gift className="h-5 w-5" />
                     </div>
                   )}
@@ -202,21 +202,21 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
                   {item.slug ? (
                     <Link
                       href={`/san-pham/${item.slug}`}
-                      className="line-clamp-2 text-sm font-semibold text-stone-100 transition-colors hover:text-amber-300"
+                      className="line-clamp-2 text-sm font-semibold text-[#f3dfae] transition-colors hover:text-[#c59a4b]"
                     >
                       {item.name}
                     </Link>
                   ) : (
-                    <p className="line-clamp-2 text-sm font-semibold text-stone-100">{item.name}</p>
+                    <p className="line-clamp-2 text-sm font-semibold text-[#f3dfae]">{item.name}</p>
                   )}
-                  <p className="mt-1 text-xs text-stone-400">
+                  <p className="mt-1 text-xs text-[#c9b69a]">
                     {formatVND(item.unitPrice)} × {item.quantity}
                     {item.unit ? ` ${item.unit}` : ''}
                   </p>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <span className="font-mono text-sm font-bold text-amber-400">
+                  <span className="font-mono text-sm font-bold text-[#c59a4b]">
                     {formatVND(item.lineTotal)}
                   </span>
                   {canReview && item.productId !== null && (
@@ -235,28 +235,28 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
       </section>
 
       {/* Tổng kết tiền */}
-      <section className="rounded-2xl border border-stone-800 bg-stone-900/80 p-5 sm:p-6">
-        <h2 className="font-serif text-base font-bold text-stone-100">Chi tiết thanh toán</h2>
+      <section className="rounded-2xl border border-[#5c2b12] bg-[#180702]/80 p-5 sm:p-6">
+        <h2 className="font-serif text-base font-bold text-[#f3dfae]">Chi tiết thanh toán</h2>
         <dl className="mt-4 space-y-2.5 text-sm">
           <div className="flex items-center justify-between">
-            <dt className="text-stone-400">Tiền hàng</dt>
-            <dd className="font-mono text-stone-200">{formatVND(order.subtotal)}</dd>
+            <dt className="text-[#c9b69a]">Tiền hàng</dt>
+            <dd className="font-mono text-[#f3dfae]">{formatVND(order.subtotal)}</dd>
           </div>
           <div className="flex items-center justify-between">
-            <dt className="text-stone-400">Phí vận chuyển</dt>
-            <dd className="font-mono text-stone-200">
+            <dt className="text-[#c9b69a]">Phí vận chuyển</dt>
+            <dd className="font-mono text-[#f3dfae]">
               {order.shippingFee > 0 ? formatVND(order.shippingFee) : 'Miễn phí'}
             </dd>
           </div>
           {order.discount > 0 && (
             <div className="flex items-center justify-between">
-              <dt className="text-stone-400">Giảm giá</dt>
-              <dd className="font-mono text-emerald-400">-{formatVND(order.discount)}</dd>
+              <dt className="text-[#c9b69a]">Giảm giá</dt>
+              <dd className="font-mono text-[#34d399]">-{formatVND(order.discount)}</dd>
             </div>
           )}
-          <div className="flex items-center justify-between border-t border-stone-800 pt-3">
-            <dt className="font-semibold text-stone-100">Tổng cộng</dt>
-            <dd className="font-mono text-lg font-bold text-amber-400">
+          <div className="flex items-center justify-between border-t border-[#5c2b12] pt-3">
+            <dt className="font-semibold text-[#f3dfae]">Tổng cộng</dt>
+            <dd className="font-mono text-lg font-bold text-[#c59a4b]">
               {formatVND(order.total)}
             </dd>
           </div>
@@ -265,66 +265,66 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
 
       {/* Người nhận */}
       <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-stone-800 bg-stone-900/80 p-5 sm:p-6">
-          <h2 className="flex items-center gap-2 font-serif text-base font-bold text-stone-100">
-            <Truck className="h-4 w-4 text-amber-400" /> Thông tin nhận hàng
+        <div className="rounded-2xl border border-[#5c2b12] bg-[#180702]/80 p-5 sm:p-6">
+          <h2 className="flex items-center gap-2 font-serif text-base font-bold text-[#f3dfae]">
+            <Truck className="h-4 w-4 text-[#c59a4b]" /> Thông tin nhận hàng
           </h2>
           <ul className="mt-4 space-y-3 text-sm">
             <li className="flex items-start gap-2.5">
-              <UserIcon className="mt-0.5 h-4 w-4 shrink-0 text-stone-500" />
-              <span className="text-stone-200">{order.receiverName || '—'}</span>
+              <UserIcon className="mt-0.5 h-4 w-4 shrink-0 text-[#a98a5f]" />
+              <span className="text-[#f3dfae]">{order.receiverName || '—'}</span>
             </li>
             <li className="flex items-start gap-2.5">
-              <Phone className="mt-0.5 h-4 w-4 shrink-0 text-stone-500" />
-              <span className="font-mono text-stone-200">
+              <Phone className="mt-0.5 h-4 w-4 shrink-0 text-[#a98a5f]" />
+              <span className="font-mono text-[#f3dfae]">
                 {isGuest ? maskPhone(order.receiverPhone) : order.receiverPhone || '—'}
               </span>
             </li>
             <li className="flex items-start gap-2.5">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-stone-500" />
-              <span className="text-stone-200">{order.shippingAddress || '—'}</span>
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#a98a5f]" />
+              <span className="text-[#f3dfae]">{order.shippingAddress || '—'}</span>
             </li>
           </ul>
         </div>
 
-        <div className="rounded-2xl border border-stone-800 bg-stone-900/80 p-5 sm:p-6">
-          <h2 className="flex items-center gap-2 font-serif text-base font-bold text-stone-100">
-            <StickyNote className="h-4 w-4 text-amber-400" /> Ghi chú & lời chúc
+        <div className="rounded-2xl border border-[#5c2b12] bg-[#180702]/80 p-5 sm:p-6">
+          <h2 className="flex items-center gap-2 font-serif text-base font-bold text-[#f3dfae]">
+            <StickyNote className="h-4 w-4 text-[#c59a4b]" /> Ghi chú & lời chúc
           </h2>
           <div className="mt-4 space-y-3 text-sm">
             <div>
-              <p className="text-[11px] uppercase tracking-wide text-stone-500">Ghi chú</p>
-              <p className="mt-1 whitespace-pre-line text-stone-200">{order.note || '—'}</p>
+              <p className="text-[11px] uppercase tracking-wide text-[#a98a5f]">Ghi chú</p>
+              <p className="mt-1 whitespace-pre-line text-[#f3dfae]">{order.note || '—'}</p>
             </div>
             <div>
-              <p className="text-[11px] uppercase tracking-wide text-stone-500">Lời chúc Tết</p>
-              <p className="mt-1 whitespace-pre-line text-amber-200/90">{order.greeting || '—'}</p>
+              <p className="text-[11px] uppercase tracking-wide text-[#a98a5f]">Lời chúc Tết</p>
+              <p className="mt-1 whitespace-pre-line text-[#c59a4b]/90">{order.greeting || '—'}</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Timeline trạng thái */}
-      <section className="rounded-2xl border border-stone-800 bg-stone-900/80 p-5 sm:p-6">
-        <h2 className="font-serif text-base font-bold text-stone-100">Lịch sử trạng thái</h2>
+      <section className="rounded-2xl border border-[#5c2b12] bg-[#180702]/80 p-5 sm:p-6">
+        <h2 className="font-serif text-base font-bold text-[#f3dfae]">Lịch sử trạng thái</h2>
 
         {order.history.length === 0 ? (
-          <p className="mt-4 text-sm text-stone-400">Chưa có lịch sử trạng thái.</p>
+          <p className="mt-4 text-sm text-[#c9b69a]">Chưa có lịch sử trạng thái.</p>
         ) : (
           <ol className="mt-5 space-y-0">
             {order.history.map((entry, index) => {
               const isLast = index === order.history.length - 1;
               const style =
-                ORDER_STATUS_STYLES[entry.status] ?? 'bg-stone-800 text-stone-300 border-stone-700';
+                ORDER_STATUS_STYLES[entry.status] ?? 'bg-[#210c04] text-[#c9b69a] border-[#5c2b12]';
               return (
                 <li key={`${entry.status}-${entry.at ?? index}`} className="flex gap-4">
                   <div className="flex flex-col items-center">
                     <span
                       className={`mt-1 h-3 w-3 shrink-0 rounded-full border-2 ${
-                        isLast ? 'border-amber-400 bg-amber-400' : 'border-stone-600 bg-stone-900'
+                        isLast ? 'border-[#c59a4b] bg-[#d4af37]' : 'border-[#78502a] bg-[#180702]'
                       }`}
                     />
-                    {!isLast && <span className="w-px flex-1 bg-stone-800" />}
+                    {!isLast && <span className="w-px flex-1 bg-[#210c04]" />}
                   </div>
                   <div className={isLast ? 'pb-0' : 'pb-6'}>
                     <div className="flex flex-wrap items-center gap-2">
@@ -333,12 +333,12 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
                       >
                         {orderStatusLabel(entry.status)}
                       </span>
-                      <span className="text-[11px] text-stone-500">
+                      <span className="text-[11px] text-[#a98a5f]">
                         {formatDateTime(entry.at)}
                       </span>
                     </div>
                     {entry.note && (
-                      <p className="mt-1.5 text-xs text-stone-400">{entry.note}</p>
+                      <p className="mt-1.5 text-xs text-[#c9b69a]">{entry.note}</p>
                     )}
                   </div>
                 </li>
@@ -350,10 +350,10 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
 
       {/* Hành động */}
       {cancellable && (
-        <section className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-stone-800 bg-stone-900/80 p-5">
+        <section className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#5c2b12] bg-[#180702]/80 p-5">
           <div>
-            <p className="text-sm font-semibold text-stone-100">Cần thay đổi?</p>
-            <p className="text-xs text-stone-400">
+            <p className="text-sm font-semibold text-[#f3dfae]">Cần thay đổi?</p>
+            <p className="text-xs text-[#c9b69a]">
               Bạn có thể hủy đơn khi đơn còn ở trạng thái chờ thanh toán hoặc đã xác nhận.
             </p>
           </div>
@@ -362,7 +362,7 @@ export function OrderDetailView({ order, variant = 'owner' }: OrderDetailViewPro
       )}
 
       {!isGuest && order.status === 'completed' && order.items.length > 0 && (
-        <p className="flex items-center gap-2 rounded-2xl border border-emerald-900/60 bg-emerald-950/30 px-4 py-3 text-xs text-emerald-300">
+        <p className="flex items-center gap-2 rounded-2xl border border-[#34d399]/40 bg-[#34d399]/10 px-4 py-3 text-xs text-[#34d399]">
           <CheckCircle2 className="h-4 w-4 shrink-0" />
           Đơn đã hoàn tất — bạn có thể đánh giá từng sản phẩm bằng nút “Đánh giá”.
         </p>

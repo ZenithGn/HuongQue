@@ -4,6 +4,7 @@ import { logoutAction } from '@/lib/actions/auth';
 import { headers } from 'next/headers';
 import { SearchBox } from '@/components/SearchBox';
 import { NavLinks } from '@/components/NavLinks';
+import { MobileNav } from '@/components/MobileNav';
 import {
   ShoppingBag,
   User as UserIcon,
@@ -38,13 +39,14 @@ function LogoIcon({ className = "w-5 h-5" }: { className?: string }) {
 }
 
 export async function Header() {
-  // Lấy đường dẫn hiện tại từ headers để kiểm tra
+  // Lấy đường dẫn hiện tại từ header do middleware đặt
   const headersList = await headers();
-  const referer = headersList.get('referer') || '';
-  const pathname = headersList.get('x-invoke-path') || headersList.get('x-current-path') || '';
+  const pathname = headersList.get('x-current-path') || '';
 
   // NẾU ĐANG Ở TRANG ĐĂNG NHẬP HOẶC ĐĂNG KÝ -> ẨN LUÔN HEADER NÀY ĐI
-  if (referer.includes('/dang-nhap') || referer.includes('/dang-ky') || pathname.includes('/dang-nhap') || pathname.includes('/dang-ky')) {
+  // Chỉ kiểm tra pathname hiện tại (KHÔNG dùng referer vì referer trỏ tới trang trước,
+  // khiến header biến mất sau khi đăng nhập xong redirect về trang chủ).
+  if (pathname.startsWith('/dang-nhap') || pathname.startsWith('/dang-ky')) {
     return null;
   }
 
@@ -56,20 +58,28 @@ export async function Header() {
   const sessionUnknown = session.status === 'unavailable';
 
   return (
-    <header className="sticky top-0 z-50 bg-[#120401]/95 backdrop-blur-md border-b border-[#5c2b12] text-amber-50 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-3">
+    <header className="sticky top-0 z-50 bg-[#120401]/95 backdrop-blur-md border-b border-[#5c2b12] text-[#f3dfae] shadow-lg safe-x">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 xl:px-8">
+        {/* `min-h-16` thay cho `h-16`: ở cỡ chữ thường header vẫn đúng 64px, nhưng khi khách tăng
+            cỡ chữ mặc định của trình duyệt thì nó cao lên thay vì đẩy cả trang rộng ra (đo được
+            trước khi sửa: 2376px ở cỡ chữ gấp đôi).
+            `flex-wrap` để hàng này xuống dòng khi hết chỗ, nhờ đó nav được trọn một hàng riêng
+            thay vì bị bóp thành cột dọc 440px. Khe của nav ở `lg` đã được nới nên ở cỡ chữ
+            thường hàng vẫn một hàng suốt từ 1024px trở lên — con số này có đo, không phải đoán. */}
+        <div className="flex flex-wrap items-center justify-between min-h-16 gap-x-3 gap-y-0.5 py-1">
 
           {/* 1. Logo & Slogan */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-            <div className="w-9 h-9 rounded-full border border-[#c59a4b] bg-gradient-to-b from-[#2b1005] to-[#120401] flex items-center justify-center text-[#e8cf9b] shadow-md shadow-amber-950/40 group-hover:border-[#e0b966] group-hover:scale-105 transition-all">
-              <LogoIcon className="w-5 h-5 text-[#c49a52] group-hover:text-[#e8cf9b] transition-colors" />
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 group min-h-11">
+            <div className="w-9 h-9 rounded-full border border-[#c59a4b] bg-gradient-to-b from-[#2b1005] to-[#120401] flex items-center justify-center text-[#e8cf9b] shadow-md shadow-black/40 group-hover:border-[#d4af37] group-hover:scale-105 transition-all shrink-0">
+              <LogoIcon className="w-5 h-5 text-[#c49a52] group-hover:text-[#f3dfae] transition-colors" />
             </div>
             <div>
-              <span className="text-lg font-serif font-bold tracking-wider text-[#f3dfae] group-hover:text-amber-200 transition-colors block leading-none">
+              <span className="text-lg font-serif font-bold tracking-wider text-[#f3dfae] group-hover:text-[#d4af37] transition-colors block leading-none">
                 HƯƠNG QUÊ
               </span>
-              <span className="block text-[8px] text-[#c9b69a] font-sans tracking-[0.18em] uppercase mt-0.5">
+              {/* Ở dải `lg` (1024–1279) header phải nhường chỗ cho nav + tìm kiếm + giỏ + tài khoản;
+                  khẩu hiệu trở lại từ `xl`. Đây là chỗ đo được, không phải phỏng đoán. */}
+              <span className="mt-0.5 hidden font-sans text-xs uppercase tracking-[0.14em] text-[#c9b69a] sm:block lg:hidden xl:block">
                 Tinh Hoa Quà Việt
               </span>
             </div>
@@ -79,35 +89,38 @@ export async function Header() {
           <NavLinks isAuthenticated={isAuthenticated} />
 
           {/* 3. SearchBox & User Actions */}
-          <div className="flex items-center gap-2 shrink-0">
-            <div className="relative">
+          <div className="flex items-center gap-1 xl:gap-2 shrink-0">
+            <MobileNav isAuthenticated={isAuthenticated} />
+
+            <div className="hidden sm:block relative">
               <SearchBox />
             </div>
 
             <Link
               href="/gio-hang"
-              className="p-2 rounded-full hover:bg-[#2b1408] text-[#f3dfae] transition-colors relative shrink-0"
+              aria-label="Giỏ hàng của bạn"
+              className="relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#f3dfae] transition-colors hover:bg-[#2b1408]"
               title="Giỏ hàng của bạn"
             >
-              <ShoppingBag className="w-4.5 h-4.5" />
+              <ShoppingBag className="w-5 h-5" aria-hidden />
             </Link>
 
             {isAdmin && (
               <Link
                 href="/admin"
-                className="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-600 to-amber-500 text-stone-950 font-semibold text-[10px] tracking-wide shadow hover:brightness-110 transition-all shrink-0"
+                className="hidden sm:inline-flex min-h-11 items-center gap-1 px-3 rounded-full bg-gradient-to-r from-[#b8863b] to-[#d4af37] text-[#120401] font-semibold text-xs tracking-wide shadow hover:brightness-110 transition-all shrink-0"
               >
-                <Shield className="w-3 h-3" />
+                <Shield className="w-3 h-3" aria-hidden />
                 <span>Quản Trị</span>
               </Link>
             )}
 
             {sessionUnknown ? (
               <div
-                className="flex items-center gap-1 ml-1 pl-2 border-l border-[#5c2b12] text-[11px] text-[#c9b69a]/80 shrink-0"
+                className="flex items-center gap-1 ml-1 pl-2 border-l border-[#5c2b12] text-xs text-[#c9b69a] shrink-0"
                 title="Đang kết nối phiên đăng nhập..."
               >
-                <Loader2 className="w-3 h-3 animate-spin text-amber-500" />
+                <Loader2 className="w-3 h-3 animate-spin text-[#c59a4b]" aria-hidden />
                 <span className="hidden sm:inline">Kết nối…</span>
               </div>
             ) : user ? (
@@ -116,39 +129,42 @@ export async function Header() {
                   <p className="text-xs text-[#f3dfae] font-semibold truncate max-w-[110px]">
                     {profile?.full_name || user.email}
                   </p>
-                  <p className="text-[9px] text-[#c9b69a]/60">
+                  <p className="text-xs text-[#c9b69a]">
                     {isAdmin ? 'Quản trị viên' : 'Khách hàng'}
                   </p>
                 </div>
                 <Link
                   href="/tai-khoan"
-                  className="p-1.5 rounded-lg border border-[#78502a] hover:bg-[#2b1408] text-[#f3dfae] transition-all shrink-0"
+                  aria-label="Tài khoản của tôi"
+                  className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#78502a] text-[#f3dfae] transition-all hover:bg-[#2b1408]"
                   title="Tài khoản của tôi"
                 >
-                  <UserIcon className="w-4 h-4" />
+                  <UserIcon className="w-4 h-4" aria-hidden />
                 </Link>
                 <form action={logoutAction}>
                   <button
                     type="submit"
-                    className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-[#78502a] hover:bg-[#2b1408] text-[#f3dfae] text-xs font-medium transition-all shrink-0"
+                    className="inline-flex min-h-11 items-center gap-1 rounded-xl border border-[#78502a] px-3 text-xs font-medium text-[#f3dfae] transition-all hover:bg-[#2b1408] shrink-0"
                     title="Đăng xuất"
                   >
-                    <LogOut className="w-3.5 h-3.5" />
+                    <LogOut className="w-3.5 h-3.5" aria-hidden />
                     <span className="hidden xl:inline">Đăng xuất</span>
                   </button>
                 </form>
               </div>
             ) : (
-              <div className="flex items-center gap-1.5 ml-1 pl-2 border-l border-[#5c2b12] shrink-0">
+              // Dưới 640px, cụm Đăng nhập/Đăng ký làm tràn header (nút Đăng ký bị cắt) —
+              // hai lối vào này được chuyển vào drawer của MobileNav.
+              <div className="hidden items-center gap-1.5 border-l border-[#5c2b12] pl-2 ml-1 shrink-0 sm:flex">
                 <Link
                   href="/dang-nhap"
-                  className="px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#f3dfae] hover:bg-[#2b1408] transition-colors whitespace-nowrap"
+                  className="inline-flex min-h-11 items-center whitespace-nowrap rounded-xl px-2 xl:px-3 text-xs font-medium text-[#f3dfae] transition-colors hover:bg-[#2b1408]"
                 >
                   Đăng nhập
                 </Link>
                 <Link
                   href="/dang-ky"
-                  className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#c59a4b] text-[#120401] hover:bg-[#cca154] shadow-sm transition-all whitespace-nowrap"
+                  className="inline-flex min-h-11 items-center whitespace-nowrap rounded-xl bg-[#c59a4b] px-3 xl:px-3.5 text-xs font-semibold text-[#120401] shadow-sm transition-all hover:bg-[#cca154]"
                 >
                   Đăng ký
                 </Link>

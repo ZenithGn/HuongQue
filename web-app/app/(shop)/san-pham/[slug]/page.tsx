@@ -133,12 +133,12 @@ export default async function SanPhamDetailPage({ params }: SanPhamDetailPagePro
       />
 
       {/* Breadcrumb */}
-      <nav className="text-xs text-stone-400 flex items-center gap-2">
-        <Link href="/" className="hover:text-amber-300">
+      <nav className="text-xs text-[#c9b69a] flex items-center gap-2">
+        <Link href="/" className="hover:text-[#c59a4b]">
           Trang chủ
         </Link>
         <span>/</span>
-        <Link href="/san-pham" className="hover:text-amber-300">
+        <Link href="/san-pham" className="hover:text-[#c59a4b]">
           Sản phẩm
         </Link>
         {product.category && (
@@ -146,14 +146,14 @@ export default async function SanPhamDetailPage({ params }: SanPhamDetailPagePro
             <span>/</span>
             <Link
               href={`/san-pham?danh_muc=${product.category.slug}`}
-              className="hover:text-amber-300"
+              className="hover:text-[#c59a4b]"
             >
               {product.category.name}
             </Link>
           </>
         )}
         <span>/</span>
-        <span className="text-amber-400 font-medium truncate max-w-[200px] sm:max-w-none">
+        <span className="text-[#c59a4b] font-medium truncate max-w-[200px] sm:max-w-none">
           {product.name}
         </span>
       </nav>
@@ -173,68 +173,68 @@ export default async function SanPhamDetailPage({ params }: SanPhamDetailPagePro
         <div className="lg:col-span-6 space-y-6">
           <div className="space-y-3">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-medium px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30">
+              <span className="text-xs font-medium px-3 py-1 rounded-full bg-[#c59a4b]/10 text-[#c59a4b] border border-[#c59a4b]/30">
                 {regionNames[product.region] || 'Đặc sản vùng miền'}
               </span>
               {product.category && (
                 <Link
                   href={`/san-pham?danh_muc=${product.category.slug}`}
-                  className="text-xs font-medium px-3 py-1 rounded-full bg-stone-900 text-stone-300 border border-stone-700 hover:border-amber-500/40 transition-colors"
+                  className="text-xs font-medium px-3 py-1 rounded-full bg-[#180702] text-[#c9b69a] border border-[#5c2b12] hover:border-[#c59a4b]/40 transition-colors"
                 >
                   {product.category.name}
                 </Link>
               )}
               {product.is_featured && (
-                <span className="text-xs font-medium px-3 py-1 rounded-full bg-red-500/10 text-red-300 border border-red-500/30">
+                <span className="text-xs font-medium px-3 py-1 rounded-full bg-[#861b1b]/10 text-[#e08a8a] border border-[#a33b20]/30">
                   Quà Tết Tiêu Biểu
                 </span>
               )}
             </div>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black text-stone-100 leading-tight">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black text-[#f3dfae] leading-tight">
               {product.name}
             </h1>
 
             {/* Rating & Sold count */}
-            <div className="flex items-center gap-4 text-xs text-stone-400 pt-1">
-              <div className="flex items-center gap-1 text-amber-400 font-bold">
-                <Star className="w-4 h-4 fill-amber-400" />
+            <div className="flex items-center gap-4 text-xs text-[#c9b69a] pt-1">
+              <div className="flex items-center gap-1 text-[#c59a4b] font-bold">
+                <Star className="w-4 h-4 fill-[#c59a4b]" />
                 <span>{ratingAvg.toFixed(1)}</span>
-                <span className="text-stone-500 font-normal">({product.rating_count} đánh giá)</span>
+                <span className="text-[#a98a5f] font-normal">({product.rating_count} đánh giá)</span>
               </div>
               <span>•</span>
               <div>
-                Đã bán <strong className="text-stone-200">{product.sold_count}</strong> {product.unit}
+                Đã bán <strong className="text-[#f3dfae]">{product.sold_count}</strong> {product.unit}
               </div>
             </div>
           </div>
 
           {/* Pricing Box */}
-          <div className="p-5 rounded-2xl bg-stone-900/90 border border-stone-800 flex items-baseline gap-4">
-            <div className="text-3xl font-bold font-mono text-amber-400">
+          <div className="p-5 rounded-2xl bg-[#180702]/90 border border-[#5c2b12] flex items-baseline gap-4">
+            <div className="text-3xl font-bold font-mono text-[#c59a4b]">
               {formatVND(product.price)}
             </div>
             {product.compare_at_price && (
-              <div className="text-sm text-stone-500 line-through">
+              <div className="text-sm text-[#a98a5f] line-through">
                 {formatVND(product.compare_at_price)}
               </div>
             )}
-            <div className="text-xs text-stone-400">/ 1 {product.unit}</div>
+            <div className="text-xs text-[#c9b69a]">/ 1 {product.unit}</div>
           </div>
 
           {/* Key Attributes */}
-          <div className="grid grid-cols-2 gap-4 py-3 border-y border-stone-800/80 text-xs">
+          <div className="grid grid-cols-2 gap-4 py-3 border-y border-[#5c2b12]/80 text-xs">
             <div className="space-y-1">
-              <span className="text-stone-500 block">Xuất xứ tỉnh/thành:</span>
-              <span className="font-semibold text-stone-200 flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-amber-400" />
+              <span className="text-[#a98a5f] block">Xuất xứ tỉnh/thành:</span>
+              <span className="font-semibold text-[#f3dfae] flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-[#c59a4b]" />
                 {product.origin || 'Việt Nam'}
               </span>
             </div>
             <div className="space-y-1">
-              <span className="text-stone-500 block">Cơ sở sản xuất / Đối tác:</span>
-              <span className="font-semibold text-stone-200 flex items-center gap-1.5">
-                <Building className="w-3.5 h-3.5 text-amber-400" />
+              <span className="text-[#a98a5f] block">Cơ sở sản xuất / Đối tác:</span>
+              <span className="font-semibold text-[#f3dfae] flex items-center gap-1.5">
+                <Building className="w-3.5 h-3.5 text-[#c59a4b]" />
                 {product.producer || 'Hương Quê OCOP'}
               </span>
             </div>
@@ -242,9 +242,9 @@ export default async function SanPhamDetailPage({ params }: SanPhamDetailPagePro
 
           {/* Stock status indicator */}
           <div className="flex items-center gap-2 text-xs">
-            <span className="text-stone-400">Tình trạng tồn kho:</span>
+            <span className="text-[#c9b69a]">Tình trạng tồn kho:</span>
             {inStock ? (
-              <span className="flex items-center gap-1.5 font-semibold text-emerald-400">
+              <span className="flex items-center gap-1.5 font-semibold text-[#34d399]">
                 <CheckCircle2 className="w-4 h-4" />
                 Còn {product.stock} {product.unit}
               </span>
@@ -265,20 +265,20 @@ export default async function SanPhamDetailPage({ params }: SanPhamDetailPagePro
           />
 
           {/* Guarantees */}
-          <div className="p-4 rounded-2xl bg-stone-900/40 border border-stone-800/80 space-y-2 text-xs text-stone-400">
+          <div className="p-4 rounded-2xl bg-[#180702]/40 border border-[#5c2b12]/80 space-y-2 text-xs text-[#c9b69a]">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-amber-400" />
+              <ShieldCheck className="w-4 h-4 text-[#c59a4b]" />
               <span>Cam kết chuẩn vệ sinh ATTP, không chất bảo quản độc hại</span>
             </div>
             <div className="flex items-center gap-2">
-              <Truck className="w-4 h-4 text-amber-400" />
-              <span>Miễn phí giao hàng cho đơn từ 500.000₫ – phí cố định 30.000₫</span>
+              <Truck className="w-4 h-4 text-[#c59a4b]" />
+              <span>Miễn phí vận chuyển cho đơn từ 500.000₫ – phí cố định 30.000₫</span>
             </div>
             <div className="flex items-center gap-2">
-              <RotateCcw className="w-4 h-4 text-amber-400" />
+              <RotateCcw className="w-4 h-4 text-[#c59a4b]" />
               <span>
                 Đổi trả trong 48h nếu hộp quà hư hỏng –{' '}
-                <Link href="/chinh-sach-doi-tra" className="text-amber-400 hover:underline">
+                <Link href="/chinh-sach-doi-tra" className="text-[#c59a4b] hover:underline">
                   xem chính sách
                 </Link>
               </span>
@@ -288,11 +288,11 @@ export default async function SanPhamDetailPage({ params }: SanPhamDetailPagePro
       </div>
 
       {/* Description Section */}
-      <div className="space-y-4 pt-10 border-t border-stone-800">
-        <h2 className="text-xl font-serif font-bold text-stone-100">
+      <div className="space-y-4 pt-10 border-t border-[#5c2b12]">
+        <h2 className="text-xl font-serif font-bold text-[#f3dfae]">
           Mô Tả Chi Tiết &amp; Ý Nghĩa Ngày Tết
         </h2>
-        <div className="prose prose-invert max-w-none text-stone-300 text-sm leading-relaxed space-y-4">
+        <div className="prose prose-invert max-w-none text-[#c9b69a] text-sm leading-relaxed space-y-4">
           <p>{product.description || product.short_description}</p>
           <p>
             Tết Nguyên Đán là thời khắc sum họp linh thiêng của gia đình Việt. Những món quà biếu không
@@ -303,7 +303,7 @@ export default async function SanPhamDetailPage({ params }: SanPhamDetailPagePro
       </div>
 
       {/* Reviews */}
-      <div className="pt-10 border-t border-stone-800">
+      <div className="pt-10 border-t border-[#5c2b12]">
         <ProductReviews
           reviews={reviews}
           ratingAvg={ratingAvg}
@@ -313,21 +313,21 @@ export default async function SanPhamDetailPage({ params }: SanPhamDetailPagePro
 
       {/* Cross-sell */}
       {crossSellItems.length > 0 && (
-        <div className="pt-10 border-t border-stone-800">
+        <div className="pt-10 border-t border-[#5c2b12]">
           <ProductCrossSell items={crossSellItems} isCategoryFallback={isCategoryFallback} />
         </div>
       )}
 
       {/* Upsell */}
       {upsellItems.length > 0 && (
-        <div className="pt-10 border-t border-stone-800">
+        <div className="pt-10 border-t border-[#5c2b12]">
           <ProductUpsell items={upsellItems} />
         </div>
       )}
 
       {/* Related Products */}
-      <div className="space-y-6 pt-10 border-t border-stone-800">
-        <h2 className="text-xl font-serif font-bold text-stone-100">
+      <div className="space-y-6 pt-10 border-t border-[#5c2b12]">
+        <h2 className="text-xl font-serif font-bold text-[#f3dfae]">
           Đặc Sản Bán Chạy Có Thể Bạn Quan Tâm
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

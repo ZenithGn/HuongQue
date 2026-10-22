@@ -35,7 +35,7 @@ export function CancelOrderDialog({ orderCode }: { orderCode: string }) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-1.5 rounded-xl border border-red-800/70 bg-red-950/40 px-4 py-2.5 text-sm font-semibold text-red-300 transition-colors hover:bg-red-900/60"
+        className="inline-flex items-center gap-1.5 rounded-xl border border-[#a33b20]/70 bg-[#2a0707]/40 px-4 py-2.5 text-sm font-semibold text-[#e08a8a] transition-colors hover:bg-[#2a0707]/60"
       >
         <Trash2 className="h-4 w-4" />
         Hủy đơn
@@ -43,7 +43,7 @@ export function CancelOrderDialog({ orderCode }: { orderCode: string }) {
 
       {open && (
         <div
-          className="fixed inset-0 z-[70] flex items-end justify-center bg-stone-950/80 p-0 backdrop-blur-sm sm:items-center sm:p-4"
+          className="fixed inset-0 z-[70] flex items-end justify-center bg-[#120401]/80 p-0 backdrop-blur-sm sm:items-center sm:p-4"
           onClick={() => setOpen(false)}
         >
           <div
@@ -51,19 +51,19 @@ export function CancelOrderDialog({ orderCode }: { orderCode: string }) {
             aria-modal="true"
             aria-label="Xác nhận hủy đơn hàng"
             onClick={(event) => event.stopPropagation()}
-            className="w-full rounded-t-3xl border border-stone-800 bg-stone-900 p-5 shadow-2xl sm:max-w-md sm:rounded-2xl sm:p-6"
+            className="w-full rounded-t-3xl border border-[#5c2b12] bg-[#180702] p-5 shadow-2xl sm:max-w-md sm:rounded-2xl sm:p-6"
           >
             {state?.status === 'success' ? (
               <div className="space-y-4">
-                <h2 className="font-serif text-lg font-bold text-emerald-300">Đã hủy đơn hàng</h2>
-                <p className="text-sm text-stone-300">
-                  Đơn <span className="font-mono text-amber-300">{orderCode}</span> đã được hủy.
+                <h2 className="font-serif text-lg font-bold text-[#34d399]">Đã hủy đơn hàng</h2>
+                <p className="text-sm text-[#c9b69a]">
+                  Đơn <span className="font-mono text-[#c59a4b]">{orderCode}</span> đã được hủy.
                   {reason ? ` Lý do: ${reason}` : ''}
                 </p>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="w-full rounded-xl bg-stone-800 px-4 py-2.5 text-sm font-semibold text-stone-200 transition-colors hover:bg-stone-700"
+                  className="w-full rounded-xl bg-[#210c04] px-4 py-2.5 text-sm font-semibold text-[#f3dfae] transition-colors hover:bg-[#381a0b]"
                 >
                   Đóng
                 </button>
@@ -74,15 +74,15 @@ export function CancelOrderDialog({ orderCode }: { orderCode: string }) {
 
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-start gap-3">
-                    <span className="mt-0.5 rounded-full bg-red-950/70 p-2 text-red-300">
+                    <span className="mt-0.5 rounded-full bg-[#2a0707]/70 p-2 text-[#e08a8a]">
                       <AlertTriangle className="h-4 w-4" />
                     </span>
                     <div>
-                      <h2 className="font-serif text-lg font-bold text-stone-100">
+                      <h2 className="font-serif text-lg font-bold text-[#f3dfae]">
                         Xác nhận hủy đơn
                       </h2>
-                      <p className="mt-0.5 text-xs text-stone-400">
-                        Đơn <span className="font-mono text-amber-300">{orderCode}</span>
+                      <p className="mt-0.5 text-xs text-[#c9b69a]">
+                        Đơn <span className="font-mono text-[#c59a4b]">{orderCode}</span>
                       </p>
                     </div>
                   </div>
@@ -90,13 +90,13 @@ export function CancelOrderDialog({ orderCode }: { orderCode: string }) {
                     type="button"
                     onClick={() => setOpen(false)}
                     aria-label="Đóng"
-                    className="rounded-lg p-1.5 text-stone-400 transition-colors hover:bg-stone-800 hover:text-stone-200"
+                    className="rounded-xl p-1.5 text-[#c9b69a] transition-colors hover:bg-[#210c04] hover:text-[#f3dfae]"
                   >
                     <X className="h-4 w-4" />
                   </button>
                 </div>
 
-                <p className="rounded-xl border border-amber-800/50 bg-amber-950/30 px-3 py-2.5 text-xs text-amber-200">
+                <p className="rounded-xl border border-[#5c2b12]/50 bg-[#381a0b]/30 px-3 py-2.5 text-xs text-[#c59a4b]">
                   Hành động này không thể hoàn tác. Nếu đơn đã tạo link thanh toán PayOS, link đó
                   cũng sẽ được hủy.
                 </p>
@@ -104,7 +104,7 @@ export function CancelOrderDialog({ orderCode }: { orderCode: string }) {
                 <div className="space-y-2">
                   <label
                     htmlFor="cancel-reason"
-                    className="block text-xs font-semibold uppercase tracking-wide text-stone-400"
+                    className="block text-xs font-semibold uppercase tracking-wide text-[#c9b69a]"
                   >
                     Lý do hủy (không bắt buộc)
                   </label>
@@ -116,15 +116,15 @@ export function CancelOrderDialog({ orderCode }: { orderCode: string }) {
                     value={reason}
                     onChange={(event) => setReason(event.target.value)}
                     placeholder="Ví dụ: Tôi muốn đổi số lượng / đổi địa chỉ giao hàng…"
-                    className="w-full resize-none rounded-xl border border-stone-700 bg-stone-950 px-3 py-2.5 text-sm text-stone-100 placeholder:text-stone-600 focus:border-amber-500/60 focus:outline-none"
+                    className="w-full resize-none rounded-xl border border-[#5c2b12] bg-[#120401] px-3 py-2.5 text-sm text-[#f3dfae] placeholder:text-[#a98a5f] focus:border-[#c59a4b]/60 focus:outline-none"
                   />
-                  <p className="text-right text-[11px] text-stone-500">
+                  <p className="text-right text-[11px] text-[#a98a5f]">
                     {reason.length}/{MAX_REASON_LENGTH} ký tự
                   </p>
                 </div>
 
                 {state?.status === 'error' && state.message && (
-                  <p className="rounded-xl border border-red-800/60 bg-red-950/40 px-3 py-2.5 text-xs text-red-300">
+                  <p className="rounded-xl border border-[#a33b20]/60 bg-[#2a0707]/40 px-3 py-2.5 text-xs text-[#e08a8a]">
                     {state.message}
                   </p>
                 )}
@@ -133,14 +133,14 @@ export function CancelOrderDialog({ orderCode }: { orderCode: string }) {
                   <button
                     type="button"
                     onClick={() => setOpen(false)}
-                    className="rounded-xl px-4 py-2.5 text-sm font-medium text-stone-300 transition-colors hover:bg-stone-800"
+                    className="rounded-xl px-4 py-2.5 text-sm font-medium text-[#c9b69a] transition-colors hover:bg-[#210c04]"
                   >
                     Giữ đơn
                   </button>
                   <button
                     type="submit"
                     disabled={isPending}
-                    className="inline-flex items-center gap-2 rounded-xl bg-red-700 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-red-600 disabled:cursor-not-allowed disabled:bg-stone-700"
+                    className="inline-flex items-center gap-2 rounded-xl bg-[#861b1b] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#861b1b] disabled:cursor-not-allowed disabled:bg-[#381a0b]"
                   >
                     {isPending && <Loader2 className="h-4 w-4 animate-spin" />}
                     Xác nhận hủy đơn

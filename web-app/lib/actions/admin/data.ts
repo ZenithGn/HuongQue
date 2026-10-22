@@ -267,14 +267,9 @@ export interface DailyRevenuePoint {
 }
 
 export interface TopProductRow {
+  productId: number | null;
   name: string;
   quantity: number;
-  revenue: number;
-}
-
-export interface PaymentMixSlice {
-  method: string;
-  orderCount: number;
   revenue: number;
 }
 
@@ -282,7 +277,7 @@ export interface DashboardData {
   summary: DashboardSummary;
   daily: DailyRevenuePoint[];
   topProducts: TopProductRow[];
-  paymentMix: PaymentMixSlice[];
+  dailyError: string | null;
   errors: string[];
 }
 
@@ -308,25 +303,23 @@ async function callRpc(
 }
 
 /**
- * A01: gom 4 RPC thành một lần gọi song song.
+ * A01: gom 3 RPC cần cho vận hành Dashboard thành một lần gọi song song.
  * KHÔNG ném lỗi: mỗi RPC hỏng sẽ được ghi vào `errors` để UI hiện cảnh báo.
  */
 export async function getDashboardData(): Promise<DashboardData> {
   const errors: string[] = [];
   const supabase = await createClient();
 
-  const [summaryRes, dailyRes, topRes, mixRes] = await Promise.all([
+  const [summaryRes, dailyRes, topRes] = await Promise.all([
     callRpc(supabase, 'admin_dashboard_summary'),
     callRpc(supabase, 'admin_daily_revenue'),
     callRpc(supabase, 'admin_top_products', { p_limit: 5 }),
-    callRpc(supabase, 'admin_payment_mix'),
   ]);
 
   const label = (name: string) => `Không tải được số liệu "${name}"`;
   if (summaryRes.error) errors.push(`${label('Tổng quan')}: ${summaryRes.error}`);
   if (dailyRes.error) errors.push(`${label('Doanh thu 30 ngày')}: ${dailyRes.error}`);
   if (topRes.error) errors.push(`${label('Top sản phẩm')}: ${topRes.error}`);
-  if (mixRes.error) errors.push(`${label('Tỷ lệ thanh toán')}: ${mixRes.error}`);
 
   // TODO(lead): khoá lại hình dạng JSON của admin_dashboard_summary() sau khi có dump.
   const summarySource = Array.isArray(summaryRes.data) ? summaryRes.data[0] : summaryRes.data;
@@ -379,7 +372,7 @@ export async function getDashboardData(): Promise<DashboardData> {
   };
 
   /**
-   * `admin_daily_revenue()`, `admin_top_products()`, `admin_payment_mix()` trả về
+   * `admin_daily_revenue()` và `admin_top_products()` trả về
    * MẢNG Ở CẤP GỐC (PostgREST trả thẳng JSON array), nên không thể dùng
    * `getArrayByKeys` (hàm đó đi tìm key trong object). Nhận cả hai dạng.
    */
@@ -416,6 +409,7 @@ export async function getDashboardData(): Promise<DashboardData> {
     'items',
     'rows',
   ]).map((row) => ({
+    productId: numOrNull(row, ['product_id', 'productid']),
     name: pickString(row, ['product_name', 'name', 'ten', 'ten_san_pham']) ?? '—',
     quantity: pickNumber(row, [
       'quantity_sold',
@@ -429,21 +423,7 @@ export async function getDashboardData(): Promise<DashboardData> {
     revenue: pickNumber(row, ['revenue', 'total_revenue', 'amount', 'total', 'doanh_thu']),
   }));
 
-  // TODO(lead): khoá lại hình dạng JSON của admin_payment_mix().
-  // Hình dạng thật: [{ payment_method, order_count, revenue, share_percent }, ...]
-  const paymentMix: PaymentMixSlice[] = rowsFrom(mixRes.data, [
-    'payment_mix',
-    'mix',
-    'items',
-    'rows',
-  ]).map((row) => ({
-    method:
-      pickString(row, ['payment_method', 'paymentmethod', 'method', 'provider', 'name']) ?? '—',
-    orderCount: pickNumber(row, ['order_count', 'ordercount', 'count', 'orders', 'total_orders']),
-    revenue: pickNumber(row, ['revenue', 'amount', 'total', 'total_amount']),
-  }));
-
-  return { summary, daily, topProducts, paymentMix, errors };
+  return { summary, daily, topProducts, dailyError: dailyRes.error, errors };
 }
 
 function formatVNShortDate(value: string): string {
@@ -551,6 +531,52 @@ export async function listOrdersPaged(
 ): Promise<QueryOutcome<AdminPage<AdminOrderRow>>> {
   const outcome = await listOrders(filters);
   return { ...outcome, data: paginateAdmin(outcome.data, page, pageSize) };
+}
+
+/**
+ * Đọc dòng sản phẩm cho một trang đơn bằng một truy vấn gộp, tránh N+1.
+ * Fallback giữ cùng giới hạn quét đã dùng ở luồng chi tiết khi schema không
+ * hỗ trợ bộ lọc order_id trực tiếp.
+ */
+export async function getOrderItemsForOrders(
+  orderIds: number[]
+): Promise<{ itemsByOrderId: Record<string, AdminOrderItemRow[]>; error: string | null }> {
+  const itemsByOrderId: Record<string, AdminOrderItemRow[]> = {};
+  const ids = [...new Set(orderIds.filter((id) => Number.isInteger(id) && id > 0))];
+  if (!ids.length) return { itemsByOrderId, error: null };
+  if (!hasSupabaseAdminConfig()) {
+    return { itemsByOrderId, error: MISSING_SERVICE_ROLE_MESSAGE };
+  }
+
+  const db = getSupabaseAdmin();
+  const direct = await db.from('order_items').select('*').in('order_id', ids);
+  let rows: unknown[];
+  if (!direct.error) {
+    rows = direct.data ?? [];
+  } else {
+    const fallback = await db.from('order_items').select('*').limit(1000);
+    if (fallback.error) {
+      return {
+        itemsByOrderId,
+        error: translateDbError(fallback.error.message, 'Không đọc được sản phẩm trong đơn hàng.'),
+      };
+    }
+    const idSet = new Set(ids);
+    rows = (fallback.data ?? []).filter((row) => {
+      const rawId = pickString(row, ['order_id', 'orderid']);
+      return rawId !== null && idSet.has(Number(rawId));
+    });
+  }
+
+  for (const row of rows) {
+    const rawId = pickString(row, ['order_id', 'orderid']);
+    if (rawId === null) continue;
+    const orderId = Number(rawId);
+    if (!ids.includes(orderId)) continue;
+    (itemsByOrderId[String(orderId)] ??= []).push(mapOrderItemRow(row));
+  }
+
+  return { itemsByOrderId, error: null };
 }
 
 export interface AdminOrderDetail {

@@ -32,8 +32,8 @@ export function ActionForm({
 
   const buttonTone =
     tone === 'danger'
-      ? 'border border-red-800 bg-red-950/70 text-rose-200 hover:bg-red-900'
-      : 'border border-stone-700 text-stone-300 hover:bg-stone-800';
+      ? 'border border-[#a33b20] bg-[#2a0707]/70 text-rose-200 hover:bg-[#2a0707]'
+      : 'border border-[#5c2b12] text-[#c9b69a] hover:bg-[#210c04]';
 
   return (
     <form
@@ -51,7 +51,7 @@ export function ActionForm({
         <input key={key} type="hidden" name={key} value={String(value)} />
       ))}
       <div className={className === 'inline' ? 'inline-flex' : undefined}>
-        <button type="submit" className={`rounded-lg px-3 py-1.5 text-[11px] font-medium ${buttonTone}`}>
+        <button type="submit" className={`rounded-xl px-3 py-1.5 text-[11px] font-medium ${buttonTone}`}>
           {children}
         </button>
       </div>
@@ -59,7 +59,7 @@ export function ActionForm({
         <p
           className={
             messageClassName ??
-            `mt-1 text-[11px] ${state.ok ? 'text-emerald-400' : 'text-rose-400'}`
+            `mt-1 text-[11px] ${state.ok ? 'text-[#34d399]' : 'text-rose-400'}`
           }
         >
           {state.message}

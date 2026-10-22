@@ -560,3 +560,162 @@ export async function getProductsByCategory(
     return [];
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Trang chủ — hộp quà, số đo thật, đánh giá thật                      */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Hộp quà Tết đang bán (danh mục `hop-qua-tet`) — nội dung của trục chốt đơn ở trang chủ.
+ * Trả về [] khi danh mục chưa tồn tại hoặc Supabase lỗi, để trang chủ rơi về trạng thái rỗng
+ * thay vì vỡ.
+ */
+export async function getGiftBoxes(limit = 6): Promise<Product[]> {
+  try {
+    const categories = await getCategories();
+    const giftBoxCategory = categories.find((category) => category.slug === 'hop-qua-tet');
+    if (!giftBoxCategory) return [];
+
+    return await getProductsByCategory(giftBoxCategory.category_id, undefined, limit);
+  } catch (err) {
+    console.error('getGiftBoxes exception:', err);
+    return [];
+  }
+}
+
+export interface CatalogFacts {
+  /** `false` khi không đọc được DB. Giao diện phải phân biệt "chưa có hàng" với "đọc lỗi":
+      hiện "0 món · 0 nhóm" khi mất kết nối là nói sai sự thật, không phải trạng thái rỗng. */
+  ok: boolean;
+  /** Số sản phẩm đang bán. */
+  products: number;
+  /** Số danh mục đang mở. */
+  categories: number;
+  /** Số miền có hàng thật (không tính nhóm tổng hợp `ba_mien`). */
+  regions: number;
+  /** Số đánh giá thật đang có trong DB. */
+  reviews: number;
+  /** Số sản phẩm theo từng miền — dùng cho sổ "ba miền" ở trang chủ. */
+  regionCounts: Record<string, number>;
+}
+
+/**
+ * Số đo được từ chính DB, để trang chủ không phải nói "500+ sản phẩm" hay "50K+ khách hàng".
+ *
+ * Lưu ý về nguồn đếm đánh giá: bảng `reviews` chỉ được GRANT cho `authenticated`, nên khách
+ * vãng lai đếm trực tiếp sẽ ra 0 dù đánh giá có thật. Vì vậy tổng đánh giá được cộng từ
+ * `products.rating_count` — cột do trigger `trg_reviews_rating` bảo trì và mỗi đánh giá chỉ
+ * thuộc đúng một sản phẩm (`uq_reviews_user_product`), nên phép cộng là chính xác.
+ *
+ * `ok: false` khi bất kỳ truy vấn nào lỗi — người gọi phải xử lý như trạng thái hỏng, không
+ * phải trạng thái rỗng.
+ */
+export async function getCatalogFacts(): Promise<CatalogFacts> {
+  const empty: CatalogFacts = {
+    ok: false,
+    products: 0,
+    categories: 0,
+    regions: 0,
+    reviews: 0,
+    regionCounts: {},
+  };
+
+  try {
+    const supabase = await createClient();
+
+    const [productsRes, categoriesRes, ratingRowsRes, regionsRes] = await Promise.all([
+      supabase.from('products').select('*', { count: 'exact', head: true }).eq('is_active', true),
+      supabase.from('categories').select('*', { count: 'exact', head: true }).eq('is_active', true),
+      supabase.from('products').select('rating_count, region'),
+      supabase.from('products').select('region').eq('is_active', true),
+    ]);
+
+    if (productsRes.error || categoriesRes.error || ratingRowsRes.error || regionsRes.error) {
+      console.error(
+        'getCatalogFacts query error:',
+        productsRes.error?.message ??
+          categoriesRes.error?.message ??
+          ratingRowsRes.error?.message ??
+          regionsRes.error?.message
+      );
+      return empty;
+    }
+
+    const regionCounts: Record<string, number> = {};
+    for (const row of (regionsRes.data ?? []) as { region: string | null }[]) {
+      const region = row.region;
+      if (!region) continue;
+      regionCounts[region] = (regionCounts[region] ?? 0) + 1;
+    }
+
+    const distinctRegions = new Set(
+      Object.keys(regionCounts).filter((region) => region !== 'ba_mien')
+    );
+
+    const reviews = ((ratingRowsRes.data ?? []) as { rating_count: number | null }[]).reduce(
+      (total, row) => total + asNumber(row.rating_count, 0),
+      0
+    );
+
+    return {
+      ok: true,
+      products: productsRes.count ?? 0,
+      categories: categoriesRes.count ?? 0,
+      regions: distinctRegions.size,
+      reviews,
+      regionCounts,
+    };
+  } catch (err) {
+    console.error('getCatalogFacts exception:', err);
+    return empty;
+  }
+}
+
+export interface HomeReview extends ProductReview {
+  productName: string;
+  productSlug: string;
+}
+
+/**
+ * Vài đánh giá thật để thay khối testimonial bịa.
+ * Đánh giá trong DB chỉ sinh từ đơn **đã hoàn tất** (xem `huongque_seed_full.sql`), nên đây là
+ * bằng chứng kiểm chứng được, không phải lời chứng thực tự viết.
+ *
+ * Khử trùng theo **cả tên người đánh giá lẫn câu chữ**: mỗi lần lặp lấy đánh giá mới nhất của MỘT
+ * sản phẩm, và seed sinh comment từ một nhóm 6 câu cố định — nếu chỉ khử theo tên thì ba ô
+ * testimonial vẫn có thể lặp y nguyên một câu, đọc như nội dung bịa.
+ */
+export async function getRecentReviews(products: Product[], limit = 3): Promise<HomeReview[]> {
+  const collected: HomeReview[] = [];
+  const seenReviewers = new Set<string>();
+  const seenComments = new Set<string>();
+
+  try {
+    for (const product of products) {
+      if (collected.length >= limit) break;
+
+      const reviews = await getProductReviews(product.product_id, 8);
+      const withComment = reviews.find((review) => {
+        const comment = typeof review.comment === 'string' ? review.comment.trim() : '';
+        if (!comment) return false;
+        if (seenReviewers.has(review.reviewer_name.trim().toLowerCase())) return false;
+        if (seenComments.has(comment.toLowerCase())) return false;
+        return true;
+      });
+      if (!withComment) continue;
+
+      seenReviewers.add(withComment.reviewer_name.trim().toLowerCase());
+      seenComments.add((withComment.comment ?? '').trim().toLowerCase());
+      collected.push({
+        ...withComment,
+        productName: product.name,
+        productSlug: product.slug,
+      });
+    }
+
+    return collected;
+  } catch (err) {
+    console.error('getRecentReviews exception:', err);
+    return collected;
+  }
+}

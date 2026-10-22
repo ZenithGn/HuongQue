@@ -15,14 +15,14 @@ export function ProductGallery({ images, productName, discountPercent }: Product
 
   return (
     <div className="space-y-4">
-      <div className="relative aspect-square w-full rounded-3xl overflow-hidden bg-stone-900 border border-stone-800 shadow-xl">
+      <div className="relative aspect-square w-full rounded-3xl overflow-hidden bg-[#180702] border border-[#5c2b12] shadow-xl">
         <img
           src={activeImage}
           alt={productName}
           className="w-full h-full object-cover object-center"
         />
         {discountPercent !== null && (
-          <span className="absolute top-4 right-4 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+          <span className="absolute top-4 right-4 bg-[#861b1b] text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
             Tiết kiệm {discountPercent}%
           </span>
         )}
@@ -40,8 +40,8 @@ export function ProductGallery({ images, productName, discountPercent }: Product
               aria-label={`Xem ảnh ${index + 1} của ${productName}`}
               className={`relative aspect-square rounded-xl overflow-hidden border transition-all ${
                 index === activeIndex
-                  ? 'border-amber-500 ring-2 ring-amber-500/40'
-                  : 'border-stone-800 hover:border-amber-600/60'
+                  ? 'border-[#c59a4b] ring-2 ring-[#c59a4b]/40'
+                  : 'border-[#5c2b12] hover:border-[#5c2b12]/60'
               }`}
             >
               <img src={image} alt="" className="w-full h-full object-cover" loading="lazy" />

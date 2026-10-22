@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Thư mục nháp đã được `.gitignore` loại (`.tmp-*/`), nhưng ESLint không đọc .gitignore nên
+    // vẫn lint chúng — hai script PayOS dùng `require()` vì thế thành 2 lỗi cứng chặn `npx eslint`.
+    ".tmp-*/**",
+    // Công cụ sinh bằng chứng của phiên thiết kế (chạy trong trình duyệt, không thuộc bundle).
+    ".impeccable/**",
   ]),
 ]);
 

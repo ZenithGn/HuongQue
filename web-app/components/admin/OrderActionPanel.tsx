@@ -70,10 +70,10 @@ export function OrderActionPanel({
 
           <input type="hidden" name="order_id" value={String(orderId)} />
 
-          <p className="text-xs text-stone-300">
+          <p className="text-xs text-[#c9b69a]">
             Trạng thái hiện tại:{' '}
-            <strong className="text-amber-300">{statusLabel(currentStatus)}</strong>
-            <span className="text-[11px] text-stone-500">
+            <strong className="text-[#c59a4b]">{statusLabel(currentStatus)}</strong>
+            <span className="text-[11px] text-[#a98a5f]">
               {' '}
               · phương thức {paymentMethodLabel(paymentMethod)}
             </span>
@@ -116,10 +116,10 @@ export function OrderActionPanel({
             ) : null}
           </div>
 
-          <p className="text-[11px] text-stone-500">
+          <p className="text-[11px] text-[#a98a5f]">
             Luồng hợp lệ: chờ thanh toán → (PayOS xác nhận) đã xác nhận → đang giao → hoàn tất; hủy
             được khi đơn còn “chờ thanh toán” hoặc “đã xác nhận”. Trạng thái kế tiếp:{' '}
-            <strong className="text-stone-400">
+            <strong className="text-[#c9b69a]">
               {nextStatuses.map(statusLabel).join(', ')}
             </strong>
             .
@@ -127,7 +127,7 @@ export function OrderActionPanel({
         </form>
       )}
 
-      <form action={payosAction} className="space-y-3 border-t border-stone-800 pt-4">
+      <form action={payosAction} className="space-y-3 border-t border-[#5c2b12] pt-4">
         {payosState.message ? (
           <Alert tone={payosState.ok ? 'success' : 'error'}>{payosState.message}</Alert>
         ) : null}
@@ -135,8 +135,8 @@ export function OrderActionPanel({
         <input type="hidden" name="order_id" value={String(orderId)} />
 
         <div>
-          <p className="text-xs font-semibold text-stone-200">Đối soát PayOS (thủ công)</p>
-          <p className="text-[11px] text-stone-500 mt-1">
+          <p className="text-xs font-semibold text-[#f3dfae]">Đối soát PayOS (thủ công)</p>
+          <p className="text-[11px] text-[#a98a5f] mt-1">
             Dùng khi webhook bị lỡ: hệ thống hỏi trực tiếp PayOS, và nếu PayOS báo đã thanh toán mà
             đơn còn chờ thanh toán thì tự ghi nhận kết quả vào CSDL.
           </p>
@@ -145,7 +145,7 @@ export function OrderActionPanel({
         <button
           type="submit"
           disabled={!hasPayosCode}
-          className="rounded-xl border border-stone-700 px-4 py-2 text-xs font-medium text-stone-200 hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-40"
+          className="rounded-xl border border-[#5c2b12] px-4 py-2 text-xs font-medium text-[#f3dfae] hover:bg-[#210c04] disabled:cursor-not-allowed disabled:opacity-40"
         >
           {hasPayosCode ? 'Kiểm tra với PayOS' : 'Đơn chưa có mã PayOS'}
         </button>

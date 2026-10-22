@@ -49,20 +49,20 @@ export function CouponManager({
     <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 max-w-7xl">
       <section className={`${adminCardClass} xl:col-span-2 overflow-x-auto`}>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-bold text-stone-100">
+          <h3 className="text-sm font-bold text-[#f3dfae]">
             Mã giảm giá ({formatNumber(totalCount)})
           </h3>
           <button
             type="button"
             onClick={() => setEditingId('new')}
-            className="rounded-xl bg-amber-500 px-3.5 py-2 text-xs font-bold text-stone-950 hover:bg-amber-400 transition-colors"
+            className="rounded-xl bg-[#c59a4b] px-3.5 py-2 text-xs font-bold text-[#120401] hover:bg-[#d4af37] transition-colors"
           >
             + Thêm mã
           </button>
         </div>
 
-        <table className="w-full text-left text-xs text-stone-300">
-          <thead className="uppercase font-mono tracking-wider text-stone-400 border-b border-stone-800">
+        <table className="w-full text-left text-xs text-[#c9b69a]">
+          <thead className="uppercase font-mono tracking-wider text-[#c9b69a] border-b border-[#5c2b12]">
             <tr>
               <th className="py-2.5 pr-3">Mã</th>
               <th className="py-2.5 pr-3">Giảm</th>
@@ -71,19 +71,19 @@ export function CouponManager({
               <th className="py-2.5 text-right">Thao tác</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-stone-800">
+          <tbody className="divide-y divide-[#381a0b]">
             {coupons.length === 0 && (
               <tr>
-                <td colSpan={5} className="py-8 text-center text-stone-500">
+                <td colSpan={5} className="py-8 text-center text-[#a98a5f]">
                   Chưa có mã giảm giá nào.
                 </td>
               </tr>
             )}
             {coupons.map((coupon) => (
-              <tr key={coupon.id ?? coupon.code} className="hover:bg-stone-800/40">
+              <tr key={coupon.id ?? coupon.code} className="hover:bg-[#210c04]/40">
                 <td className="py-2.5 pr-3">
-                  <p className="font-mono font-bold text-amber-300">{coupon.code}</p>
-                  <p className="text-[11px] text-stone-500">
+                  <p className="font-mono font-bold text-[#c59a4b]">{coupon.code}</p>
+                  <p className="text-[11px] text-[#a98a5f]">
                     Đơn tối thiểu {formatVND(coupon.minOrderValue)}
                   </p>
                 </td>
@@ -96,13 +96,13 @@ export function CouponManager({
                   {formatNumber(coupon.usedCount)}
                   {coupon.usageLimit === null ? ' / ∞' : ` / ${formatNumber(coupon.usageLimit)}`}
                 </td>
-                <td className="py-2.5 pr-3 text-[11px] text-stone-400">
+                <td className="py-2.5 pr-3 text-[11px] text-[#c9b69a]">
                   {formatDateTime(coupon.startsAt)} → {formatDateTime(coupon.expiresAt)}
                   <br />
                   {coupon.isActive ? (
-                    <span className="text-emerald-400">Đang bật</span>
+                    <span className="text-[#34d399]">Đang bật</span>
                   ) : (
-                    <span className="text-stone-500">Đã tắt</span>
+                    <span className="text-[#a98a5f]">Đã tắt</span>
                   )}
                 </td>
                 <td className="py-2.5">
@@ -116,7 +116,7 @@ export function CouponManager({
                           ? 'Mã đã có đơn nên chỉ được tắt, không sửa'
                           : 'Sửa mã'
                       }
-                      className="rounded-lg border border-stone-700 px-3 py-1.5 text-[11px] font-medium text-stone-300 hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-40"
+                      className="rounded-xl border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04] disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       Sửa
                     </button>
@@ -129,7 +129,7 @@ export function CouponManager({
                       />
                       <button
                         type="submit"
-                        className="rounded-lg border border-stone-700 px-3 py-1.5 text-[11px] font-medium text-stone-300 hover:bg-stone-800"
+                        className="rounded-xl border border-[#5c2b12] px-3 py-1.5 text-[11px] font-medium text-[#c9b69a] hover:bg-[#210c04]"
                       >
                         {coupon.isActive ? 'Tắt' : 'Bật'}
                       </button>
@@ -146,14 +146,14 @@ export function CouponManager({
 
       <section className={`${adminCardClass} space-y-4`}>
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-stone-100">
+          <h3 className="text-sm font-bold text-[#f3dfae]">
             {openNew ? 'Thêm mã giảm giá' : editing ? `Sửa: ${editing.code}` : 'Chọn một mã'}
           </h3>
           {formOpen ? (
             <button
               type="button"
               onClick={() => setEditingId(null)}
-              className="text-[11px] text-stone-400 hover:text-amber-400"
+              className="text-[11px] text-[#c9b69a] hover:text-[#c59a4b]"
             >
               Đóng
             </button>
@@ -161,7 +161,7 @@ export function CouponManager({
         </div>
 
         {!formOpen ? (
-          <p className="text-xs text-stone-500">Bấm “Sửa” hoặc “Thêm mã” để hiện form.</p>
+          <p className="text-xs text-[#a98a5f]">Bấm “Sửa” hoặc “Thêm mã” để hiện form.</p>
         ) : lockedForEdit ? (
           <Alert tone="warning">
             Mã <strong>{editing?.code}</strong> đã có {formatNumber(editing?.usedCount ?? 0)} lượt dùng
@@ -270,12 +270,12 @@ export function CouponManager({
               </Field>
             </div>
 
-            <label className="flex items-center gap-2 text-xs text-stone-300">
+            <label className="flex items-center gap-2 text-xs text-[#c9b69a]">
               <input
                 type="checkbox"
                 name="is_active"
                 defaultChecked={editing?.isActive ?? true}
-                className="h-4 w-4 rounded border-stone-600 bg-stone-950 accent-amber-500"
+                className="h-4 w-4 rounded border-[#78502a] bg-[#120401] accent-[#c59a4b]"
               />
               Đang bật
             </label>

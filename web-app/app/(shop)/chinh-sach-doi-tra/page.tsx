@@ -49,30 +49,30 @@ const STEPS = [
 export default function ChinhSachDoiTraPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
-      <header className="space-y-3 border-b border-stone-800 pb-6">
-        <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
+      <header className="space-y-3 border-b border-[#5c2b12] pb-6">
+        <span className="text-xs font-bold uppercase tracking-wider text-[#c59a4b]">
           Chính sách mua hàng
         </span>
-        <h1 className="text-3xl font-serif font-black text-stone-100">
+        <h1 className="text-3xl font-serif font-black text-[#f3dfae]">
           Chính Sách Đổi Trả &amp; Hoàn Tiền
         </h1>
-        <p className="text-sm text-stone-400 leading-relaxed">
+        <p className="text-sm text-[#c9b69a] leading-relaxed">
           Hương Quê cam kết mọi hộp quà Tết đều được kiểm tra trước khi giao. Trong trường hợp hiếm hoi
           sản phẩm không đúng như mô tả, chúng tôi đổi mới hoặc hoàn tiền trong vòng{' '}
-          <strong className="text-amber-300">48 giờ</strong> kể từ khi bạn nhận hàng.
+          <strong className="text-[#c59a4b]">48 giờ</strong> kể từ khi bạn nhận hàng.
         </p>
-        <p className="text-[11px] text-stone-500">Cập nhật lần cuối: mùa Tết 2027.</p>
+        <p className="text-[11px] text-[#a98a5f]">Cập nhật lần cuối: mùa Tết 2027.</p>
       </header>
 
       <section className="space-y-4">
-        <h2 className="text-xl font-serif font-bold text-stone-100 flex items-center gap-2">
-          <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+        <h2 className="text-xl font-serif font-bold text-[#f3dfae] flex items-center gap-2">
+          <CheckCircle2 className="w-5 h-5 text-[#34d399]" />
           Trường hợp được đổi trả / hoàn tiền
         </h2>
-        <ul className="space-y-2 text-sm text-stone-300">
+        <ul className="space-y-2 text-sm text-[#c9b69a]">
           {ELIGIBLE_CASES.map((item) => (
-            <li key={item} className="flex items-start gap-2.5 p-3 rounded-xl bg-stone-900/60 border border-stone-800">
-              <span className="text-emerald-400 shrink-0 mt-0.5">✓</span>
+            <li key={item} className="flex items-start gap-2.5 p-3 rounded-xl bg-[#180702]/60 border border-[#5c2b12]">
+              <span className="text-[#34d399] shrink-0 mt-0.5">✓</span>
               <span className="leading-relaxed">{item}</span>
             </li>
           ))}
@@ -80,13 +80,13 @@ export default function ChinhSachDoiTraPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-xl font-serif font-bold text-stone-100 flex items-center gap-2">
+        <h2 className="text-xl font-serif font-bold text-[#f3dfae] flex items-center gap-2">
           <AlertTriangle className="w-5 h-5 text-rose-400" />
           Trường hợp không được đổi trả
         </h2>
-        <ul className="space-y-2 text-sm text-stone-300">
+        <ul className="space-y-2 text-sm text-[#c9b69a]">
           {INELIGIBLE_CASES.map((item) => (
-            <li key={item} className="flex items-start gap-2.5 p-3 rounded-xl bg-stone-900/40 border border-stone-800">
+            <li key={item} className="flex items-start gap-2.5 p-3 rounded-xl bg-[#180702]/40 border border-[#5c2b12]">
               <span className="text-rose-400 shrink-0 mt-0.5">✕</span>
               <span className="leading-relaxed">{item}</span>
             </li>
@@ -95,63 +95,63 @@ export default function ChinhSachDoiTraPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-xl font-serif font-bold text-stone-100 flex items-center gap-2">
-          <RotateCcw className="w-5 h-5 text-amber-400" />
+        <h2 className="text-xl font-serif font-bold text-[#f3dfae] flex items-center gap-2">
+          <RotateCcw className="w-5 h-5 text-[#c59a4b]" />
           Quy trình 4 bước
         </h2>
         <ol className="space-y-3">
           {STEPS.map((step, index) => (
-            <li key={step.title} className="p-4 rounded-2xl bg-stone-900/70 border border-stone-800 space-y-1.5">
+            <li key={step.title} className="p-4 rounded-2xl bg-[#180702]/70 border border-[#5c2b12] space-y-1.5">
               <div className="flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-amber-500 text-stone-950 text-xs font-bold flex items-center justify-center">
+                <span className="w-6 h-6 rounded-full bg-[#c59a4b] text-[#120401] text-xs font-bold flex items-center justify-center">
                   {index + 1}
                 </span>
-                <h3 className="text-sm font-bold text-stone-100">{step.title}</h3>
+                <h3 className="text-sm font-bold text-[#f3dfae]">{step.title}</h3>
               </div>
-              <p className="text-xs text-stone-300 leading-relaxed pl-8">{step.detail}</p>
+              <p className="text-xs text-[#c9b69a] leading-relaxed pl-8">{step.detail}</p>
             </li>
           ))}
         </ol>
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-serif font-bold text-stone-100 flex items-center gap-2">
-          <Clock className="w-5 h-5 text-amber-400" />
+        <h2 className="text-xl font-serif font-bold text-[#f3dfae] flex items-center gap-2">
+          <Clock className="w-5 h-5 text-[#c59a4b]" />
           Thời hạn &amp; chi phí
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-          <div className="p-4 rounded-2xl bg-stone-900/70 border border-stone-800 space-y-1">
-            <span className="text-stone-400 block">Thời hạn yêu cầu</span>
-            <span className="text-amber-300 font-bold text-sm">48 giờ sau khi nhận</span>
+          <div className="p-4 rounded-2xl bg-[#180702]/70 border border-[#5c2b12] space-y-1">
+            <span className="text-[#c9b69a] block">Thời hạn yêu cầu</span>
+            <span className="text-[#c59a4b] font-bold text-sm">48 giờ sau khi nhận</span>
           </div>
-          <div className="p-4 rounded-2xl bg-stone-900/70 border border-stone-800 space-y-1">
-            <span className="text-stone-400 block">Chi phí đổi trả</span>
-            <span className="text-amber-300 font-bold text-sm">Hương Quê chịu 100%</span>
-            <span className="block text-stone-500">với lỗi từ phía chúng tôi</span>
+          <div className="p-4 rounded-2xl bg-[#180702]/70 border border-[#5c2b12] space-y-1">
+            <span className="text-[#c9b69a] block">Chi phí đổi trả</span>
+            <span className="text-[#c59a4b] font-bold text-sm">Hương Quê chịu 100%</span>
+            <span className="block text-[#a98a5f]">với lỗi từ phía chúng tôi</span>
           </div>
-          <div className="p-4 rounded-2xl bg-stone-900/70 border border-stone-800 space-y-1">
-            <span className="text-stone-400 block">Hoàn tiền PayOS</span>
-            <span className="text-amber-300 font-bold text-sm">5–7 ngày làm việc</span>
+          <div className="p-4 rounded-2xl bg-[#180702]/70 border border-[#5c2b12] space-y-1">
+            <span className="text-[#c9b69a] block">Hoàn tiền PayOS</span>
+            <span className="text-[#c59a4b] font-bold text-sm">5–7 ngày làm việc</span>
           </div>
         </div>
       </section>
 
-      <section className="rounded-2xl bg-stone-900/70 border border-stone-800 p-6 space-y-3">
-        <h2 className="text-lg font-serif font-bold text-stone-100 flex items-center gap-2">
-          <ShieldCheck className="w-5 h-5 text-amber-400" />
+      <section className="rounded-2xl bg-[#180702]/70 border border-[#5c2b12] p-6 space-y-3">
+        <h2 className="text-lg font-serif font-bold text-[#f3dfae] flex items-center gap-2">
+          <ShieldCheck className="w-5 h-5 text-[#c59a4b]" />
           Cam kết của Hương Quê
         </h2>
-        <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
+        <p className="text-xs sm:text-sm text-[#c9b69a] leading-relaxed">
           Không bán hàng giả, hàng nhái, hàng không rõ nguồn gốc. Mọi sản phẩm đều có tem nhãn, hạn sử
           dụng và chứng nhận an toàn thực phẩm từ nhà sản xuất. Hóa đơn VAT được xuất theo yêu cầu.
         </p>
-        <p className="text-xs text-stone-400">
+        <p className="text-xs text-[#c9b69a]">
           Liên hệ đổi trả: hotline 0901 000 000 – email{' '}
-          <a href="mailto:lienhe@huongque.vn" className="text-amber-300 hover:underline">
+          <a href="mailto:lienhe@huongque.vn" className="text-[#c59a4b] hover:underline">
             lienhe@huongque.vn
           </a>{' '}
           – hoặc xem{' '}
-          <Link href="/van-chuyen" className="text-amber-300 hover:underline">
+          <Link href="/van-chuyen" className="text-[#c59a4b] hover:underline">
             chính sách vận chuyển
           </Link>
           .

@@ -26,6 +26,9 @@ node_modules/
 !.yarn/releases
 !.yarn/versions
 
+# ---------- Impeccable ----------
+.impeccable/
+
 # ---------- Next.js / build ----------
 .next/
 out/

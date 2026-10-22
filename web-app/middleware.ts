@@ -17,6 +17,9 @@ export async function middleware(request: NextRequest) {
 
   const { response, user, unavailable } = await updateSession(request);
 
+  // Ghi pathname hiện tại vào header để Server Component (Header.tsx) đọc được chính xác.
+  response.headers.set('x-current-path', request.nextUrl.pathname);
+
   if (!existingCartSession) {
     response.cookies.set(CART_SESSION_COOKIE, cartSession, {
       httpOnly: true,

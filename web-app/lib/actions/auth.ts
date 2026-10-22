@@ -206,11 +206,22 @@ export async function requestResetAction(
 
   try {
     const supabase = await createClient();
-    await supabase.auth.resetPasswordForEmail(validated.data.email, {
+    const { error } = await supabase.auth.resetPasswordForEmail(validated.data.email, {
       redirectTo: `${appUrl()}/auth/callback?next=/dat-lai-mat-khau`,
     });
+    if (error) {
+      console.error('[auth] requestResetAction lỗi:', error.message);
+      return {
+        success: false,
+        message: 'Chưa thể xử lý yêu cầu lúc này. Vui lòng thử lại sau.',
+      };
+    }
   } catch (error) {
     console.error('[auth] requestResetAction lỗi:', error);
+    return {
+      success: false,
+      message: 'Chưa thể xử lý yêu cầu lúc này. Vui lòng thử lại sau.',
+    };
   }
 
   return { success: true, message: genericMessage };

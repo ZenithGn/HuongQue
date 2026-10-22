@@ -80,11 +80,11 @@ export function AdminSidebarNav() {
           <div className="px-3 pb-2">
             <h2
               id={`nav-group-${group.id}`}
-              className="text-[10px] font-bold uppercase tracking-wider text-stone-500"
+              className="text-[10px] font-bold uppercase tracking-wider text-[#a98a5f]"
             >
               {group.title}
             </h2>
-            <p className="text-[10px] text-stone-600 mt-0.5">{group.hint}</p>
+            <p className="text-[10px] text-[#a98a5f] mt-0.5">{group.hint}</p>
           </div>
 
           <div className="space-y-1.5">
@@ -101,16 +101,16 @@ export function AdminSidebarNav() {
                   aria-current={active ? 'page' : undefined}
                   className={
                     active
-                      ? 'flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-amber-500 text-stone-950 font-bold shadow-sm'
-                      : 'flex items-center justify-between px-3.5 py-2.5 rounded-xl text-stone-300 hover:bg-stone-800 hover:text-amber-300 transition-colors'
+                      ? 'flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[#c59a4b] text-[#120401] font-bold shadow-sm'
+                      : 'flex items-center justify-between px-3.5 py-2.5 rounded-xl text-[#c9b69a] hover:bg-[#210c04] hover:text-[#c59a4b] transition-colors'
                   }
                 >
                   <span className="flex items-center gap-2.5">
-                    <Icon className={`w-4 h-4 ${active ? '' : 'text-amber-500'}`} />
+                    <Icon className={`w-4 h-4 ${active ? '' : 'text-[#c59a4b]'}`} />
                     <span>{item.label}</span>
                   </span>
                   <span
-                    className={`font-mono text-[10px] ${active ? 'text-stone-800' : 'text-stone-500'}`}
+                    className={`font-mono text-[10px] ${active ? 'text-[#78502a]' : 'text-[#a98a5f]'}`}
                   >
                     {item.code}
                   </span>
