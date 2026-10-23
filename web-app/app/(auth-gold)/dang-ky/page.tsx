@@ -35,7 +35,7 @@ export default function DangKyPage() {
       <AuthPageTransition name="auth-register">
         <div aria-hidden="true" className="auth-page-backdrop absolute inset-0" style={{
         backgroundImage:
-          "linear-gradient(90deg, rgb(40 19 9 / 18%), rgb(40 19 9 / 8%) 48%, rgb(40 19 9 / 20%)), linear-gradient(180deg, rgb(38 19 10 / 10%), transparent 34%, rgb(38 19 10 / 14%)), url('/images/register-backgruond.jpg')",
+          "linear-gradient(90deg, rgb(40 19 9 / 18%), rgb(40 19 9 / 8%) 48%, rgb(40 19 9 / 20%)), linear-gradient(180deg, rgb(38 19 10 / 10%), transparent 34%, rgb(38 19 10 / 14%)), url('/images/register-background.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center 52%',
         backgroundRepeat: 'no-repeat',
