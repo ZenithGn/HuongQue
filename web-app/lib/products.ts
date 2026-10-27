@@ -1,5 +1,5 @@
 import { createClient } from './supabase/server';
-import { Category, Product } from './types';
+import { Category, Product, ProductMenuData, ProductRegion } from './types';
 import { searchQuerySchema, SearchQueryParams } from './validations';
 import { asNumber, asString } from './format';
 
@@ -25,6 +25,56 @@ export async function getCategories(): Promise<Category[]> {
   } catch (err) {
     console.error('getCategories exception:', err);
     return [];
+  }
+}
+
+/** Active regions and categories used by the navigation mega menu. */
+export async function getProductMenuData(): Promise<ProductMenuData> {
+  const regionNames: Record<ProductRegion, string> = {
+    bac: 'Miền Bắc',
+    trung: 'Miền Trung',
+    nam: 'Miền Nam',
+    ba_mien: 'Ba miền',
+  };
+
+  try {
+    const supabase = await createClient();
+    const [categoryResult, regionResult] = await Promise.all([
+      supabase
+        .from('categories')
+        .select('category_id, name, slug')
+        .eq('is_active', true)
+        .order('sort_order', { ascending: true }),
+      supabase
+        .from('products')
+        .select('region')
+        .eq('is_active', true),
+    ]);
+
+    if (categoryResult.error) {
+      console.error('getProductMenuData categories error:', categoryResult.error.message);
+    }
+    if (regionResult.error) {
+      console.error('getProductMenuData regions error:', regionResult.error.message);
+    }
+
+    const categories = (categoryResult.data ?? []) as Pick<Category, 'name' | 'slug'>[];
+    const activeProducts = (regionResult.data ?? []) as Pick<Product, 'region'>[];
+    const supportedRegions = new Set<ProductRegion>();
+
+    for (const product of activeProducts) {
+      if (product.region in regionNames) supportedRegions.add(product.region);
+    }
+
+    return {
+      regions: (['bac', 'trung', 'nam', 'ba_mien'] as const)
+        .filter((region) => supportedRegions.has(region))
+        .map((id) => ({ id, name: regionNames[id] })),
+      categories,
+    };
+  } catch (error) {
+    console.error('getProductMenuData exception:', error);
+    return { regions: [], categories: [] };
   }
 }
 

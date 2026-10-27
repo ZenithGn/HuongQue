@@ -34,18 +34,17 @@ function LogoIcon({ className = "w-5 h-5" }: { className?: string }) {
  * Nội dung đã sửa theo PRODUCT.md:
  * - Bỏ hai địa chỉ đường phố bịa (128 Phố Cổ / 100 Nguyễn Thị Minh Khai) — Hương Quê **chưa có**
  *   thông tin pháp lý thật, nên chỉ ghi địa bàn đã chốt trong Brand Commitments.
- * - Hotline và email là **dữ liệu mẫu**, được dán nhãn đúng như vậy thay vì trình bày như thật.
  * - Link "Đặc sản vùng miền" dùng đúng enum `region` của DB (`bac` / `trung` / `nam` / `ba_mien`);
  *   trước đây có `mien=phuquoc` và `mien=binhphuoc` — giá trị ngoài enum nên bộ lọc âm thầm bỏ qua.
  */
-export function Footer() {
+export function Footer({ wide = false }: { wide?: boolean }) {
   return (
     <footer className="border-t border-[#5c2b12] bg-[#120401] text-[#c9b69a]">
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
+      <div className={`${wide ? 'max-w-[1280px]' : 'max-w-7xl'} mx-auto w-full px-4 py-8 sm:px-6 sm:py-9 lg:px-8`}>
+        <div className="grid grid-cols-1 gap-x-7 gap-y-7 md:grid-cols-2 lg:grid-cols-4 lg:gap-x-6">
 
-          {/* 1. Thương hiệu + thông tin liên hệ (dữ liệu mẫu, có dán nhãn) */}
-          <div className="space-y-4">
+          {/* 1. Thương hiệu và thông tin liên hệ */}
+          <div className="space-y-3">
             <Link href="/" className="group flex min-h-11 items-center gap-3">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#c59a4b] bg-gradient-to-b from-[#2b1005] to-[#120401] text-[#e8cf9b] shadow-md shadow-black/40 transition-all group-hover:border-[#d4af37] group-hover:scale-105">
                 <LogoIcon className="h-5 w-5 text-[#c49a52] transition-colors group-hover:text-[#f3dfae]" />
@@ -55,12 +54,12 @@ export function Footer() {
               </span>
             </Link>
 
-            <p className="text-xs leading-relaxed text-[#c9b69a]">
+            <p className="text-[13px] leading-relaxed text-[#c9b69a]">
               Hương Quê tuyển chọn đặc sản OCOP ba miền, đóng sẵn thành hộp quà Tết chỉn chu — để
               người mua không phải tự ghép món và không phải lo quà đến muộn.
             </p>
 
-            <div className="space-y-2 pt-1 text-xs text-[#c9b69a]">
+            <div className="space-y-1.5 pt-1 text-[13px] leading-relaxed text-[#c9b69a]">
               <p className="flex items-start gap-2">
                 <MapPin aria-hidden className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#c49a52]" />
                 <span>Địa bàn: Hà Nội · Đà Nẵng · TP. Hồ Chí Minh</span>
@@ -69,19 +68,15 @@ export function Footer() {
                 <Phone aria-hidden className="h-3.5 w-3.5 text-[#c49a52]" />
                 <strong className="text-[#f3dfae]">0901 000 000</strong>
               </p>
-              <p className="text-xs text-[#c9b69a]">
-                Hotline và email liên hệ trong bản demo này là <strong className="font-semibold text-[#f3dfae]">dữ liệu mẫu</strong>,
-                chưa phải thông tin thật của người bán.
-              </p>
             </div>
           </div>
 
           {/* 2. Đặc sản vùng miền — link dùng đúng enum region */}
           <div>
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#c59a4b]">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#c59a4b]">
               Đặc sản vùng miền
             </h2>
-            <ul className="space-y-2.5 text-xs text-[#c9b69a]">
+            <ul className="space-y-2 text-[13px] leading-relaxed text-[#c9b69a]">
               <li>
                 <Link href="/san-pham?mien=bac" className="tap-row transition-colors hover:text-[#f3dfae]">
                   Trà Thái Nguyên, ô mai Hà Nội
@@ -116,10 +111,10 @@ export function Footer() {
 
           {/* 3. Hỗ trợ khách hàng */}
           <div>
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[#c59a4b]">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#c59a4b]">
               Hỗ trợ khách hàng
             </h2>
-            <ul className="space-y-2.5 text-xs text-[#c9b69a]">
+            <ul className="space-y-2 text-[13px] leading-relaxed text-[#c9b69a]">
               <li>
                 <Link href="/faq" className="tap-row transition-colors hover:text-[#f3dfae]">
                   Câu hỏi thường gặp (FAQ)
@@ -149,25 +144,22 @@ export function Footer() {
           </div>
 
           {/* 4. Bản tin */}
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             <h2 className="text-sm font-semibold uppercase tracking-wider text-[#c59a4b]">
               Nhận tin ưu đãi quà Tết
             </h2>
-            <p className="text-xs leading-relaxed text-[#c9b69a]">
+            <p className="text-[13px] leading-relaxed text-[#c9b69a]">
               Đăng ký để nhận thông báo sớm về các hộp quà giới hạn và lịch giao hàng dịp Tết.
             </p>
 
-            <NewsletterForm className="space-y-3" />
+            <NewsletterForm className="space-y-2" />
 
-            {/* Ghi chú "email chỉ dùng để gửi bản tin" đã nằm trong chính form. Ở đây chỉ nói
-                phần form không nói: quyền rút lại. Mỗi ý một lần. */}
-            <p className="pt-1 text-xs text-[#c9b69a]">Mỗi thư đều kèm link hủy đăng ký.</p>
           </div>
 
         </div>
 
         {/* Dòng Copyright dưới cùng */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#5c2b12] pt-6 text-xs text-[#c9b69a] sm:flex-row">
+        <div className="mt-7 flex flex-col items-center justify-between gap-3 border-t border-[#5c2b12] pt-4 text-xs text-[#c9b69a] sm:flex-row">
           <p>© 2027 Hương Quê. Tinh hoa quà Tết ba miền.</p>
           <div className="flex items-center gap-4">
             <Link href="/chinh-sach-bao-mat" className="tap-target tap-row transition-colors hover:text-[#f3dfae]">

@@ -4,10 +4,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
+import { ProductMegaMenu } from '@/components/ProductMegaMenu';
+import type { ProductMenuData } from '@/lib/types';
 
 interface MobileNavProps {
   isAuthenticated: boolean;
+  productMenu: ProductMenuData;
 }
 
 /**
@@ -17,27 +20,32 @@ interface MobileNavProps {
  * Giữ đúng danh sách mục của NavLinks để hai bản không lệch nhau, thêm hành động
  * giỏ hàng vì trên điện thoại đó là đường ngắn nhất tới việc chốt đơn.
  */
-export function MobileNav({ isAuthenticated }: MobileNavProps) {
+export function MobileNav({ isAuthenticated, productMenu }: MobileNavProps) {
   // Trạng thái mở gắn với pathname hiện tại: đổi trang là menu tự đóng, không cần effect —
   // và tránh được việc gọi setState ngay trong thân effect (gây render dây chuyền).
   const [openPath, setOpenPath] = useState<string | null>(null);
+  const [productsExpanded, setProductsExpanded] = useState(false);
   const pathname = usePathname();
   const panelId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const open = openPath === pathname;
-  const setOpen = (value: boolean) => setOpenPath(value ? pathname : null);
+  const setOpen = (value: boolean) => {
+    setOpenPath(value ? pathname : null);
+    if (!value) setProductsExpanded(false);
+  };
 
-  const navItems = [
+  const navItems: { name: string; href: string; isActive: boolean; products?: boolean }[] = [
     { name: 'Trang Chủ', href: '/', isActive: pathname === '/' },
     {
       // Giữ đúng danh sách mục của NavLinks (đã bỏ "Quà Tết Ba Miền") để hai bản không lệch nhau;
       // lọc ba miền vẫn nằm trong sidebar của /san-pham.
-      name: 'Tất Cả Sản Phẩm',
+      name: 'Sản Phẩm',
       href: '/san-pham',
-      isActive: pathname === '/san-pham',
+      isActive: pathname.startsWith('/san-pham'),
+      products: true,
     },
-    { name: 'Câu chuyện Hương Quê', href: '/cau-chuyen', isActive: pathname === '/cau-chuyen' },
+    { name: 'Giới thiệu', href: '/cau-chuyen', isActive: pathname === '/cau-chuyen' },
     isAuthenticated
       ? {
           name: 'Đơn hàng của tôi',
@@ -67,7 +75,10 @@ export function MobileNav({ isAuthenticated }: MobileNavProps) {
       <button
         ref={buttonRef}
         type="button"
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          setOpen(!open);
+          if (!open) setProductsExpanded(false);
+        }}
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={open ? 'Đóng menu' : 'Mở menu'}
@@ -102,21 +113,44 @@ export function MobileNav({ isAuthenticated }: MobileNavProps) {
                 <ul className="divide-y divide-[#381a0b]">
                   {navItems.map((item) => (
                     <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        aria-current={item.isActive ? 'page' : undefined}
-                        className={[
-                          'flex min-h-11 items-center justify-between py-3 text-sm transition-colors',
-                          item.isActive
-                            ? 'font-bold text-[#f3dfae]'
-                            : 'text-[#c9b69a] hover:text-[#f3dfae]',
-                        ].join(' ')}
-                      >
-                        {item.name}
-                        {item.isActive ? (
-                          <span aria-hidden className="h-[2px] w-8 rounded-full bg-[#c59a4b]" />
-                        ) : null}
-                      </Link>
+                      {item.products ? (
+                        <>
+                          <div className="flex min-h-11 items-center justify-between">
+                            <Link
+                              href={item.href}
+                              aria-current={item.isActive ? 'page' : undefined}
+                              className={`flex min-h-11 flex-1 items-center py-3 text-sm transition-colors ${item.isActive ? 'font-bold text-[#f3dfae]' : 'text-[#c9b69a] hover:text-[#f3dfae]'}`}
+                            >
+                              {item.name}
+                            </Link>
+                            <button
+                              type="button"
+                              aria-label="Mở sản phẩm theo vùng miền và danh mục"
+                              aria-haspopup="true"
+                              aria-expanded={productsExpanded}
+                              aria-controls={`${panelId}-products`}
+                              onClick={() => setProductsExpanded((open) => !open)}
+                              className="inline-flex h-11 w-11 items-center justify-center text-[#c9b69a] hover:text-[#f3dfae] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d4af37]"
+                            >
+                              <ChevronDown aria-hidden className={`h-4 w-4 transition-transform duration-200 ${productsExpanded ? 'rotate-180' : ''}`} />
+                            </button>
+                          </div>
+                          {productsExpanded && (
+                            <div id={`${panelId}-products`} className="mb-3">
+                              <ProductMegaMenu mobile data={productMenu} onNavigate={() => setOpen(false)} />
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          aria-current={item.isActive ? 'page' : undefined}
+                          className={`flex min-h-11 items-center justify-between py-3 text-sm transition-colors ${item.isActive ? 'font-bold text-[#f3dfae]' : 'text-[#c9b69a] hover:text-[#f3dfae]'}`}
+                        >
+                          {item.name}
+                          {item.isActive && <span aria-hidden className="h-[2px] w-8 rounded-full bg-[#c59a4b]" />}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

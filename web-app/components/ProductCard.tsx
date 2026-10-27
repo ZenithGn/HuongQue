@@ -94,7 +94,7 @@ export function ProductCard({ product, imageAspect = 'square' }: ProductCardProp
 
       <div className="flex flex-1 flex-col justify-between gap-3 p-4">
         <div>
-          <div className="mb-1.5 flex items-center justify-between gap-2 text-xs text-[#c9b69a]">
+          <div className="mb-1.5 flex items-center justify-between gap-2 text-[13px] text-[#c9b69a]">
             <span className="flex min-w-0 items-center gap-1 truncate">
               <MapPin aria-hidden className="h-3.5 w-3.5 shrink-0 text-[#c59a4b]" />
               {product.origin || 'Việt Nam'}
@@ -125,10 +125,10 @@ export function ProductCard({ product, imageAspect = 'square' }: ProductCardProp
               <span className="text-base font-bold text-[#c59a4b]">
                 {product.price.toLocaleString('vi-VN')}₫
               </span>
-              <span className="text-xs text-[#c9b69a]">/{product.unit}</span>
+              <span className="text-[13px] text-[#c9b69a]">/{product.unit}</span>
             </div>
             {product.compare_at_price ? (
-              <span className="text-xs text-[#c9b69a] line-through">
+              <span className="text-[13px] text-[#c9b69a] line-through">
                 {product.compare_at_price.toLocaleString('vi-VN')}₫
               </span>
             ) : null}
