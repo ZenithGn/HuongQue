@@ -34,6 +34,13 @@ export interface Product {
   category?: Category;
 }
 
+export type ProductRegion = Product['region'];
+
+export interface ProductMenuData {
+  regions: { id: ProductRegion; name: string }[];
+  categories: Pick<Category, 'name' | 'slug'>[];
+}
+
 export interface Profile {
   id: string;
   email: string;

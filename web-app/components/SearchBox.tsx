@@ -8,6 +8,7 @@ import { Search, X } from 'lucide-react';
 interface SearchBoxProps {
   /** Cho phép tuỳ biến khung ngoài (navbar dùng mặc định). */
   className?: string;
+  homepage?: boolean;
 }
 
 /** Khung panel đo từ đáy header: `left`/`right` lấy đúng padding ngang của header. */
@@ -34,7 +35,7 @@ const FALLBACK_HEADER_HEIGHT = 64;
  *
  * Đóng khi: bấm Esc, bấm ra ngoài, bấm nút X, hoặc submit xong.
  */
-export function SearchBox({ className = '' }: SearchBoxProps) {
+export function SearchBox({ className = '', homepage = false }: SearchBoxProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [open, setOpen] = useState(false);
@@ -190,9 +191,9 @@ export function SearchBox({ className = '' }: SearchBoxProps) {
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
         title="Tìm kiếm đặc sản quà Tết"
-        className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors ${open
-            ? 'bg-[#2b1408] text-[#f3dfae]'
-            : 'text-[#c9b69a] hover:bg-[#210c04] hover:text-[#f3dfae]'
+        className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors ${homepage ? 'drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f3dfae]' : ''} ${open
+            ? homepage ? 'bg-[#2b1408]/85 text-[#fff1d1]' : 'bg-[#2b1408] text-[#f3dfae]'
+            : homepage ? 'text-[#fff1d1] hover:bg-[#210c04]/80 hover:text-[#ffdc83]' : 'text-[#c9b69a] hover:bg-[#210c04] hover:text-[#f3dfae]'
           }`}
       >
         <Search className="h-5 w-5" aria-hidden />

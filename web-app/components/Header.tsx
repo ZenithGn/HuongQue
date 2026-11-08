@@ -5,6 +5,8 @@ import { headers } from 'next/headers';
 import { SearchBox } from '@/components/SearchBox';
 import { NavLinks } from '@/components/NavLinks';
 import { MobileNav } from '@/components/MobileNav';
+import { AutoHideHeader } from '@/components/AutoHideHeader';
+import { getProductMenuData } from '@/lib/products';
 import {
   ShoppingBag,
   User as UserIcon,
@@ -50,7 +52,7 @@ export async function Header() {
     return null;
   }
 
-  const session = await getSessionState();
+  const [session, productMenu] = await Promise.all([getSessionState(), getProductMenuData()]);
   const isAuthenticated = session.status === 'authenticated';
   const user = isAuthenticated ? session.auth.user : null;
   const profile = isAuthenticated ? session.auth.profile : null;
@@ -58,8 +60,9 @@ export async function Header() {
   const sessionUnknown = session.status === 'unavailable';
 
   return (
-    <header className="sticky top-0 z-50 bg-[#120401]/95 backdrop-blur-md border-b border-[#5c2b12] text-[#f3dfae] shadow-lg safe-x">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 xl:px-8">
+    <AutoHideHeader homepage={pathname === '/'}>
+      <header className={`${pathname === '/' ? 'bg-[linear-gradient(180deg,rgba(18,4,1,0.84)_0%,rgba(18,4,1,0.58)_62%,rgba(18,4,1,0)_100%)] text-[#fff1d1]' : 'bg-[#120401]/95 text-[#f3dfae] backdrop-blur-md border-b border-[#5c2b12] shadow-lg'} safe-x`}>
+      <div className={`${pathname === '/' ? 'max-w-[1536px]' : 'max-w-7xl'} mx-auto w-full px-4 sm:px-6 lg:px-4 xl:px-8`}>
         {/* `min-h-16` thay cho `h-16`: ở cỡ chữ thường header vẫn đúng 64px, nhưng khi khách tăng
             cỡ chữ mặc định của trình duyệt thì nó cao lên thay vì đẩy cả trang rộng ra (đo được
             trước khi sửa: 2376px ở cỡ chữ gấp đôi).
@@ -86,20 +89,20 @@ export async function Header() {
           </Link>
 
           {/* 2. Navigation Links */}
-          <NavLinks isAuthenticated={isAuthenticated} />
+          <NavLinks isAuthenticated={isAuthenticated} productMenu={productMenu} isHomepage={pathname === '/'} />
 
           {/* 3. SearchBox & User Actions */}
           <div className="flex items-center gap-1 xl:gap-2 shrink-0">
-            <MobileNav isAuthenticated={isAuthenticated} />
+            <MobileNav isAuthenticated={isAuthenticated} productMenu={productMenu} />
 
             <div className="hidden sm:block relative">
-              <SearchBox />
+              <SearchBox homepage={pathname === '/'} />
             </div>
 
             <Link
               href="/gio-hang"
               aria-label="Giỏ hàng của bạn"
-              className="relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#f3dfae] transition-colors hover:bg-[#2b1408]"
+              className={`relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors ${pathname === '/' ? 'text-[#fff1d1] drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] hover:bg-[#2b1408]/80 hover:text-[#ffdc83] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f3dfae]' : 'text-[#f3dfae] hover:bg-[#2b1408]'}`}
               title="Giỏ hàng của bạn"
             >
               <ShoppingBag className="w-5 h-5" aria-hidden />
@@ -136,7 +139,7 @@ export async function Header() {
                 <Link
                   href="/tai-khoan"
                   aria-label="Tài khoản của tôi"
-                  className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-[#78502a] text-[#f3dfae] transition-all hover:bg-[#2b1408]"
+                  className={`inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-all ${pathname === '/' ? 'border border-[#c59a4b]/70 bg-[#120401]/20 text-[#fff1d1] drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] hover:border-[#f0ca70] hover:bg-[#2b1408]/80 hover:text-[#ffdc83] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f3dfae]' : 'border border-[#78502a] text-[#f3dfae] hover:bg-[#2b1408]'}`}
                   title="Tài khoản của tôi"
                 >
                   <UserIcon className="w-4 h-4" aria-hidden />
@@ -174,6 +177,7 @@ export async function Header() {
 
         </div>
       </div>
-    </header>
+      </header>
+    </AutoHideHeader>
   );
 }

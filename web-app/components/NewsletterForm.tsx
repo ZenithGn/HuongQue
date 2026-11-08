@@ -102,8 +102,7 @@ export function NewsletterForm({ className = '', heading, description }: Newslet
             className="mt-0.5 h-5 w-5 shrink-0 cursor-pointer accent-[#c59a4b]"
           />
           <span>
-            Tôi đồng ý nhận email thông báo ưu đãi, bộ sưu tập quà Tết và lịch giao hàng từ Hương Quê.
-            Mỗi email đều kèm link hủy đăng ký, tôi có thể rút lại sự đồng ý bất cứ lúc nào.
+            Tôi đồng ý nhận email ưu đãi, bộ sưu tập quà Tết và lịch giao hàng từ Hương Quê. Tôi có thể hủy đăng ký bất cứ lúc nào.
           </span>
         </label>
         {state?.fieldErrors?.consent && (
